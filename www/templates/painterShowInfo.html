@@ -1,0 +1,96 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">{{infoPainterName}}</h1>
+    <div class="buttons">
+      <button style='font-size: 46px; padding-right: 10px; margin-top: -7px;' class="button button-clear" ng-click="modalPainterShowInfo.hide()"><i class="ion-ios-close-empty"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content >
+   
+
+
+
+  <!-- <div class="item">
+    <img ng-src="painters/{{infoPainterId}}/photo.jpg">
+    <h2>{{infoPainterName}}</h2>
+    <p>{{infoPainterYears}}</p>
+  </div> -->
+
+
+<div class="list card" style='margin: 0'>
+
+	<div class="item" style='padding-top: 0; padding-bottom: 0'>
+		<img class="full-image" ng-src="painters/{{infoPainterId}}/photo.jpg">
+		<div class='row'>
+			<div class="col">
+				<p><b>{{lang.message.nationality}}</b><br>{{infoPainternationality}}</p>
+			</div>
+			<div class="col">
+				<p><b>{{lang.message.years}}</b><br>{{infoPainterYears}}</p>
+			</div>
+		</div>
+		<div class='row'>
+			<div class="col">
+				<p><b>{{lang.message.genre}}</b><br>{{infoPainterGenre}}</p>
+			</div>
+		</div>
+
+		<div class='row item-body'>
+			<div class="col">
+				<p style='text-align: justify;' ng-bind-html="infoPainterBio"></p>
+		
+				<a href='{{infoPainterLink}}' target="_blank" class="button button-full button-positive">
+				  Wikipedia <i class="icon ion-ios-redo"></i>
+				</a>
+
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<!-- <div class="item item-body" style='border-top: none; margin: 0'>
+
+	</div> -->
+	
+</div>
+    
+
+
+
+  <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" href="#">
+      <i class="icon ion-thumbsup"></i>
+      Like
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-chatbox"></i>
+      Comment
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-share"></i>
+      Share
+    </a>
+  </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- {{infoPainterId}} -->
+
+
+
+
+  </ion-content>
+</ion-modal-view>

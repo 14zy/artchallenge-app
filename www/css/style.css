@@ -1,0 +1,168 @@
+/*@font-face {
+    font-family: "My Custom Font";
+    src: url('../fonts/minionpro-semibold.otf') format("truetype");
+}
+*/
+
+#background {
+	text-align: center;
+	background: #ffffff url("../img/bg.png") no-repeat top center;
+	background-size: 100% auto
+}
+
+#menu {
+	background: #0A0A0A url("../img/menu-bg.png") no-repeat top center;
+	background-size: auto 100%;
+	font-family: Verdana, Tahoma;
+	padding-top: 10px;
+}
+
+#picture {
+	max-width: 100%;
+/*	max-height: 75vh;*/
+/*	border: 5px solid lightgray;*/
+/*	box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.50), inset 10px 1px 3px 0px rgba(0, 0, 0, 0.50);*/
+/*	margin-top: 10px;*/
+	
+	/* Mask: */
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.20), 0px 1px 1px 0px rgba(69,63,7,0.22), 0px 2px 5px 3px rgba(0,0,0,0.20);
+	
+	/* Bitmap: */
+/*	box-shadow: inset 0px 1px 1px 1px rgba(255,252,200,0.36), inset 0px -2px 1px 0px rgba(0,0,0,0.28);*/
+}
+
+
+.button-answer {
+	color: #444444;
+/*	font-weight: bold;*/
+	font-family: Verdana, Tahoma;
+	height: 50px!important;
+	border: 1px solid lightgray;
+	margin: 0 0 0 0 !important;
+	opacity: 0.9;
+	background-color: rgba(255,255,255,0.5);
+	/* Rectangle 5: */
+/*	background-image: linear-gradient(0deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.55) 100%);*/
+}
+
+.button-answer text {
+	font-size: 4.6vw;
+}
+
+.circle {
+	border-radius: 50%;
+	overflow: hidden;
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	margin-top: -7px;
+}
+
+.circle img {
+	width: 100%;
+}
+
+
+.button-answer-wrong {
+	background-color: #D0021B!important;
+	border-color: #D0021B!important;
+	color: white!important;
+}
+.button-answer-right {
+	background-color: #7ED321!important;
+	border-color: #7ED321!important;
+	color: white!important;
+}
+
+#buttons {
+	position:absolute;
+	bottom:0;
+	width: 100%;
+	
+	
+}
+
+#score {
+/*	font-size: 18px;*/
+/*	padding-left: 10px;
+	display: inline;*/
+/*	font-family: "My Custom Font", Verdana, Tahoma!important;*/
+	font-weight: normal;
+	font-size: 16px;
+	color: #444444!important;
+
+}
+
+.score-right {
+	color: #444444;
+}
+
+.score-fail {
+	color: #D0021B;
+}
+
+#help {
+	color: #444444;
+	font-family: Verdana, Tahoma!important;
+	width: 100%;
+	text-align:center;
+	font-size: 12px;
+
+}
+
+#win {
+	display: none;
+	position:absolute;
+	top: 15%;
+	width: 100%;
+	z-index: 2;
+}
+
+#win img {
+	width: 80%;
+}
+
+#winDesc {
+	position:absolute;
+	bottom: 0;
+	display: none;
+	color: #444444;
+	font-size: 16px;
+	padding: 10px;
+	width: 100%;
+	background-color: rgba(255,255,255,0.9);
+	z-index: 2;
+}
+
+#menuItems {
+	
+}
+
+#selectSetImg {
+box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.20), 0px 1px 1px 0px rgba(69,63,7,0.22), 0px 2px 5px 3px rgba(0,0,0,0.20);
+}
+
+@media (max-width: 600px) { /* для телефонов */
+
+.button-answer {
+/*	height: 10px!important;*/
+	margin: 0 0 0 0 !important;
+}
+
+.circle {
+	height: 40px;
+	width: 40px;
+/*	width: 100%;*/
+	margin-top: 0px;
+}
+
+
+} /* для телефонов */
+
+.welcome {
+/*    background-image: url('../img/tumblr_lonstz95w51qiz3j8o1_500.GIF');
+	background-repeat: no-repeat;
+*/	
+	background: #ffffff url("../img/splash.jpg") no-repeat top center;
+	background-size:  auto 100%;
+}

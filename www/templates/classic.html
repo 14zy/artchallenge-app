@@ -1,0 +1,63 @@
+<ion-view hide-nav-bar="true">
+<ion-content scroll="false" id="background">
+
+<div id='navigation' style='color: #444444; width: 100%; height: 40px; font-weight: bold; font-size: 24px'>
+	
+	<div class="row">
+	  <div class="col col-10">
+		<div ng-click="openMenu();">
+		  <i id='menuIcon' class="ion-navicon"></i>
+		</div>
+	  </div>
+	  <div class="col col-60" style='margin-top: -1px'>
+		<span ng-repeat="i in answers track by $index">
+			<i style='font-size: 16px;' ng-class="{true: 'score-right ion-checkmark', false: 'score-fail ion-ios-close-outline'}[i]"></i>
+		</span>
+		<span ng-repeat="i in getScores(10-answers.length) track by $index">
+			<i style='font-size: 16px;' class="ion-ios-circle-filled"></i>
+		</span>
+	  </div>
+	  <div class="col col-10">
+		<div ng-click="hideAnswers()">
+		  <i class="ion-ios-search"></i>
+		</div>
+	  </div>
+	</div>
+	
+
+
+	
+</div>
+
+<!-- <ion-scroll direction="xy" zooming="true" scrollbar-x="false" scrollbar-y="false" min-zoom="1" has-bouncing="false" style="width: 100%; height: 100%"> -->
+<img ng-click="hideAnswers()" id="picture" ng-src="{{picture}}" imageonload='imageloaded();' style="visibility: hidden;" >
+<!-- </ion-scroll> -->
+
+<img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
+
+<div id="help"></div>
+
+<div id="win">
+	<img id='winImg' src='img/winner-badge-ru.png'>
+</div>
+
+	<div id='winDesc'>
+		<h2>{{lang.message.winner}}</h2>
+		<p>{{lang.message['winner-desc-old']}}</p>
+		<p>{{lang.message.share}}</p>
+		<button ng-click='reset();' class="button button-positive">Facebook</button>
+		<button ng-click='reset();' class="button button-positive">ВКонтакте</button>
+		<button ng-click='reset();' class="button button-positive"><i class='icon ion-ios-upload-outline'></i></button>
+	</div>
+
+</ion-content>
+<div id="buttons">
+	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" on-hold="showPainterInfoOnHold($event)" class="button button-full button-answer">
+		<div class="circle"><img ng-src="painters/{{painter.id}}/photo.jpg"></div>
+		<text>{{lang.painters[painter.id]}}</text>
+		<div id='painterId' style='display: none'>{{painter.id}}</div>
+	</button>
+</div>
+
+</ion-view>
+

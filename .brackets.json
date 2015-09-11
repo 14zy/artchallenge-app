@@ -1,0 +1,12 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/www/lib/ionic/js/angular-ui/angular-ui-router.min.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/build/emulator/artchallenge.app.app/www/lib/ionic/js/angular-ui/angular-ui-router.min.js",
+        "/Users/just14zy/Sites/artchallenge-app/www/js/services.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/build/emulator/artchallenge.app.app/www/lib/ionic/js/angular-ui/angular-ui-router.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/cordova/lib/versions.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/CordovaLib/cordova.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/platform_www/cordova-js-src/exec.js",
+        "/Users/just14zy/Sites/artchallenge-app/platforms/ios/platform_www/cordova-js-src/platform.js"
+    ]
+}

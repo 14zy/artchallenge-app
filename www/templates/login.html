@@ -1,0 +1,62 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Вход в игру</h1>
+    <div class="buttons">
+      <button style='font-size: 46px; padding-right: 10px; margin-top: -7px;' class="button button-clear" ng-click="closeLogin()"><i class="ion-ios-close-empty"></i></button>
+
+    </div>
+  </ion-header-bar>
+  <ion-content>
+  
+  <div class="card">
+    <div class="item item-divider">
+      Регистрация нового игрока
+    </div>
+    <div class="item item-text-wrap">
+		<form ng-submit="doRegister()">
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Имя</span>
+				<input type="text" ng-model="registerData.username">
+			</label>
+			<label class="item item-input item-stacked-label" style="border-bottom: 0">
+				<span class="input-label">E-mail</span>Наприер
+				<input type="text" ng-model="registerData.email">
+			</label>
+			<button class="button button-block button-positive" type="submit">Зарегистрироваться</button>
+		</form>
+	</div>
+  </div>
+  
+  <div class="card">
+    <div class="item item-divider">
+      Вход для зарегистрированных
+    </div>
+    <div class="item item-text-wrap">
+		<form ng-submit="doLogin()">
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">E-mail</span>
+				<input type="text" ng-model="loginData.email">
+			</label>
+			<label class="item item-input item-stacked-label" style="border-bottom: 0">
+				<span class="input-label">Пароль</span>
+				<input type="text" ng-model="loginData.password">
+			</label>
+			<button class="button button-block button-positive" type="submit">Войти</button>
+		</form>
+	</div>
+  </div>
+  
+  
+<!--  <div class="card">
+    <div class="item item-divider">
+      Вход через соцсети
+    </div>
+    <div class="item item-text-wrap">
+		<button on-tap='doLoginVK()' class="button button-block button-positive" type="submit">ВКонтакте</button>
+		<button on-tap='doLoginFB()' class="button button-block button-positive" type="submit">Facebook</button>
+	</div>
+  </div> -->
+  
+  
+  </ion-content>
+</ion-modal-view>
