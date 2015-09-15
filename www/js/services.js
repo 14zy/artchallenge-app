@@ -1,8 +1,8 @@
 angular.module('starter.services', [])
 
-// .service('service', function(pouchDB) {
-//   var db = pouchDB('name');
-// })
+.service('pouchService', function() {
+	this.db = new PouchDB('localDB');
+})
 
 .factory('Painters', function () {
 	var painters = [{

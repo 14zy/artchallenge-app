@@ -1,31 +1,108 @@
-<ion-view>
+<ion-view hide-nav-bar="true">
+  <ion-content id="background">
 
-<!-- <ion-nav-title>
-		<div id="score">
-			<span ng-repeat="i in userInfo.answers track by $index">
-				<i ng-class="{true: 'score-right ion-ios-checkmark', false: 'score-fail ion-ios-close-outline'}[i]"></i>
-			</span>
+    <div id='navigation' style='color: #444444; width: 100%; height: 40px; font-weight: bold; font-size: 24px'>
+      <div class="row">
+        <div class="col col-10">
+          <div ng-click="openMenu();">
+            <i class="ion-navicon" id='menuIcon'></i>
+          </div>
+        </div>
+        <div class="col col-60" style='margin-top: 1px; font-size: 16px'>
+          Статистика
+        </div>
+        <div class="col col-10">
+<!-- <div ng-click="hideAnswers()">
+		  <i class="ion-ios-search"></i>
+		</div> -->
+        </div>
+      </div>
+    </div>
 
-			<span ng-repeat="i in getScores(10-userInfo.answers.length) track by $index">
-				<i class="ion-ios-circle-outline"></i>
-			</span>
-		</div>
-</ion-nav-title> -->
+		<!-- Турнирная таблица -->
+		<div class="card" style='padding: 0;'>
+      <div class="item item-divider">
+        Турнирная таблица
+      </div>
+      <div class="row" style='padding: 0'>
+				<div class="col col-10">
+          №
+        </div>
+        <div class="col col-60">
+          Игрок
+        </div>
+				<div class="col col-30">
+					Верных ответов
+				</div>
+			</div>
+      <div class="list" style='padding: 0'>
+        <div class="row" style='font-size: 14px;'>
+					<div class="col col-10">
+						1
+					</div>
+          <div class="col col-60 col-center">
+						Рубен Бабаев
+          </div>
+          <div class="col col-30 col-center">
+						1234 (78%)
+          </div>
+        </div>
 
-<ion-content class="" id="background">
+				<div class="row" style='font-size: 14px;'>
+					<div class="col col-10 col-center">
+						2
+					</div>
+          <div class="col col-60 col-center">
+						Илья Фухтундинов
+          </div>
+          <div class="col col-30 col-center">
+						542 (88%)
+          </div>
+        </div>
 
-В разработке
-<!-- <img on-tap="" id="picture" ng-src="{{picture}}" imageonload='imageloaded();' style="visibility: hidden;" >
+				<div class="row" style='font-size: 14px;'>
+					<div class="col col-10 col-center">
+						3
+					</div>
+          <div class="col col-60 col-center">
+						Златовлас Икаев
+          </div>
+          <div class="col col-30 col-center">
+						123 (56%)
+          </div>
+        </div>
 
 
-<img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
-</ion-content>
-<div id="buttons">
-	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" class="button button-full button-answer">
-		<div class="circle"><img ng-src="painters/{{painter.id}}/photo.jpg"></div>
-		<text>{{lang.painters[painter.id]}}</text>
-	</button>
-</div> -->
+			</div>
+    </div>
 
-</ion-view>
+		<!-- Ваши последние ответы -->
+    <div class="card">
+      <div class="item item-divider">
+        Ваши последние ответы
+      </div>
+      <div class="row">
+        <div class="col col-70">
+          Картина
+        </div>
+        <div class="col col-30">
+          Вы ответили
+        </div>
+      </div>
+      <div class="list" ng-repeat="answer in userStats.answersHistory track by $index" ng-show="$index<5" style='margin: 0'>
+        <div class="row item item-text-wrap" style='font-size: 12px;'>
+          <div class="col col-70">
+            <img alt="" class='picture-thumb' ng-src="painters/{{answer.painter}}/thumbnails/{{answer.painting}}.jpg" style='max-width: 100%; max-height: 60px'><br>
+            <span>{{lang.painters[answer.painter]}}</span>
+          </div>
+          <div class="col col-30 col-center">
+            <span ng-if="answer.answer"><img src='img/emoji/right0.png' style='width: 30%'><br>Верно</span>
+            <span ng-if="!answer.answer"><img src='img/emoji/wrong0.png' style='width: 30%'><br>Не верно</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
+
+
+  </ion-view>

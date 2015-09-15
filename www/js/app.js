@@ -86,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-	
+
     .state('app.settings', {
       url: "/settings",
       views: {
@@ -95,7 +95,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     });
-	
+
 
 
   // .state('app.single', {

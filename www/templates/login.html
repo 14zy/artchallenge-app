@@ -1,52 +1,49 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Вход в игру</h1>
+    <h1 class="title">Регистрация</h1>
     <div class="buttons">
       <button style='font-size: 46px; padding-right: 10px; margin-top: -7px;' class="button button-clear" ng-click="closeLogin()"><i class="ion-ios-close-empty"></i></button>
-
     </div>
   </ion-header-bar>
   <ion-content>
-  
+
   <div class="card">
-    <div class="item item-divider">
-      Регистрация нового игрока
-    </div>
     <div class="item item-text-wrap">
 		<form ng-submit="doRegister()">
 			<label class="item item-input item-stacked-label">
-				<span class="input-label">Имя</span>
-				<input type="text" ng-model="registerData.username">
+				<span class="input-label">Ваше имя</span>
+				<input type="text" ng-model="registerData.username" placeholder="Например, Иван Петров">
 			</label>
 			<label class="item item-input item-stacked-label" style="border-bottom: 0">
-				<span class="input-label">E-mail</span>Наприер
-				<input type="text" ng-model="registerData.email">
+				<span class="input-label">E-mail</span>
+				<input type="email" ng-model="registerData.email"  placeholder="Например, ivan@mail.ru">
 			</label>
 			<button class="button button-block button-positive" type="submit">Зарегистрироваться</button>
 		</form>
+    <p>Регистрация позволит вам учавствовать дуэлях и турнире, а так же сохранять статистику своих игр</p>
 	</div>
   </div>
-  
+
   <div class="card">
     <div class="item item-divider">
       Вход для зарегистрированных
     </div>
     <div class="item item-text-wrap">
 		<form ng-submit="doLogin()">
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">E-mail</span>
-				<input type="text" ng-model="loginData.email">
-			</label>
 			<label class="item item-input item-stacked-label" style="border-bottom: 0">
-				<span class="input-label">Пароль</span>
-				<input type="text" ng-model="loginData.password">
+				<span class="input-label">Ваш E-mail</span>
+				<input type="email" ng-model="loginData.email" placeholder="Например, ivan@mail.ru">
 			</label>
+			<!-- <label class="item item-input item-stacked-label" style="border-bottom: 0"> -->
+				<!-- <span class="input-label">Пароль</span> -->
+				<!-- <input type="text" ng-model="loginData.password"> -->
+			<!-- </label> -->
 			<button class="button button-block button-positive" type="submit">Войти</button>
 		</form>
 	</div>
   </div>
-  
-  
+
+
 <!--  <div class="card">
     <div class="item item-divider">
       Вход через соцсети
@@ -56,7 +53,7 @@
 		<button on-tap='doLoginFB()' class="button button-block button-positive" type="submit">Facebook</button>
 	</div>
   </div> -->
-  
-  
+
+
   </ion-content>
 </ion-modal-view>

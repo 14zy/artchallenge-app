@@ -1,15 +1,15 @@
 <ion-modal-view>
 
-  
+
   <ion-view view-title="{{lang.desc.settings}}">
   <ion-content>
-  
+
 <ul class="list">
-	
+
 	<li class="item item-icon-left item-select">
 		<i class="icon ion-earth"></i>
 		{{lang.desc.lang}}
-		<select ng-model="userInfo.settings.langId" ng-change="langUpdate()">
+		<select ng-model="settings.langId" ng-change="langUpdate()">
 			<option value="ru" selected>Русский</option>
 			<option value="de">Deutsch</option>
 			<option value="en">English</option>
@@ -20,7 +20,7 @@
 	</li>
 	<li class="item item-icon-left item-toggle">
 		<i class="icon ion-happy-outline"></i>
-		{{lang.desc.swear}} 
+		{{lang.desc.swear}}
 		<label class="toggle toggle">
 			<input type="checkbox" checked>
 			<div class="track">
@@ -30,7 +30,7 @@
 	</li>
 	<li class="item item-icon-left item-toggle">
 		<i class="icon ion-happy-outline"></i>
-		Высокое качество 
+		Высокое качество
 		<label class="toggle toggle">
 			<input type="checkbox" checked>
 			<div class="track">
@@ -39,6 +39,10 @@
 		</label>
 	</li>
 	<p style='padding: 5px; color:#444444; font-size: 12px; font-weight: bold;'>Картинки будут загружаться из интернета</p>
+
+<button class="button button-block button-positive" ng-click='unlogin();'>Выход</button>
 </ul>
+
+
   </ion-content>
 </ion-modal-view>
