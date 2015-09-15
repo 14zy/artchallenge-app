@@ -55,7 +55,8 @@ angular.module('starter.controllers', [])
           switch ($scope.answers.length) {
             case 10:
 
-              soundWin.play();
+              // soundWin.play();
+
               $("#win").addClass("animated slideInDown");
               $("#win").css("display", "block");
 
@@ -71,7 +72,7 @@ angular.module('starter.controllers', [])
               break;
             default:
 
-              soundRight.play();
+              // soundRight.play();
 
               var goodMsg = new PNotify({
                 title: "" + goodPhrase() + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>",
@@ -136,7 +137,7 @@ angular.module('starter.controllers', [])
 
           $("#" + rightAnswerBtn).addClass("button-answer-right");
 
-          soundWrong.play();
+          // soundWrong.play();
 
           var wrongMsg = new PNotify({
             title: "" + badPhrase(),
@@ -183,9 +184,9 @@ angular.module('starter.controllers', [])
 
     //misc
 
-    var soundWin = new Audio('sounds/winner.wav');
-    var soundRight = new Audio('sounds/right2.wav');
-    var soundWrong = new Audio('sounds/wrong.wav');
+    // var soundWin = new Audio('sounds/winner.wav');
+    // var soundRight = new Audio('sounds/right2.wav');
+    // var soundWrong = new Audio('sounds/wrong.wav');
 
     $scope.getScores = function(num) {
       return new Array(num);
