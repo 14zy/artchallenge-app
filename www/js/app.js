@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.utils', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.utils', 'ngCordova', 'angles'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -83,6 +83,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         'menuContent': {
           templateUrl: "templates/changeSet.html",
           controller: 'ClassicCtrl'
+        }
+      }
+    })
+
+    .state('app.stats', {
+      url: "/stats",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/stats.html",
+          controller: 'ClassicCtrl'
+        }
+      }
+    })
+
+    .state('app.about', {
+      url: "/about",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/about.html"
         }
       }
     })

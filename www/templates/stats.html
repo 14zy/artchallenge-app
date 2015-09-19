@@ -19,67 +19,32 @@
       </div>
     </div>
 
-		<!-- Турнирная таблица -->
-		<div class="card" style='padding: 0;'>
+    <div class="card">
       <div class="item item-divider">
-        Турнирная таблица
+        Правильные ответы по дням (%)
       </div>
-      <div class="row" style='padding: 0'>
-				<div class="col col-10">
-          №
-        </div>
-        <div class="col col-60">
-          Игрок
-        </div>
-				<div class="col col-30">
-					Верных ответов
-				</div>
-			</div>
-      <div class="list" style='padding: 0'>
-        <div class="row" style='font-size: 14px;'>
-					<div class="col col-10">
-						1
-					</div>
-          <div class="col col-60 col-center">
-						Рубен Бабаев
-          </div>
-          <div class="col col-30 col-center">
-						1234 (78%)
-          </div>
-        </div>
-
-				<div class="row" style='font-size: 14px;'>
-					<div class="col col-10 col-center">
-						2
-					</div>
-          <div class="col col-60 col-center">
-						Илья Фухтундинов
-          </div>
-          <div class="col col-30 col-center">
-						542 (88%)
-          </div>
-        </div>
-
-				<div class="row" style='font-size: 14px;'>
-					<div class="col col-10 col-center">
-						3
-					</div>
-          <div class="col col-60 col-center">
-						Златовлас Икаев
-          </div>
-          <div class="col col-30 col-center">
-						123 (56%)
-          </div>
-        </div>
+        <canvas linechart responsive="true" height="500"  options="options" data="statGlobal"></canvas>
+    </div>
 
 
-			</div>
+    <div class="card">
+      <div class="item item-divider">
+        Мои победы по дням
+      </div>
+        <canvas linechart responsive="true" height="500"  options="options" data="statWins"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="item item-divider">
+        Моё знание коллекций (%)
+      </div>
+      <canvas barchart responsive="true" height="500" options="options" data="statSets"></canvas>
     </div>
 
 		<!-- Ваши последние ответы -->
     <div class="card">
       <div class="item item-divider">
-        Ваши последние ответы
+        Мои последние ответы
       </div>
       <div class="row">
         <div class="col col-70">
@@ -89,7 +54,7 @@
           Вы ответили
         </div>
       </div>
-      <div class="list" ng-repeat="answer in userStats.answersHistory | orderBy:'date':true | limitTo:5 track by $index"  style='margin: 0'>
+      <div class="list" ng-repeat="answer in userStats.answersHistory | orderBy:'date':true | limitTo:10 track by $index"  style='margin: 0'>
         <div class="row item item-text-wrap" style='font-size: 12px;'>
           <div class="col col-70">
             <img alt="" class='picture-thumb' ng-src="painters/{{answer.painter}}/thumbnails/{{answer.painting}}.jpg" style='max-width: 100%; max-height: 60px'><br>

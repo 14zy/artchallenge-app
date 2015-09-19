@@ -6,27 +6,27 @@
     <h1 class="title">{{lang.desc.setChooseDesc}}</h1>
   </ion-header-bar> -->
   <ion-content>
-   
-   
-   <div class="list" ng-repeat="set in sets" style='margin-bottom: 0'>
+
+
+   <div class="list" ng-repeat="set in sets" style='margin-bottom: 0;'>
 
      <!-- <div class="item item-avatar" style='border:none'> -->
        <!-- <img ng-src="img/sets/{{set.id}}Set.png"> -->
-       
+
 
      <!-- </div> -->
 
      <div class="item item-body" style='border:none; padding-bottom: 0'>
-       <h2>{{lang.sets[set.id+'Set']}}</h2>
+       <h2 style='margin-top: 0'>{{lang.sets[set.id+'Set']}}</h2>
 	   <img class="full-image" ng-src="img/sets/{{set.id}}Set-picture.jpg">
        <p>{{lang.sets[set.id+'Set-desc']}}</p>
        <p>{{lang.sets[set.id+'Set-count']}}</p>
 		<button ng-if="settings.currentSet.id != set.id" class="button button-full button-balanced" ng-click="changeSet(set);">{{lang.desc.setChooseBtn}}</button>
-		<button ng-if="settings.currentSet.id == set.id" class='button button-full button-light disabled'><i class="icon ion-ios-checkmark"></i> {{lang.desc.setPlayingNow}}</button>
+		<button style='font-size: 14px;' ng-if="settings.currentSet.id == set.id" class='button button-full button-light disabled'><i class="icon ion-ios-checkmark"></i> {{lang.desc.setPlayingNow}}</button>
      </div>
-	 
+
    </div>
-   
+
 
   </ion-content>
 </ion-view>

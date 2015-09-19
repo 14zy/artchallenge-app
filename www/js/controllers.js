@@ -209,7 +209,7 @@ angular.module('starter.controllers', [])
         return platform + painter.id + "/thumbnails/" + picture + ".jpg"
           //return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
       } else {
-        return platform + painter.id + "/" + picture + ".jpg"
+        return platform + painter.id + "/thumbnails/" + picture + ".jpg"
           //return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
       }
     }
@@ -232,6 +232,8 @@ angular.module('starter.controllers', [])
     };
 
     $scope.addAnswer = function(answer) {
+      var d = new Date();
+      answer.date = d.toGMTString();
       $scope.userStats.answersHistory.push(answer);
       total_answers = $scope.userStats.answersHistory.filter(function(x) {
         return x.set == $scope.settings.currentSet.id
@@ -244,6 +246,52 @@ angular.module('starter.controllers', [])
         $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
       }
       updateDB();
+    };
+
+    $scope.statGlobal = {
+    labels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    datasets : [
+        {
+            fillColor : "rgba(151,187,205,0)",
+            strokeColor : "#f1c40f",
+            pointColor : "rgba(151,187,205,0)",
+            pointStrokeColor : "#f1c40f",
+            data : [18, 32, 23, 54, 41]
+        }
+    ],
+    };
+
+    $scope.statWins = {
+    labels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    datasets : [
+        {
+            fillColor : "rgba(151,187,205,0)",
+            strokeColor : "#f1c40f",
+            pointColor : "rgba(151,187,205,0)",
+            pointStrokeColor : "#f1c40f",
+            data : [8, 3, 2, 5, 4]
+        }
+    ],
+    };
+
+    $scope.statSets = {
+    labels : ["Популярные", "Возрождение", "Импрессионизм", "Реализм", "Французские", "Русские"],
+    datasets : [
+        // {
+        //     fillColor : "rgba(151,187,205,0)",
+        //     strokeColor : "#e67e22",
+        //     pointColor : "rgba(151,187,205,0)",
+        //     pointStrokeColor : "#e67e22",
+        //     data : [4, 3, 5, 4, 6]
+        // },
+        {
+            fillColor : "#f1c40f",
+            strokeColor : "#f1c40f",
+            pointColor : "rgba(151,187,205,0)",
+            pointStrokeColor : "#f1c40f",
+            data : [78, 56, 23, 51, 42, 31]
+        }
+    ],
     };
 
     updateDB = function() {
@@ -265,8 +313,6 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService) {
 
-
-
     window.MY_SCOPE = $scope; // удалить в продакшне
     $scope.sets = [{
         id: "basic"
@@ -283,6 +329,7 @@ angular.module('starter.controllers', [])
       }
       // {id: "all"}
     ];
+
 
     $scope.settings = $localstorage.getObject('settings');
 
@@ -778,6 +825,8 @@ angular.module('starter.controllers', [])
     $scope.reset = function() {
       $window.location.reload(true);
     };
+
+
 
   })
   .directive('imageonload', function() {

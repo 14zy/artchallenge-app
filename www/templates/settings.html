@@ -1,48 +1,46 @@
 <ion-modal-view>
 
-
   <ion-view view-title="{{lang.desc.settings}}">
-  <ion-content>
+    <ion-content>
 
-<ul class="list">
+      <ul class="list ">
 
-	<li class="item item-icon-left item-select">
-		<i class="icon ion-earth"></i>
-		{{lang.desc.lang}}
-		<select ng-model="settings.langId" ng-change="langUpdate()">
-			<option value="ru" selected>Русский</option>
-			<option value="de">Deutsch</option>
-			<option value="en">English</option>
-			<option value="es">Español</option>
-			<option value="fr">Français</option>
-			<option value="it">Italiano</option>
-		</select>
-	</li>
-	<li class="item item-icon-left item-toggle">
-		<i class="icon ion-happy-outline"></i>
-		{{lang.desc.swear}}
-		<label class="toggle toggle">
-			<input type="checkbox" checked>
-			<div class="track">
-				<div class="handle"></div>
-			</div>
-		</label>
-	</li>
-	<li class="item item-icon-left item-toggle">
-		<i class="icon ion-happy-outline"></i>
-		Высокое качество
-		<label class="toggle toggle">
-			<input type="checkbox" checked>
-			<div class="track">
-				<div class="handle"></div>
-			</div>
-		</label>
-	</li>
-	<p style='padding: 5px; color:#444444; font-size: 12px; font-weight: bold;'>Картинки будут загружаться из интернета</p>
+        <li class="item item-icon-left item-select">
+          <i class="icon ion-earth"></i>
+          {{lang.desc.lang}}
+          <select ng-change="langUpdate()" ng-model="settings.langId">
+            <option selected value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="it">Italiano</option>
+          </select>
+        </li>
+        <li class="item item-icon-left item-toggle">
+          <i class="icon ion-happy-outline"></i>
+          {{lang.desc.swear}}
+          <label class="toggle toggle">
+            <input type="checkbox" checked>
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <li class="item item-icon-left item-toggle">
+          <i class="icon ion-image"></i>
+          Высокое качество
+          <label class="toggle toggle">
+            <input type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <p style='padding: 5px; color:#444444; font-size: 12px; font-weight: normal;'>Картинки высокого качества будут загружаться из интернета</p>
 
-<button class="button button-block button-positive" ng-click='unlogin();'>Выход</button>
-</ul>
+        <button class="button button-block button-positive" ng-click='unlogin();'>Выход</button>
+      </ul>
 
-
-  </ion-content>
-</ion-modal-view>
+    </ion-content>
+  </ion-modal-view>

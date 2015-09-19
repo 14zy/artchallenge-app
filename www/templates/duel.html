@@ -1,36 +1,5 @@
 <ion-view>
-<ion-nav-title>
-		<div id="score">
-			<span ng-repeat="i in userInfo.answers track by $index">
-				<i ng-class="{true: 'score-right ion-ios-checkmark', false: 'score-fail ion-ios-close-outline'}[i]"></i>
-			</span>
-			<span ng-repeat="i in getScores(10-userInfo.answers.length) track by $index">
-				<i class="ion-ios-circle-outline"></i>
-			</span>
-		</div>
-</ion-nav-title>
-
-<ion-nav-buttons side="right">
-	<button class="button button-large button-clear" ng-click="hideAnswers()" style='font-size: 24px'>
-	  <i class="ion-ios-search-strong"></i>
-	</button>
-</ion-nav-buttons>
-
-<ion-content scroll="false" id="background">
-
-<!-- <ion-scroll direction="xy" zooming="true" scrollbar-x="false" scrollbar-y="false" min-zoom="1" has-bouncing="false" style="width: 100%; height: 100%"> -->
-	<img ng-click="hideAnswers()" id="picture" ng-src="{{picture}}" imageonload='imageloaded();' style="visibility: hidden;" >
-<!-- </ion-scroll> -->
-
-<img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
-
+<ion-content >
+Дуэли в разработке, приносим свои извенения
 </ion-content>
-<div id="buttons">
-	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" class="button button-full button-answer">
-		<div class="circle"><img ng-src="painters/{{painter.id}}/photo.jpg"></div>
-		<text>{{lang.painters[painter.id]}}</text>
-	</button>
-</div>
-
 </ion-view>
-
