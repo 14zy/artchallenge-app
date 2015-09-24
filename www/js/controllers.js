@@ -204,7 +204,7 @@ angular.module('starter.controllers', [])
 
     //Написать автоматическую переключалку между локал и ремоут картинками
     function getPicture(painter, picture) {
-      platform = "http://178.62.133.139/painters/" //"painters/" // "http://178.62.133.139/painters/"
+      platform = "painters/" //"painters/" // "http://178.62.133.139/painters/"
       if (window.innerWidth <= 400) {
         return platform + painter.id + "/thumbnails/" + picture + ".jpg"
           //return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
 
     $scope.addAnswer = function(answer) {
       var d = new Date();
-      answer.date = d.toGMTString();
+      answer.date = d;
       $scope.userStats.answersHistory.push(answer);
       total_answers = $scope.userStats.answersHistory.filter(function(x) {
         return x.set == $scope.settings.currentSet.id
@@ -248,51 +248,7 @@ angular.module('starter.controllers', [])
       updateDB();
     };
 
-    $scope.statGlobal = {
-    labels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-    datasets : [
-        {
-            fillColor : "rgba(151,187,205,0)",
-            strokeColor : "#f1c40f",
-            pointColor : "rgba(151,187,205,0)",
-            pointStrokeColor : "#f1c40f",
-            data : [18, 32, 23, 54, 41]
-        }
-    ],
-    };
 
-    $scope.statWins = {
-    labels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-    datasets : [
-        {
-            fillColor : "rgba(151,187,205,0)",
-            strokeColor : "#f1c40f",
-            pointColor : "rgba(151,187,205,0)",
-            pointStrokeColor : "#f1c40f",
-            data : [8, 3, 2, 5, 4]
-        }
-    ],
-    };
-
-    $scope.statSets = {
-    labels : ["Популярные", "Возрождение", "Импрессионизм", "Реализм", "Французские", "Русские"],
-    datasets : [
-        // {
-        //     fillColor : "rgba(151,187,205,0)",
-        //     strokeColor : "#e67e22",
-        //     pointColor : "rgba(151,187,205,0)",
-        //     pointStrokeColor : "#e67e22",
-        //     data : [4, 3, 5, 4, 6]
-        // },
-        {
-            fillColor : "#f1c40f",
-            strokeColor : "#f1c40f",
-            pointColor : "rgba(151,187,205,0)",
-            pointStrokeColor : "#f1c40f",
-            data : [78, 56, 23, 51, 42, 31]
-        }
-    ],
-    };
 
     updateDB = function() {
       pouchService.db.get('userStats').then(function(doc) {
@@ -311,7 +267,7 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService) {
+.controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService,$ionicPopup) {
 
     window.MY_SCOPE = $scope; // удалить в продакшне
     $scope.sets = [{
@@ -512,7 +468,7 @@ angular.module('starter.controllers', [])
     }
 
     $scope.doRegister = function() {
-      if (isEmail($scope.registerData.email) && $scope.registerData.username != undefined) {
+      if ($scope.registerData.username != undefined && isEmail($scope.registerData.email)) {
         $scope.registerData.email = $scope.registerData.email.toLowerCase();
         $scope.registerData.password = generatePassword();
         $scope.registerData.dbName = $scope.registerData.email.replace('@', '-').replace('.', '-');
@@ -527,13 +483,13 @@ angular.module('starter.controllers', [])
         }, function(err, response) {
           if (err) {
             if (err.name === 'conflict') {
-              alert("Ошибка регистрации: Пользователь с такими email уже существует")
+              $ionicPopup.alert({title: $scope.lang.desc.loginMessageErrorDuplicate});
                 // "batman" already exists, choose another username
             } else if (err.name === 'forbidden') {
-              alert("Ошибка регистрации: Запрещенное имя пользователя")
+              $ionicPopup.alert({title: $scope.lang.desc.loginMessageErrorForbiddenName});
                 // invalid username
             } else {
-              alert("Ошибка регистрации: Сервер не доступен, попробуйте позже")
+              $ionicPopup.alert({title: $scope.lang.desc.loginMessageErrorServer});
                 // HTTP error, cosmic rays, etc.
             }
           } else {
@@ -551,7 +507,7 @@ angular.module('starter.controllers', [])
                 }
               } else {
                 // console.log(response)
-                alert("Вы успешно зарегистрированы!");
+                $ionicPopup.alert({title: $scope.lang.desc.loginMessageSuccessRegister});
                 $scope.settings.registered = true;
                 $scope.closeLogin();
               }
@@ -566,7 +522,6 @@ angular.module('starter.controllers', [])
                 'email': $scope.registerData.email,
               }
             }).done(function(response) {
-
 
               $scope.userInfo.name = $scope.registerData.username;
               $scope.userInfo.email = $scope.registerData.email;
@@ -608,15 +563,8 @@ angular.module('starter.controllers', [])
                       'type': 'to'
                     }],
                     'autotext': 'true',
-                    'subject': "Вы успешно зарегистрированы!",
-                    'html': $scope.registerData.username + ", спасибо Вам за регистрацию в Art Challenge!<br>\
-                      Теперь вы сможете учавствовать в турнире, дуэлях и отслеживать статистику своих ответов в игре.<br>\
-                      По любым вопросам пишите нам на info@artchallenge.ru.<br>\
-                      Если хотите следить за новостями из мира культуры, то подписывайте на нас в социальных сетях:<br>\
-                      ВКонтакте: http://vk.com/art.challenge<br>\
-                      Facebook: http://facebook.com/artchallenge.ru<br><br>\
-                      Искренне Ваши, команда Art Challenge<br>\
-                      Рубен и Анна."
+                    'subject': $scope.lang.desc.loginMessageSuccessRegister,
+                    'html': $scope.lang.desc.loginSuccessEmailText.replace('__username__',$scope.registerData.username)
                   }
                 }
               }).done(function(response) {
@@ -628,14 +576,14 @@ angular.module('starter.controllers', [])
           }
         });
       } else {
-        alert('Введите имя пользователя и корректный email')
+        $ionicPopup.alert({title: $scope.lang.desc.loginMessageError});
       }
     };
 
 
     $scope.doLogin = function() {
       //После логина не обновляются показатели статистики
-      if (isEmail($scope.loginData.email)) {
+      if ($scope.loginData.email != undefined && isEmail($scope.loginData.email)) {
         $scope.loginData.password = "superherodancetonight";
         $scope.loginData.email = $scope.loginData.email.toLowerCase();
         usersDB.login($scope.loginData.email, $scope.loginData.password, function(err, response) {
@@ -649,7 +597,7 @@ angular.module('starter.controllers', [])
             }
           } else {
             // console.log(response);
-            alert("Вы успешно вошли!");
+            $ionicPopup.alert({title: $scope.lang.desc.loginMessageSuccessLogin});
 
             $scope.userInfo.email = $scope.loginData.email;
             $scope.userInfo.dbName = $scope.loginData.email.replace('@', '-').replace('.', '-');
@@ -685,7 +633,7 @@ angular.module('starter.controllers', [])
           }
         });
       } else {
-        alert('Введите ваш email')
+        $ionicPopup.alert({title: $scope.lang.desc.loginMessageErrorEmail});
       }
     };
 
@@ -828,15 +776,133 @@ angular.module('starter.controllers', [])
 
 
 
-  })
-  .directive('imageonload', function() {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.bind('load', function() {
-          //call the function that was passed
-          scope.$apply(attrs.imageonload);
-        });
+
+})
+
+.controller('StatsCtrl', function($scope, $state, Painters, $localstorage, pouchService, $ionicSideMenuDelegate, $window) {
+
+
+  // $scope.userStats.answersHistory.push(answer);
+  // total_answers = $scope.userStats.answersHistory.filter(function(x) {
+  //   return x.set == $scope.settings.currentSet.id
+  // });
+  // if (total_answers.length >= 10) {
+  //   right_answers = total_answers.filter(function(x) {
+  //     return x.answer == true
+  //   }).length;
+  //   stats = (right_answers / (total_answers.length / 100)).toFixed(0);
+  //   $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
+  // };
+
+    // if (typeof reset == 'undefined') {
+    //   var reset = true;
+    //   // $state.go($state.current, {}, {reload: true});
+    //   // $window.location.reload(true);
+    // } else {
+    //   reset = undefined
+    // };
+
+  pouchService.db.get('userStats').then(function(doc) {
+    answersHistory = doc.answersHistory;
+    userStats = doc.stats
+  }).then(function(response) {
+    calculateStats();
+    // handle response
+  }).catch(function(err) {
+    console.log(err);
+  });
+
+  function calculateStats() {
+    answersCurrentSet = answersHistory.filter(function(x) {
+      return x.set == $scope.settings.currentSet.id
+    });
+    $scope.statGlobalDays = [];
+    angular.forEach(answersCurrentSet, function(value, key) {
+      var n = new Date(value.date).getDate();
+      n = n + "." + (new Date(value.date).getMonth() + 1);
+      if ($scope.statGlobalDays[n]) {
+        $scope.statGlobalDays[n].push(value.answer);
+      } else {
+        $scope.statGlobalDays[n] = []
+        $scope.statGlobalDays[n].push(value.answer);
       }
-    };
-  })
+    });
+
+    $scope.days = Object.keys($scope.statGlobalDays).sort().slice(0, 15);
+    dataRightAnswersPercent = [];
+    dataRightAnswers = [];
+    dataWrongAnswers = []
+
+    angular.forEach($scope.days, function(valueDay, key) {
+
+      trueValues = $scope.statGlobalDays[valueDay].filter(function(x) {
+        return x == true
+      });
+
+      // console.log('всего ответов: ' +  $scope.statGlobalDays[valueDay].length)
+      // console.log('правильных ответов: ' +  trueValues.length)
+      // console.log("процент правильных: " + (trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0))
+
+      dataRightAnswersPercent.push((trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0));
+      dataRightAnswers.push(trueValues.length);
+      dataWrongAnswers.push($scope.statGlobalDays[valueDay].length - trueValues.length)
+    });
+
+  $scope.statGlobal = {
+  labels : $scope.days,
+  datasets : [
+      {
+          fillColor : "#7ED321",
+          strokeColor : "#7ED321",
+          data : dataRightAnswers
+      },
+      {
+          fillColor : "#D0021B",
+          strokeColor : "#D0021B",
+          data : dataWrongAnswers
+      }
+  ],
+  };
+
+  console.log();
+
+  $scope.statSets = {
+  labels : [$scope.lang.sets['basicSet'], $scope.lang.sets['renaissanceSet'], $scope.lang.sets['impressionismSet'], $scope.lang.sets['realismSet'], $scope.lang.sets['frenchSet'], $scope.lang.sets['russianSet']],
+  datasets : [
+      // {
+      //     fillColor : "rgba(151,187,205,0)",
+      //     strokeColor : "#e67e22",
+      //     pointColor : "rgba(151,187,205,0)",
+      //     pointStrokeColor : "#e67e22",
+      //     data : [4, 3, 5, 4, 6]
+      // },
+      {
+          fillColor : "#f1c40f",
+          strokeColor : "#f1c40f",
+          pointColor : "rgba(151,187,205,0)",
+          pointStrokeColor : "#f1c40f",
+          data : [userStats.basic, userStats.renaissance, userStats.impressionism, userStats.realism, userStats.french, userStats.russian]
+      }
+  ],
+  };
+} // calculateStats end
+
+  $scope.openMenu = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+
+
+}) // controller end
+
+
+.directive('imageonload', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.bind('load', function() {
+        //call the function that was passed
+        scope.$apply(attrs.imageonload);
+      });
+    }
+  };
+})

@@ -1,6 +1,6 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Регистрация</h1>
+    <h1 class="title">{{lang.desc.loginTitle}}</h1>
     <div class="buttons">
       <button style='font-size: 46px; padding-right: 10px; margin-top: -7px;' class="button button-clear" ng-click="closeLogin()"><i class="ion-ios-close-empty"></i></button>
     </div>
@@ -11,35 +11,36 @@
     <div class="item item-text-wrap">
 		<form ng-submit="doRegister()">
 			<label class="item item-input item-stacked-label">
-				<span class="input-label">Ваше имя</span>
-				<input type="text" ng-model="registerData.username" placeholder="Например, Иван Петров">
+				<span class="input-label">{{lang.desc.loginName}}</span>
+				<input type="text" ng-model="registerData.username" placeholder="{{lang.desc.loginNameExample}}">
 			</label>
 			<label class="item item-input item-stacked-label" style="border-bottom: 0">
-				<span class="input-label">E-mail</span>
-				<input type="email" ng-model="registerData.email"  placeholder="Например, ivan@mail.ru">
+				<span class="input-label">{{lang.desc.loginEmail}}</span>
+				<input type="text" ng-model="registerData.email"  placeholder="{{lang.desc.loginEmailExample}}">
 			</label>
-			<button class="button button-block button-positive" type="submit">Зарегистрироваться</button>
+			<button class="button button-block button-positive" type="submit">{{lang.desc.loginBtnRegister}}</button>
 		</form>
-    <p>Регистрация позволит вам учавствовать в дуэлях и турнире, а так же сохранять статистику своих игр</p>
+    <p>{{lang.desc.loginRegisterDesc}}</p>
 	</div>
   </div>
 
   <div class="card">
     <div class="item item-divider">
-      Вход для зарегистрированных
+      {{lang.desc.loginLoginForRegistered}}
     </div>
     <div class="item item-text-wrap">
 		<form ng-submit="doLogin()">
 			<label class="item item-input item-stacked-label" style="border-bottom: 0">
-				<span class="input-label">Ваш E-mail</span>
-				<input type="email" ng-model="loginData.email" placeholder="Например, ivan@mail.ru">
+				<span class="input-label">{{lang.desc.loginEmail}}</span>
+				<input type="text" ng-model="loginData.email" placeholder="{{lang.desc.loginEmailExample}}">
 			</label>
 			<!-- <label class="item item-input item-stacked-label" style="border-bottom: 0"> -->
 				<!-- <span class="input-label">Пароль</span> -->
 				<!-- <input type="text" ng-model="loginData.password"> -->
 			<!-- </label> -->
-			<button class="button button-block button-positive" type="submit">Войти</button>
+			<button class="button button-block button-positive" type="submit">{{lang.desc.loginBtnLogin}}</button>
 		</form>
+    <p>{{lang.desc.loginLoginForRegisteredHint}}</p>
 	</div>
   </div>
 

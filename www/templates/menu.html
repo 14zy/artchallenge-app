@@ -14,17 +14,17 @@
     <ion-content id='menu'>
 
       <div ng-if="settings.registered">
-        <span class="item item-avatar" style='border:none; background: none;'>
+        <a href="#/app/stats" menu-close class="item item-avatar" style='border:none; background: none;'>
           <img src='img/avatar-dummy.png'>
           <h2 style='color: white'>{{userInfo.name}}</h2>
-          <p>Новичок Art Challenge</p>
-        </span>
+          <p>Показать статистику</p>
+        </a>
       </div>
       <div ng-if="!settings.registered">
         <span class="item item-avatar" ng-click="login()" style='border:none; background: none;'>
           <img src='img/avatar-dummy.png'>
-          <h2 style='color: white'>Неизвестный игрок</h2>
-          <p>Нажмите, чтобы войти</p>
+          <h2 style='color: white'>{{lang.desc.loginUnregisteredPlayer}}</h2>
+          <p>{{lang.desc.loginClickToRegister}}</p>
         </span>
       </div>
       <a class="item" href="#/app/stats" menu-close style='color: white; border: none; background: none; padding-top: 0; font-size: 18px; text-align: center'>
@@ -40,96 +40,33 @@
       <div id='menuItems' style='color: white; font-size: 20px; line-height: 42px; padding: 30px'>
         <a href="#/app/classic" id='classicGame' menu-close style='text-decoration: none; color: yellow'>
           <i class='icon ion-person'></i>
-          <span style='color: white'>Одиночная игра</span>
+          <span style='color: white'>{{lang.desc.menuSinglePlayer}}</span>
         </a>
         <a href="#/app/duel" id='duelGame' menu-close style='color: #444444; text-decoration: none; display: block'>
           <i class='icon ion-person-stalker'></i>
-          Дуэль с другом</a>
+          {{lang.desc.menuDuel}}
+        </a>
+        <a href="#/app/tournament" id='tournamentGame' menu-close style='color: #444444; text-decoration: none; display: block'>
+          <i class='icon ion-podium'></i>
+          {{lang.desc.menuTournament}}
+        </a>
         <a href="#/app/changeSet" menu-close style='text-decoration: none; '>
-          <img id='selectSetImg' ng-src="img/sets/{{settings.currentSet.id}}Set-picture.jpg" style="margin-top: 50px; max-width: 100%">
+          <img id='selectSetImg' ng-src="img/sets/{{settings.currentSet.id}}Set-picture.jpg" style="margin-top: 40px; max-width: 100%">
           <div style='color: white; font-size: 14px; line-height: 20px;'>{{lang.sets[settings.currentSet.id+'Set']}}</div>
         </a>
 
-        <a href="#/app/settings" id='settings' menu-close style='text-decoration: none;display: block; color: yellow; padding-top: 40px;'>
+        <a href="#/app/settings" id='settings' menu-close style='text-decoration: none; display: block; color: yellow; padding-top: 30px;'>
           <i class='icon ion-settings'></i>
           <span style='color: white'>{{lang.desc.settings}}</span>
         </a>
-        <a href="#/app/about" id='about' menu-close style='text-decoration: none;display: block; color: yellow;'>
-          <i class='icon ion-android-contacts'></i>
-          <span style='color: white'>Меценаты игры</span>
-        </a>
+        <!-- <a href="#/app/about" id='about' menu-close style='text-decoration: none; display: block; color: yellow;'>
+          <i class='icon ion-lightbulb'></i>
+          <span style='color: white'>Об игре</span>
+        </a> -->
 
-<!-- <div id='about' style='color: yellow;'><i class='icon ion-help-circled'></i> <span style='color: white'>Об игре</span></div> -->
       </div>
 
-<!-- <ion-item class="item-body" style='padding-bottom: 0'>
-				<h2 style='margin-top: 0'>{{lang.sets[userInfo.settings.currentSet.id+'Set']}}</h2> -->
 
-<!-- <p>{{lang.sets[userInfo.currentSet.id+'Set-desc']}}</p>
-				<p>{{lang.sets[userInfo.currentSet.id+'Set-count']}}</p>
-			</ion-item> -->
-
-<!-- <ion-item menu-close href="#/app/changeSet" class="item item-icon-left" style='border:none'>
-				<i class="icon ion-android-color-palette"></i>
-			   {{lang.desc.setChooseDesc}}
-		    </ion-item> -->
-
-<!-- Если Залогинен -->
-<!-- <div ng-if="userRegistered">
-				<span class="item item-avatar" style='border:none' ng-click="unlogin()">
-					<img src='img/avatar-dummy.png'>
-					<h2>{{userInfo.name}}</h2>
-					<p>Основатель Art Challenge</p>
-				</span>
-				<span class="item" style='border: none; padding-top: 0; font-size: 20px;text-align: center'>
-					<i class="ion-ribbon-a balanced"></i> 15 / <i class="ion-university positive"></i> 74% / <i class="ion-podium energized"></i> 3424
-				</span>
-			</div>
-			<div ng-if="!userRegistered">
-				<span class="item item-avatar" style='border:none' ng-click="login()">
-					<img src='img/avatar-dummy.png'>
-					<h2>Неизвестный игрок</h2>
-					<p>Нажмите, чтобы войти</p>
-				</span>
-				<span href="#/app/tournament" class="item" style='border: none; padding-top: 0; font-size: 20px;text-align: center'>
-					<i class="ion-ribbon-a balanced"></i> - / <i class="ion-university positive"></i> - / <i class="ion-podium energized"></i> -
-				</span>
-			</div>
-
-	        <ion-item menu-close href="#/app/classic" class="item item-icon-left" >
-			  <i class="icon ion-person"></i>
-	          Одиночная игра
-	        </ion-item>
-
-	        <ion-item menu-close href="#/app/duel" class="item item-icon-left" >
-			<i class='icon ion-person-stalker'></i>
-	          Дуэль с другом
-	        </ion-item> -->
-
-<!-- <ion-item class="item-body" style='padding-bottom: 0'>
-				<h2 style='margin-top: 0'>{{lang.sets[userInfo.settings.currentSet.id+'Set']}}</h2>
-				<img class="image" style="max-height: 100px;" ng-src="img/sets/{{userInfo.settings.currentSet.id}}Set-picture.jpg"> -->
-<!-- <p>{{lang.sets[userInfo.currentSet.id+'Set-desc']}}</p>
-				<p>{{lang.sets[userInfo.currentSet.id+'Set-count']}}</p> -->
-<!-- </ion-item> -->
-
-<!-- <ion-item menu-close href="#/app/changeSet" class="item item-icon-left" style='border:none'> -->
-<!-- on-tap="modalSelectSet.show()" -->
-<!-- <i class="icon ion-android-color-palette"></i>
-			   {{lang.desc.setChooseDesc}}
-		    </ion-item>
-
-			<div class="item item-divider"></div>			 -->
-<!-- <ion-item menu-close href="#/app/settings" class="item item-icon-left" >  -->
-<!-- on-tap="modalAbout.show()" -->
-<!-- <i class="icon ion-ios-gear-outline"></i>
-		       {{lang.desc.settings}}
-		    </ion-item>
-
- 			<span class="item">
-				<p>Подпишись в соц сетях</p>
-				<p>Поставьте оценку приложению</p>
- 			</span> -->
 
     </ion-content>
   </ion-side-menu>
