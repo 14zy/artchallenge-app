@@ -1,5 +1,5 @@
 <ion-view hide-nav-bar="true">
-<ion-content scroll="false" id="background">
+<ion-content scroll="false" class="background">
 
 <div id='navigation' style='color: #444444; width: 100%; height: 40px; font-weight: bold; font-size: 24px'>
 	<div class="row">
@@ -17,9 +17,9 @@
 		</span>
 	  </div>
 	  <div class="col col-10">
-		<div ng-click="hideAnswers()">
+		<!-- <div ng-click="hideAnswers()">
 		  <i class="ion-ios-search"></i>
-		</div>
+		</div> -->
 	  </div>
 	</div>
 </div>
@@ -33,22 +33,22 @@
 <!-- <div id="help"></div> -->
 
 <div id="win">
-	<img id='winImg' src='img/winner-badge-ru.png'>
+	<img id='winImg' ng-src='img/medals/winner-medal-{{settings.langId}}.png'>
 </div>
 
-	<div id='winDesc'>
-		<h2>{{lang.message.winner}}</h2>
-		<p>{{lang.message['winner-desc-old']}}</p>
-		<p>{{lang.message.share}}</p>
-		<button ng-click='reset();' class="button button-positive">Facebook</button>
-		<button ng-click='reset();' class="button button-positive">ВКонтакте</button>
-		<button ng-click='reset();' class="button button-positive"><i class='icon ion-ios-upload-outline'></i></button>
-	</div>
+<div id='winDesc'>
+	<h2>{{lang.message.winner}}</h2>
+	<p>{{lang.message['winner-desc-old']}}</p>
+	<p>{{lang.message.share}}</p>
+	<button ng-click='reset();' class="button button-positive">Facebook</button>
+	<button ng-click='reset();' class="button button-positive">ВКонтакте</button>
+	<button ng-click='reset();' class="button button-positive"><i class='icon ion-ios-upload-outline'></i></button>
+</div>
 
 </ion-content>
 <div id="buttons">
 	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" on-hold="showPainterInfoOnHold($event)" class="button button-full button-answer">
-		<div class="circle"><img ng-src="painters/{{painter.id}}/photo.jpg"></div>
+		<div class="circle"><img ng-src="img/painters/{{painter.id}}.jpg"></div>
 		<text>{{lang.painters[painter.id]}}</text>
 		<div id='painterId' style='display: none'>{{painter.id}}</div>
 	</button>

@@ -54,9 +54,7 @@ angular.module('starter.controllers', [])
 
           switch ($scope.answers.length) {
             case 10:
-
               // soundWin.play();
-
               $("#win").addClass("animated slideInDown");
               $("#win").css("display", "block");
 
@@ -66,9 +64,6 @@ angular.module('starter.controllers', [])
               }, 2000);
 
               $scope.userStats.wins[$scope.settings.currentSet.id] = $scope.userStats.wins[$scope.settings.currentSet.id] + 1;
-
-              updateDB();
-
               break;
             default:
 
@@ -97,12 +92,10 @@ angular.module('starter.controllers', [])
                 goodMsg.remove();
               });
 
-
               setTimeout(function() {
                 $('#picture').addClass('animated fadeOutLeft');
                 $scope.$apply();
               }, 1000);
-
 
               setTimeout(function() {
                 $(event.target).removeClass("button-answer-right");
@@ -179,6 +172,7 @@ angular.module('starter.controllers', [])
           }, 2500);
 
         }
+        updateDB();
       }
     };
 
@@ -204,13 +198,18 @@ angular.module('starter.controllers', [])
 
     //Написать автоматическую переключалку между локал и ремоут картинками
     function getPicture(painter, picture) {
-      platform = "painters/" //"painters/" // "http://178.62.133.139/painters/"
-      if (window.innerWidth <= 400) {
-        return platform + painter.id + "/thumbnails/" + picture + ".jpg"
-          //return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
+      if ($scope.settings.platformRemote) {
+        if (window.innerWidth <= 400 || !$scope.settings.highQuality) {
+          return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
+        } else {
+          return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg"
+        }
       } else {
-        return platform + painter.id + "/thumbnails/" + picture + ".jpg"
-          //return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
+        if ($scope.settings.highQuality) {
+          return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg"
+        } else {
+          return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg"
+        }
       }
     }
 
@@ -245,10 +244,8 @@ angular.module('starter.controllers', [])
         stats = (right_answers / (total_answers.length / 100)).toFixed(0);
         $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
       }
-      updateDB();
+      // updateDB();
     };
-
-
 
     updateDB = function() {
       pouchService.db.get('userStats').then(function(doc) {
@@ -286,26 +283,39 @@ angular.module('starter.controllers', [])
       // {id: "all"}
     ];
 
-
     $scope.settings = $localstorage.getObject('settings');
 
     if (!$scope.settings.langId) {
-      $scope.settings.langId = 'en';
-      $scope.settings.currentSet = $scope.sets[0];
-      $scope.settings.registered = false;
-      $scope.settings.disableAbuse = false;
+      $.get("painters/1/thumbnails/1.jpg")
+      .done(function() {
+        $scope.settings.platformRemote = false;
+        $scope.settings.highQuality = false;
+      }).fail(function() {
+        $scope.settings.platformRemote = true;
+        $scope.settings.highQuality = true;
+      }).always(function() {
+
+        var lang = window.navigator.userLanguage || window.navigator.language;
+        lang = lang.substring(0, 2).toLowerCase();
+        if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es" ) {
+        } else {
+          lang = "en";
+        };
+
+        $scope.settings.langId = lang;
+        $scope.settings.currentSet = $scope.sets[0];
+        $scope.settings.registered = false;
+        $scope.settings.abuse = true;
+      });
     };
 
     $scope.$watch('settings', function(newVal, oldVal) {
       $localstorage.setObject('settings', $scope.settings);
     }, true);
 
-
-    $scope.langUpdate = function() {
+    $scope.$watch('settings.langId', function(newVal, oldVal) {
       $scope.lang = Painters[$scope.settings.langId]();
-    };
-    $scope.langUpdate();
-
+    }, true);
 
     pouchService.db.get('userInfo').then(function(doc) {
       if (doc.dbname) {
@@ -329,7 +339,6 @@ angular.module('starter.controllers', [])
       }).catch(function(err) {
         console.log(err)
       });
-
 
     }).catch(function(err) {
       if (err.status = 404) {
@@ -580,7 +589,6 @@ angular.module('starter.controllers', [])
       }
     };
 
-
     $scope.doLogin = function() {
       //После логина не обновляются показатели статистики
       if ($scope.loginData.email != undefined && isEmail($scope.loginData.email)) {
@@ -606,6 +614,10 @@ angular.module('starter.controllers', [])
               live: true,
               retry: true
             }).on('error', console.log.bind(console));
+
+            //////////
+            //Мне кажетется, что все последующе нужно засунуть в success предыдущего и тогда getUser можно убрать
+            //////////
 
             $scope.settings.registered = true;
 
@@ -657,7 +669,6 @@ angular.module('starter.controllers', [])
     /////////////////////////Конец модуля авторизации//////////////////////////////
 
 
-
     $ionicModal.fromTemplateUrl('templates/painterShowInfo.html', {
       scope: $scope
     }).then(function(modal) {
@@ -682,7 +693,6 @@ angular.module('starter.controllers', [])
       $scope.infoPainterBio = painter.bio["ru"]; //$scope.userInfo.langId
       $scope.infoPainterLink = painter.link.wikipedia[$scope.userInfo.langId];
     };
-
 
     $scope.getGenre = function(painter) {
       genre = undefined;
@@ -711,7 +721,7 @@ angular.module('starter.controllers', [])
     $scope.calcPictureMargin = function() {
       //добавляем отступ сверху, чтобы картина была по середине
       window.margin = 0;
-      window.margin = (($('#background').height() - 50 - $('#buttons').height()) - $('#picture').height()) / 2;
+      window.margin = (($('.background').height() - 50 - $('#buttons').height()) - $('#picture').height()) / 2;
       if (window.margin < 0) {
         window.margin = 0
       }
@@ -766,7 +776,7 @@ angular.module('starter.controllers', [])
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
-      // $ionicViewSwitcher.nextDirection('back');
+      $ionicViewSwitcher.nextDirection('back');
       $state.go('app.classic');
     };
 
@@ -774,33 +784,9 @@ angular.module('starter.controllers', [])
       $window.location.reload(true);
     };
 
-
-
-
 })
 
 .controller('StatsCtrl', function($scope, $state, Painters, $localstorage, pouchService, $ionicSideMenuDelegate, $window) {
-
-
-  // $scope.userStats.answersHistory.push(answer);
-  // total_answers = $scope.userStats.answersHistory.filter(function(x) {
-  //   return x.set == $scope.settings.currentSet.id
-  // });
-  // if (total_answers.length >= 10) {
-  //   right_answers = total_answers.filter(function(x) {
-  //     return x.answer == true
-  //   }).length;
-  //   stats = (right_answers / (total_answers.length / 100)).toFixed(0);
-  //   $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
-  // };
-
-    // if (typeof reset == 'undefined') {
-    //   var reset = true;
-    //   // $state.go($state.current, {}, {reload: true});
-    //   // $window.location.reload(true);
-    // } else {
-    //   reset = undefined
-    // };
 
   pouchService.db.get('userStats').then(function(doc) {
     answersHistory = doc.answersHistory;
@@ -839,10 +825,6 @@ angular.module('starter.controllers', [])
         return x == true
       });
 
-      // console.log('всего ответов: ' +  $scope.statGlobalDays[valueDay].length)
-      // console.log('правильных ответов: ' +  trueValues.length)
-      // console.log("процент правильных: " + (trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0))
-
       dataRightAnswersPercent.push((trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0));
       dataRightAnswers.push(trueValues.length);
       dataWrongAnswers.push($scope.statGlobalDays[valueDay].length - trueValues.length)
@@ -864,18 +846,9 @@ angular.module('starter.controllers', [])
   ],
   };
 
-  console.log();
-
   $scope.statSets = {
   labels : [$scope.lang.sets['basicSet'], $scope.lang.sets['renaissanceSet'], $scope.lang.sets['impressionismSet'], $scope.lang.sets['realismSet'], $scope.lang.sets['frenchSet'], $scope.lang.sets['russianSet']],
   datasets : [
-      // {
-      //     fillColor : "rgba(151,187,205,0)",
-      //     strokeColor : "#e67e22",
-      //     pointColor : "rgba(151,187,205,0)",
-      //     pointStrokeColor : "#e67e22",
-      //     data : [4, 3, 5, 4, 6]
-      // },
       {
           fillColor : "#f1c40f",
           strokeColor : "#f1c40f",
@@ -891,9 +864,7 @@ angular.module('starter.controllers', [])
     $ionicSideMenuDelegate.toggleLeft();
   };
 
-
 }) // controller end
-
 
 .directive('imageonload', function() {
   return {
