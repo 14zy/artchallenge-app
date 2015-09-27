@@ -3552,7 +3552,7 @@ angular.module('starter.services', [])
 			"statsPainting": "Painting",
 			"statsYourAnswer": "Your answer",
 			"loginTitle": "Register",
-			"loginUnregisteredPlayer": "Unknown player",
+			"loginUnregisteredPlayer": "Unregistered player",
 			"loginClickToRegister": "Click to register",
 			"loginName": "Name",
 			"loginNameExample": "For example, John Doe",

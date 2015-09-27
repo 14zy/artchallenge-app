@@ -30,13 +30,13 @@
           <!-- <p>Показать статистику</p> -->
         </a>
       </div>
-      <div ng-if="!settings.registered" style='width: 80%; margin: 30px'>
-        <button ng-click="login()" class="button button-block button-balanced" style=''>{{lang.desc.loginTitle}}</button>
-        <!-- <span class="item item-avatar" ng-click="login()" style='border:none; background: none;'>
+      <div ng-if="!settings.registered" style='width: 100%; margin: 0px'>
+        <!-- <button ng-click="login()" class="button button-block button-balanced" style=''>{{lang.desc.loginTitle}}</button> -->
+        <span class="item item-avatar" ng-click="login()" style='border:none; background: none;'>
           <img src='img/avatar-dummy.png'>
           <h2 style='color: white'>{{lang.desc.loginUnregisteredPlayer}}</h2>
           <p>{{lang.desc.loginClickToRegister}}</p>
-        </span> -->
+        </span>
       </div>
       <!-- <a class="item" href="#/app/stats" menu-close style='color: white; border: none; background: none; padding-top: 0; font-size: 18px; text-align: center'>
         <i class="ion-ribbon-a balanced"></i>

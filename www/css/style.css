@@ -5,7 +5,7 @@
 */
 .background {
   text-align: center;
-  background: #ffffff url("../img/bg.png") no-repeat top center;
+  /*background: #ffffff url("../img/bg.png") no-repeat top center;*/
   background-size: 100% auto
 }
 #menu {

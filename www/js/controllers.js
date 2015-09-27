@@ -319,84 +319,131 @@ angular.module('starter.controllers', [])
 
     pouchService.db.get('userInfo').then(function(doc) {
       if (doc.dbname) {
-        console.log("sync");
-        pouchService.db.sync('http://178.62.133.139:5994/' + doc.dbname, {
-          live: true,
-          retry: true
-        }).on('error', console.log.bind(console));
+        syncData(doc.dbname);
+      } else {
+        copyDataFromDBtoScope();
       };
-
-      $scope.userInfo = doc;
-
-      pouchService.db.get('userStats').then(function(doc) {
-        $scope.userStats = doc;
-      }).catch(function(err) {
-        console.log(err)
-      });
-
-      pouchService.db.get('userDuels').then(function(doc) {
-        $scope.userDuels = doc;
-      }).catch(function(err) {
-        console.log(err)
-      });
-
     }).catch(function(err) {
       if (err.status = 404) {
+        console.log(err)
         createEmptyDB();
       } else {
         console.log(err)
       }
     });
 
+    function copyDataFromDBtoScope() {
+      pouchService.db.allDocs({
+        include_docs: true,
+        }).then(function(result) {
+
+        if (result.rows[0].id == "userDuels") {
+          $scope.userDuels = result.rows[0].doc
+        } else {
+          console.log("Ошибка: не удалось загрузить userDuels из db, result.rows[0] не совпадает с userDuels");
+        };
+
+        if (result.rows[1].id == "userInfo") {
+          $scope.userInfo = result.rows[1].doc
+        } else {
+          console.log("Ошибка: не удалось загрузить userInfo из db, result.rows[1] не совпадает с userInfo");
+        };
+
+        if (result.rows[2].id == "userStats") {
+          $scope.userStats = result.rows[2].doc
+        } else {
+          console.log("Ошибка: не удалось загрузить userStats из db, result.rows[2] не совпадает с userStats");
+        };
+
+        if ($scope.userInfo.dbName) {
+          pouchService.db.sync('http://178.62.133.139:5994/' + $scope.userInfo.dbname, {
+            live: true,
+            retry: true
+          }).on('complete', function () {
+            console.log("не должно выпадать");
+          }).catch(function (err) {
+            console.log(err);
+          });
+          console.log('Start live sync')
+        }
+
+        console.log("copyDataFromDBtoScope() completed")
+
+      }).catch(function(err) {
+        console.log(err);
+      });
+    }
+
+    function syncData(dbname) {
+      pouchService.db.sync('http://178.62.133.139:5994/' + dbname, {
+      }).on('complete', function () {
+        copyDataFromDBtoScope();
+        console.log("syncData() completed");
+      }).catch(function (err) {
+        copyDataFromDBtoScope();
+        console.log("syncData() not completed, maybe offline");
+        console.log(err);
+      });
+    }
+
     function createEmptyDB() {
+
       console.log("No localDB, creating new one");
-      $scope.userInfo = {
-        _id: "userInfo",
-        name: undefined,
-        email: undefined,
-        dbname: undefined
-      };
 
-      $scope.userStats = {
-        _id: "userStats",
-        wins: {
-          basic: 0,
-          renaissance: 0,
-          impressionism: 0,
-          realism: 0,
-          french: 0,
-          russian: 0
-        },
-        stats: {
-          basic: 0,
-          renaissance: 0,
-          impressionism: 0,
-          realism: 0,
-          french: 0,
-          russian: 0
-        },
-        leaderboard: {
-          basic: 0,
-          renaissance: 0,
-          impressionism: 0,
-          realism: 0,
-          french: 0,
-          russian: 0
-        },
-        answersHistory: []
-      };
+      pouchService.db.destroy().then(function(response) {
+        console.log(response);
+        pouchService.db = new PouchDB('localDB');
 
-      $scope.userDuels = {
-        _id: "userDuels",
-      };
+        $scope.userInfo = {
+          _id: "userInfo",
+          name: undefined,
+          email: undefined,
+          dbName: undefined
+        };
 
-      pouchService.db.bulkDocs([
-        $scope.userInfo,
-        $scope.userStats,
-        $scope.userDuels
-      ]).then(function(result) {
-        console.log(result)
-          // handle result
+        $scope.userStats = {
+          _id: "userStats",
+          wins: {
+            basic: 0,
+            renaissance: 0,
+            impressionism: 0,
+            realism: 0,
+            french: 0,
+            russian: 0
+          },
+          stats: {
+            basic: 0,
+            renaissance: 0,
+            impressionism: 0,
+            realism: 0,
+            french: 0,
+            russian: 0
+          },
+          leaderboard: {
+            basic: 0,
+            renaissance: 0,
+            impressionism: 0,
+            realism: 0,
+            french: 0,
+            russian: 0
+          },
+          answersHistory: []
+        };
+
+        $scope.userDuels = {
+          _id: "userDuels",
+        };
+
+        pouchService.db.bulkDocs([
+          $scope.userInfo,
+          $scope.userStats,
+          $scope.userDuels
+        ]).then(function(result) {
+          console.log(result)
+            // handle result
+        }).catch(function(err) {
+          console.log(err);
+        });
       }).catch(function(err) {
         console.log(err);
       });
@@ -451,7 +498,10 @@ angular.module('starter.controllers', [])
         // network error
       } else if (!response.userCtx.name) {
         // nobody's logged in
+        console.log("Юзер на залогинен, добавить проверку на то есть ли его имя у нас в базе и злогинить его обратно")
+        console.log($scope.userInfo)
       } else {
+        console.log("Юзер залогинен")
         // console.log(response)
         $scope.settings.registered = true;
         // response.userCtx.name is the current user
@@ -461,18 +511,7 @@ angular.module('starter.controllers', [])
     $scope.unlogin = function() {
       usersDB.logout();
       $scope.settings.registered = false;
-      pouchService.db.destroy().then(function(response) {
-        console.log(response);
-        pouchService.db = new PouchDB('localDB');
-        createEmptyDB();
-        // success
-      }).catch(function(err) {
-        console.log(err);
-      });
-      // setTimeout(function () {
-      //
-      // }, 1000);
-
+      createEmptyDB();
       $ionicSideMenuDelegate.toggleLeft();
     }
 
@@ -590,7 +629,6 @@ angular.module('starter.controllers', [])
     };
 
     $scope.doLogin = function() {
-      //После логина не обновляются показатели статистики
       if ($scope.loginData.email != undefined && isEmail($scope.loginData.email)) {
         $scope.loginData.password = "superherodancetonight";
         $scope.loginData.email = $scope.loginData.email.toLowerCase();
@@ -604,44 +642,20 @@ angular.module('starter.controllers', [])
                 // cosmic rays, a meteor, etc.
             }
           } else {
-            // console.log(response);
             $ionicPopup.alert({title: $scope.lang.desc.loginMessageSuccessLogin});
 
             $scope.userInfo.email = $scope.loginData.email;
             $scope.userInfo.dbName = $scope.loginData.email.replace('@', '-').replace('.', '-');
 
-            pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbName, {
-              live: true,
-              retry: true
-            }).on('error', console.log.bind(console));
+            pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbName).then(function (result) {
+              console.log('Скопировали базу из облака, начинаем copyDataFromDBtoScope()')
+              copyDataFromDBtoScope();
 
-            //////////
-            //Мне кажетется, что все последующе нужно засунуть в success предыдущего и тогда getUser можно убрать
-            //////////
-
-            $scope.settings.registered = true;
-
-            usersDB.getUser($scope.loginData.email, function(err, response) {
-              if (err) {
-                if (err.name === 'not_found') {
-                  // typo, or you don't have the privileges to see this user
-                } else {
-                  // some other error
-                }
-              } else {
-                $scope.userInfo.name = response.userName;
-
-                pouchService.db.get('userStats').then(function(doc) {
-                  $scope.userStats = doc;
-                }).catch(function(err) {
-                  console.log(err)
-                });
-
-                // response is the user object
-              }
+              $scope.settings.registered = true;
+              $scope.closeLogin();
+            }).catch(function (err) {
+              console.log(err);
             });
-
-            $scope.closeLogin();
           }
         });
       } else {
