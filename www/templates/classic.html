@@ -1,25 +1,25 @@
 <ion-view hide-nav-bar="true">
 <ion-content scroll="false" class="background">
 
-<div id='navigation' style='color: #444444; width: 100%; height: 40px; font-weight: bold; font-size: 24px'>
+<div id='navigation' style='color: #444444; width: 100%; height: 44px; font-weight: bold; font-size: 24px'>
 	<div class="row">
 	  <div class="col col-10">
-		<div ng-click="openMenu();">
-		  <i id='menuIcon' class="ion-navicon"></i>
-		</div>
+			<div ng-click="openMenu();">
+			  <i id='menuIcon' class="ion-navicon"></i>
+			</div>
 	  </div>
 	  <div class="col col-60" style='margin-top: -1px'>
-		<span ng-repeat="i in answers track by $index">
-			<i style='font-size: 16px;' ng-class="{true: 'score-right ion-checkmark', false: 'score-fail ion-ios-close-outline'}[i]"></i>
-		</span>
-		<span ng-repeat="i in getScores(10-answers.length) track by $index">
-			<i style='font-size: 16px;' class="ion-ios-circle-filled"></i>
-		</span>
+			<span ng-repeat="i in answers track by $index">
+				<i style='font-size: 16px;' ng-class="{true: 'score-right ion-ios-checkmark-outline', false: 'score-fail ion-ios-close-outline'}[i]"></i>
+			</span>
+			<span ng-repeat="i in getScores(10-answers.length) track by $index">
+				<i style='font-size: 16px;' class="ion-ios-circle-filled"></i>
+			</span>
 	  </div>
 	  <div class="col col-10">
-		<!-- <div ng-click="hideAnswers()">
-		  <i class="ion-ios-search"></i>
-		</div> -->
+			<div ng-click="">
+			  <i class="ion-ios-upload-outline"></i>
+			</div>
 	  </div>
 	</div>
 </div>
@@ -47,7 +47,7 @@
 
 </ion-content>
 <div id="buttons">
-	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" on-hold="showPainterInfoOnHold($event)" class="button button-full button-answer">
+	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" on-hold="showPainterInfoOnHold($event, true)" class="button button-full button-answer">
 		<div class="circle"><img ng-src="img/painters/{{painter.id}}.jpg"></div>
 		<text>{{lang.painters[painter.id]}}</text>
 		<div id='painterId' style='display: none'>{{painter.id}}</div>

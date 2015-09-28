@@ -355,7 +355,7 @@ angular.module('starter.controllers', [])
           console.log("Ошибка: не удалось загрузить userStats из db, result.rows[2] не совпадает с userStats");
         };
 
-        if ($scope.userInfo.dbName) {
+        if ($scope.userInfo.dbname) {
           pouchService.db.sync('http://178.62.133.139:5994/' + $scope.userInfo.dbname, {
             live: true,
             retry: true
@@ -398,7 +398,7 @@ angular.module('starter.controllers', [])
           _id: "userInfo",
           name: undefined,
           email: undefined,
-          dbName: undefined
+          dbname: undefined
         };
 
         $scope.userStats = {
@@ -493,20 +493,23 @@ angular.module('starter.controllers', [])
     //Регистрация нового пользователя через имя/email
     var usersDB = new PouchDB('http://178.62.133.139:5994/painters');
 
-    usersDB.getSession(function(err, response) {
-      if (err) {
-        // network error
-      } else if (!response.userCtx.name) {
-        // nobody's logged in
-        console.log("Юзер на залогинен, добавить проверку на то есть ли его имя у нас в базе и злогинить его обратно")
-        console.log($scope.userInfo)
-      } else {
-        console.log("Юзер залогинен")
-        // console.log(response)
-        $scope.settings.registered = true;
-        // response.userCtx.name is the current user
-      }
-    });
+
+    ///////////// Логин пользователя - может это вообще нахуй не нужно?? //////////
+    // usersDB.getSession(function(err, response) {
+    //   if (err) {
+    //     // network error
+    //   } else if (!response.userCtx.name) {
+    //     // nobody's logged in
+    //     console.log("Юзер на залогинен, добавить проверку на то есть ли его имя у нас в базе и злогинить его обратно")
+    //     console.log($scope.userInfo)
+    //   } else {
+    //     console.log("Юзер залогинен")
+    //     // console.log(response)
+    //     $scope.settings.registered = true;
+    //     // response.userCtx.name is the current user
+    //   }
+    // });
+    //
 
     $scope.unlogin = function() {
       usersDB.logout();
@@ -519,13 +522,13 @@ angular.module('starter.controllers', [])
       if ($scope.registerData.username != undefined && isEmail($scope.registerData.email)) {
         $scope.registerData.email = $scope.registerData.email.toLowerCase();
         $scope.registerData.password = generatePassword();
-        $scope.registerData.dbName = $scope.registerData.email.replace('@', '-').replace('.', '-');
+        $scope.registerData.dbname = $scope.registerData.email.replace('@', '-').replace('.', '-');
         $scope.registerData.lang = $scope.settings.langId;
 
         usersDB.signup($scope.registerData.email, $scope.registerData.password, {
           metadata: {
             userName: $scope.registerData.username,
-            dbName: $scope.registerData.dbName,
+            dbname: $scope.registerData.dbname,
             lang: $scope.registerData.lang
           }
         }, function(err, response) {
@@ -573,14 +576,14 @@ angular.module('starter.controllers', [])
 
               $scope.userInfo.name = $scope.registerData.username;
               $scope.userInfo.email = $scope.registerData.email;
-              $scope.userInfo.dbName = $scope.registerData.dbName;
+              $scope.userInfo.dbname = $scope.registerData.dbname;
 
               //Сохраняем всю его инфу в локальной базе
               pouchService.db.get('userInfo').then(function(doc) {
                 return pouchService.db.put({
                   name: $scope.userInfo.name,
                   email: $scope.userInfo.email,
-                  dbname: $scope.userInfo.dbName
+                  dbname: $scope.userInfo.dbname
                 }, 'userInfo', doc._rev);
               }).then(function(response) {
                 // handle response
@@ -590,7 +593,7 @@ angular.module('starter.controllers', [])
 
 
               // Подключаем сгенеренную базу к нашему юзеру
-              pouchService.db.replicate.to('http://178.62.133.139:5994/' + $scope.registerData.dbName, {
+              pouchService.db.replicate.to('http://178.62.133.139:5994/' + $scope.registerData.dbname, {
                 live: true,
                 retry: true
               }).on('error', console.log.bind(console));
@@ -645,9 +648,9 @@ angular.module('starter.controllers', [])
             $ionicPopup.alert({title: $scope.lang.desc.loginMessageSuccessLogin});
 
             $scope.userInfo.email = $scope.loginData.email;
-            $scope.userInfo.dbName = $scope.loginData.email.replace('@', '-').replace('.', '-');
+            $scope.userInfo.dbname = $scope.loginData.email.replace('@', '-').replace('.', '-');
 
-            pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbName).then(function (result) {
+            pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbname).then(function (result) {
               console.log('Скопировали базу из облака, начинаем copyDataFromDBtoScope()')
               copyDataFromDBtoScope();
 
@@ -683,29 +686,54 @@ angular.module('starter.controllers', [])
     /////////////////////////Конец модуля авторизации//////////////////////////////
 
 
+    $scope.slideHasChanged = function($index) {
+      $scope.settings.currentSet = $scope.sets[$index];
+    };
+
+    $scope.activeSlideId = function() {
+      return $scope.sets.map(function(e) { return e.id; }).indexOf($scope.settings.currentSet.id)
+    };
+
+    $scope.showPainters = function(set) {
+      return Painters[set.id]();
+    }
+
     $ionicModal.fromTemplateUrl('templates/painterShowInfo.html', {
       scope: $scope
     }).then(function(modal) {
       $scope.modalPainterShowInfo = modal;
     });
 
-    $scope.showPainterInfoOnHold = function(event) {
+    $scope.showPainterInfoOnHold = function(event, scroll) {
       painterid = $(event.target)[0].children[2].innerHTML;
       painters = Painters["all"]();
       painterid = painters[painterid - 1];
-      $scope.showPainterInfo(painterid);
+      $scope.showPainterInfo(painterid, scroll);
     };
 
-    $scope.showPainterInfo = function(painter) {
+    $scope.showPainterInfo = function(painter, scroll) {
       $scope.modalPainterShowInfo.show();
-      $ionicScrollDelegate.scrollTop(true);
+      if (scroll) {
+        $ionicScrollDelegate.scrollTop(true);
+      }
       $scope.infoPainterId = painter.id;
       $scope.infoPainterName = $scope.lang.painters[painter.id];
       $scope.infoPainterGenre = $scope.getGenre(painter);
       $scope.infoPainternationality = $scope.getNation(painter);;
       $scope.infoPainterYears = painter.years;
-      $scope.infoPainterBio = painter.bio["ru"]; //$scope.userInfo.langId
-      $scope.infoPainterLink = painter.link.wikipedia[$scope.userInfo.langId];
+
+      if (painter.bio[$scope.settings.langId]) {
+        $scope.infoPainterBio = painter.bio[$scope.settings.langId];
+      } else {
+        $scope.infoPainterBio = painter.bio["en"];
+      };
+
+      if (painter.link.wikipedia[$scope.settings.langId]) {
+        $scope.infoPainterLink = painter.link.wikipedia[$scope.settings.langId];
+      } else {
+        $scope.infoPainterLink = painter.link.wikipedia["en"];
+      };
+
     };
 
     $scope.getGenre = function(painter) {
@@ -763,7 +791,7 @@ angular.module('starter.controllers', [])
         // $ionicScrollDelegate.zoomTo(2);
         $('#buttons').addClass('animated fadeOutDown');
         $('#picture').css('width', '100%');
-
+        $('#picture').css('max-height', '100%');
         // $("#help").html($scope.getGenre(currentPainter));
         // $("#help").css('display', 'block');
 
@@ -772,7 +800,7 @@ angular.module('starter.controllers', [])
         $('#buttons').removeClass('animated fadeOutDown');
         $('#buttons').addClass('animated fadeInUp');
         $('#picture').css('width', 'auto');
-
+        $('#picture').css('max-height', '80%');
         // $("#help").css('display', 'none');
       };
       $scope.calcPictureMargin();

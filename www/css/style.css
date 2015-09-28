@@ -16,7 +16,7 @@
 }
 #picture {
   max-width: 100%;
-  max-height: 80%
+  max-height: 80%;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.20), 0px 1px 1px 0px rgba(69, 63, 7, 0.22), 0px 2px 5px 3px rgba(0, 0, 0, 0.20);
 }
 
@@ -30,7 +30,7 @@
   border: 1px solid lightgray;
   margin: 0 0 0 0 !important;
   opacity: 0.9;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
 }
 .button-answer text {
   font-size: 4.6vw;
@@ -100,12 +100,13 @@
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 2;
 }
-#menuItems {}
+
 #selectSetImg {
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.20), 0px 1px 1px 0px rgba(69, 63, 7, 0.22), 0px 2px 5px 3px rgba(0, 0, 0, 0.20);
 }
+
+/* для телефонов */
 @media (max-width: 600px) {
-  /* для телефонов */
   .button-answer {
     /*	height: 10px!important;*/
     margin: 0 0 0 0 !important;
@@ -117,7 +118,6 @@
     margin-top: 0px;
   }
 }
-
 /* для телефонов */
 
 .welcome {
