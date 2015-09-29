@@ -2,35 +2,69 @@
 <ion-content scroll="false" class="background">
 
 <div id='navigation' style='color: #444444; width: 100%; height: 44px; font-weight: bold; font-size: 24px'>
-	<div class="row">
+
+	<div ng-if='gameMode=="classic"' class="row">
 	  <div class="col col-10">
 			<div ng-click="openMenu();">
 			  <i id='menuIcon' class="ion-navicon"></i>
 			</div>
 	  </div>
-	  <div class="col col-60" style='margin-top: -1px'>
+		<div class="col col-60" style='margin-top: -1px'>
 			<span ng-repeat="i in answers track by $index">
 				<i style='font-size: 16px;' ng-class="{true: 'score-right ion-ios-checkmark-outline', false: 'score-fail ion-ios-close-outline'}[i]"></i>
 			</span>
 			<span ng-repeat="i in getScores(10-answers.length) track by $index">
 				<i style='font-size: 16px;' class="ion-ios-circle-filled"></i>
 			</span>
-	  </div>
-	  <div class="col col-10">
+		</div>
+		<div class="col col-10">
 			<div ng-click="">
-			  <i class="ion-ios-upload-outline"></i>
+				<i class="ion-ios-upload-outline"></i>
 			</div>
-	  </div>
+		</div>
 	</div>
+
+	<div class='row' ng-if='gameMode=="tournament"'>
+		<div class="col col-10">
+			<div ng-click="openMenu();">
+				<i id='menuIcon' class="ion-navicon"></i>
+			</div>
+		</div>
+		<div class="col col-60" style='margin-top: 1px; font-size: 16px; font-weight: normal;'>
+			<i class="score-right ion-ios-checkmark-outline"></i> {{answers.length}}
+			/
+			2357 место
+			<!-- /
+			{{userStats.leaderboard[settings.currentSet.id]}} -->
+		</div>
+		<div class="col col-10">
+			<div ng-click='showPodium();'>
+					<i class="ion-podium energized"></i>
+			</div>
+		</div>
+	</div>
+
+	<div class='row' ng-if='gameMode=="duel"'>
+		<div class="col col-10">
+			<div ng-click="openMenu();">
+				<i id='menuIcon' class="ion-navicon"></i>
+			</div>
+		</div>
+		<div class="col col-60" style='margin-top: -1px'>
+			duel
+		</div>
+		<div class="col col-10">
+			<div ng-click="">
+					d
+			</div>
+		</div>
+	</div>
+
 </div>
 
-<!-- <ion-scroll direction="xy" zooming="true" scrollbar-x="false" scrollbar-y="false" min-zoom="1" has-bouncing="false" style="width: 100%; height: 100%"> -->
 <img ng-click="hideAnswers()" id="picture" ng-src="{{picture}}" imageonload='imageloaded();' style="visibility: hidden;" >
-<!-- </ion-scroll> -->
 
 <img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
-
-<!-- <div id="help"></div> -->
 
 <div id="win">
 	<img id='winImg' ng-src='img/medals/winner-medal-{{settings.langId}}.png'>
@@ -38,11 +72,13 @@
 
 <div id='winDesc'>
 	<h2>{{lang.message.winner}}</h2>
-	<p>{{lang.message['winner-desc-old']}}</p>
-	<p>{{lang.message.share}}</p>
-	<button ng-click='reset();' class="button button-positive">Facebook</button>
-	<button ng-click='reset();' class="button button-positive">ВКонтакте</button>
-	<button ng-click='reset();' class="button button-positive"><i class='icon ion-ios-upload-outline'></i></button>
+	<p>Вы великолепно разбираетесь в коллекции <b>Популярные художники</b>!</p>
+	<p>Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:</p>
+	<!-- <p>{{lang.message['winner-desc']}}</p>
+	<p>{{lang.message.share}}</p> -->
+	<!-- <button ng-click='reset();' class="button button-positive">Facebook</button> -->
+	<button ng-click='showShare();' class="button button-full button-positive"><i class='icon ion-ios-upload-outline'></i> Рассказать друзьям</button>
+	<button ng-click='changeGameMode("tournament");' class="button button-full button-balanced"><i class='icon ion-trophy'></i> Продолжить играть</button>
 </div>
 
 </ion-content>

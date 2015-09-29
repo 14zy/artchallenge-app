@@ -55,22 +55,28 @@ angular.module('starter.controllers', [])
           switch ($scope.answers.length) {
             case 10:
               // soundWin.play();
-              $("#win").addClass("animated slideInDown");
-              $("#win").css("display", "block");
+              if ($scope.gameMode == 'classic') {
+                $("#win").addClass("animated slideInDown");
+                $("#win").css("display", "block");
 
-              setTimeout(function() {
-                $("#winDesc").addClass("animated fadeIn");
-                $("#winDesc").css("display", "block");
-              }, 2000);
+                setTimeout(function() {
+                  $("#winDesc").addClass("animated fadeInUp");
+                  $("#winDesc").css("display", "block");
+                }, 1000);
 
-              $scope.userStats.wins[$scope.settings.currentSet.id] = $scope.userStats.wins[$scope.settings.currentSet.id] + 1;
-              break;
+                setTimeout(function() {
+                  $(event.target).removeClass("button-answer-right");
+                }, 1500);
+
+                $scope.userStats.wins[$scope.settings.currentSet.id] = $scope.userStats.wins[$scope.settings.currentSet.id] + 1;
+                break;
+              }
             default:
 
               // soundRight.play();
 
               var goodMsg = new PNotify({
-                title: "" + goodPhrase() + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>",
+                title: goodPhrase() + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>",
                 text: $scope.lang.message['right-desc'].replace("__count__", $scope.answers.length),
                 addclass: "answerRight",
                 animation: 'slide',
@@ -195,7 +201,6 @@ angular.module('starter.controllers', [])
       return $scope.lang.badPhrases[Math.floor((Math.random() * 12) + 1)];
     };
 
-
     //Написать автоматическую переключалку между локал и ремоут картинками
     function getPicture(painter, picture) {
       if ($scope.settings.platformRemote) {
@@ -227,7 +232,6 @@ angular.module('starter.controllers', [])
 
     $scope.openMenu = function() {
       $ionicSideMenuDelegate.toggleLeft();
-      // $("#menuIcon").css("color", "white");
     };
 
     $scope.addAnswer = function(answer) {
@@ -260,11 +264,33 @@ angular.module('starter.controllers', [])
       }).catch(function(err) {
         console.log(err);
       });
-    }
+    };
+
+    $scope.$watch('gameMode', function(newVal, oldVal) {
+      //Добавть проверку, чтобы когда просто дибилы тыкали в меню на одиночную игру у них турнир не сбрасывался
+      if (newVal != oldVal && newVal == 'tournament') {
+        $scope.newRound();
+        $("#win").removeClass("animated slideInDown");
+        $("#win").addClass("animated rotateOutUpLeft");
+        $("#winDesc").addClass("animated fadeOutDown");
+        setTimeout(function() {
+          $("#win").css("display", "none");
+          $("#winDesc").css("display", "none");
+          $("#win").removeClass("animated rotateOutUpLeft");
+          $("#winDesc").removeClass("animated fadeOutDown");
+        }, 2000);
+      };
+    }, true);
+
 
   }) // controller end
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService,$ionicPopup) {
+
+    $scope.gameMode = "classic";
+    $scope.changeGameMode = function(mode) {
+      $scope.gameMode = mode;
+    };
 
     window.MY_SCOPE = $scope; // удалить в продакшне
     $scope.sets = [{
@@ -688,6 +714,7 @@ angular.module('starter.controllers', [])
 
     $scope.slideHasChanged = function($index) {
       $scope.settings.currentSet = $scope.sets[$index];
+      $scope.gameMode = 'classic';
     };
 
     $scope.activeSlideId = function() {
@@ -791,7 +818,7 @@ angular.module('starter.controllers', [])
         // $ionicScrollDelegate.zoomTo(2);
         $('#buttons').addClass('animated fadeOutDown');
         $('#picture').css('width', '100%');
-        $('#picture').css('max-height', '100%');
+        $('#picture').css('max-height', 'none');
         // $("#help").html($scope.getGenre(currentPainter));
         // $("#help").css('display', 'block');
 
@@ -822,9 +849,17 @@ angular.module('starter.controllers', [])
       $state.go('app.classic');
     };
 
-    $scope.reset = function() {
+    $scope.reset = function() { //можно убрать
       $window.location.reload(true);
     };
+
+    $scope.showShare = function() {
+      alert('share')
+    }
+
+    $scope.showPodium = function() {
+      alert('podium')
+    }
 
 })
 
