@@ -55,12 +55,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
 
-    .state('app.tournament', {
-      url: "/tournament",
+    .state('app.leaderboard', {
+      url: "/leaderboard",
       views: {
         'menuContent': {
-          templateUrl: "templates/tournament.html",
-          controller: 'ClassicCtrl'
+          templateUrl: "templates/leaderboard.html",
+          controller: 'AppCtrl'
         }
       }
     })

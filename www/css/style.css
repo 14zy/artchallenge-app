@@ -3,6 +3,11 @@
     src: url('../fonts/minionpro-semibold.otf') format("truetype");
 }
 */
+
+a {
+  text-decoration: none
+}
+
 .background {
   text-align: center;
   /*background: #ffffff url("../img/bg.png") no-repeat top center;*/
@@ -14,6 +19,41 @@
   font-family: Verdana, Tahoma;
   padding-top: 10px;
 }
+
+#menuItems {
+  color: white;
+  font-size: 20px;
+  line-height: 44px;
+  padding: 30px 30px 30px 30px
+}
+
+.menu-item {
+  display: block;
+  color: yellow
+}
+
+.menu-item span {
+  color: white;
+}
+
+.menu-item-disabled {
+  display: block;
+  color: #444444;
+  border: none dashed 1px #444444;
+  text-align: center;
+  font-size: 12px
+}
+
+
+/*.menu-active {
+  color: yellow;
+}
+
+.menu-active span {
+  color: white;
+}*/
+
+
 #picture {
   max-width: 100%;
   max-height: 80%;

@@ -9,7 +9,7 @@
 			  <i id='menuIcon' class="ion-navicon"></i>
 			</div>
 	  </div>
-		<div class="col col-60" style='margin-top: -1px'>
+		<div class="col col-60" style='margin-top: -1px'>  <!--  ng-click='changeGameMode("tournament");' -->
 			<span ng-repeat="i in answers track by $index">
 				<i style='font-size: 16px;' ng-class="{true: 'score-right ion-ios-checkmark-outline', false: 'score-fail ion-ios-close-outline'}[i]"></i>
 			</span>
@@ -18,7 +18,7 @@
 			</span>
 		</div>
 		<div class="col col-10">
-			<div ng-click="">
+			<div onclick="alert('Тут будет возможность поделиться картиной с друзьями или сохранить её');">
 				<i class="ion-ios-upload-outline"></i>
 			</div>
 		</div>
@@ -30,15 +30,11 @@
 				<i id='menuIcon' class="ion-navicon"></i>
 			</div>
 		</div>
-		<div class="col col-60" style='margin-top: 1px; font-size: 16px; font-weight: normal;'>
-			<i class="score-right ion-ios-checkmark-outline"></i> {{answers.length}}
-			/
-			2357 место
-			<!-- /
-			{{userStats.leaderboard[settings.currentSet.id]}} -->
+		<div class="col col-80" style='margin-top: 1px; font-size: 16px; font-weight: normal;'>
+			<i class="ion-arrow-graph-up-right"></i> {{answers.length}} / <i class="ion-arrow-graph-up-right energized"></i> {{userStats.leaderboard[settings.currentSet.id]}} / <i class="ion-podium energized"></i> {{leaderboardMyPlace}}
 		</div>
 		<div class="col col-10">
-			<div ng-click='showPodium();'>
+			<div ng-click='showLeaderboard()'>
 					<i class="ion-podium energized"></i>
 			</div>
 		</div>
@@ -63,7 +59,7 @@
 </div>
 
 <img ng-click="hideAnswers()" id="picture" ng-src="{{picture}}" imageonload='imageloaded();' style="visibility: hidden;" >
-
+<!-- <br>{{lang.painters[currentPainter.id]}} подсказка-->
 <img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
 
 <div id="win">
@@ -74,14 +70,12 @@
 	<h2>{{lang.message.winner}}</h2>
 	<p>Вы великолепно разбираетесь в коллекции <b>Популярные художники</b>!</p>
 	<p>Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:</p>
-	<!-- <p>{{lang.message['winner-desc']}}</p>
-	<p>{{lang.message.share}}</p> -->
-	<!-- <button ng-click='reset();' class="button button-positive">Facebook</button> -->
 	<button ng-click='showShare();' class="button button-full button-positive"><i class='icon ion-ios-upload-outline'></i> Рассказать друзьям</button>
-	<button ng-click='changeGameMode("tournament");' class="button button-full button-balanced"><i class='icon ion-trophy'></i> Продолжить играть</button>
+	<button ng-click='changeGameMode("tournament");' class="button button-full button-energized"><i class='icon ion-trophy'></i> Продолжить играть</button>
 </div>
 
 </ion-content>
+
 <div id="buttons">
 	<button id={{$index}} ng-repeat="painter in candidates track by $index" on-tap="checkAnswer($event)" on-hold="showPainterInfoOnHold($event, true)" class="button button-full button-answer">
 		<div class="circle"><img ng-src="img/painters/{{painter.id}}.jpg"></div>

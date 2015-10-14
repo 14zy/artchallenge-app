@@ -3215,7 +3215,7 @@ angular.module('starter.services', [])
 			"menu": "Меню",
 			"menuSinglePlayer": "Одиночная игра",
 			"menuDuel": "Дуэль с другом",
-			"menuTournament": "Турнир",
+			"menuTournament": "Лучшие игроки",
 			"setCurrent": "Текущая коллекция",
  			"setChooseDesc": "Выбор коллекции",
 			"setChooseBtn": "Играть",
@@ -3246,7 +3246,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Введите имя пользователя и корректный E-mail",
 			"loginMessageErrorDuplicate": "Ошибка регистрации: Пользователь с такими E-mail уже существует",
 			"loginMessageErrorForbiddenName": "Ошибка регистрации: Запрещенное имя пользователя",
-			"loginMessageErrorServer": "Ошибка регистрации: Сервер не доступен, попробуйте позже"
+			"loginMessageErrorServer": "Ошибка регистрации: Сервер не доступен, попробуйте позже",
+      "errorOffline": "Отсутствует подключение к интернету"
 		},
 		"message": {
 			"right": "Верно!",
@@ -3570,7 +3571,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Enter your user name and valid E-mail",
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
-			"loginMessageErrorServer": "Registration error: The server is not available, try again later"
+			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
+      "errorOffline": "No internet connection"
 		},
 		"message": {
 			"right": "You got it right!",
@@ -3894,7 +3896,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Enter your user name and valid E-mail",
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
-			"loginMessageErrorServer": "Registration error: The server is not available, try again later"
+			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
+      "errorOffline": "No internet connection"
 		},
 		"message": {
 			"right": "Richtig!",
@@ -4217,7 +4220,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Enter your user name and valid E-mail",
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
-			"loginMessageErrorServer": "Registration error: The server is not available, try again later"
+			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
+      "errorOffline": "No internet connection"
 		},
 		"message": {
 			"right": "¡Has acertado!",
@@ -4540,7 +4544,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Enter your user name and valid E-mail",
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
-			"loginMessageErrorServer": "Registration error: The server is not available, try again later"
+			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
+      "errorOffline": "No internet connection"
 		},
 		"message": {
 			"right": "Exact!",
@@ -4863,7 +4868,8 @@ angular.module('starter.services', [])
 			"loginMessageError": "Enter your user name and valid E-mail",
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
-			"loginMessageErrorServer": "Registration error: The server is not available, try again later"
+			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
+      "errorOffline": "No internet connection"
 		},
 		"message": {
 			"right": "Giusto!",

@@ -1,0 +1,39 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">{{lang.desc.menuTournament}}</h1>
+    <div class="buttons">
+      <button style='font-size: 46px; padding-right: 10px; margin-top: -7px;' class="button button-clear" ng-click="closeLeaderboard()"><i class="ion-ios-close-empty"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="background">
+
+    <!-- <div id='navigation' style='color: #444444; width: 100%; height: 44px; font-weight: bold; font-size: 24px'>
+      <div class="row">
+        <div class="col col-10">
+          <div ng-click="openMenu();">
+            <i class="ion-navicon" id='menuIcon'></i>
+          </div>
+        </div>
+        <div class="col col-60" style='margin-top: 1px; font-size: 16px'>
+          Таблица лидеров
+        </div>
+        <div class="col col-10">
+        </div>
+      </div>
+    </div> -->
+
+    <h5 ng-if='errorOffline' style='color: #444444'>{{lang.desc.errorOffline}}</h5>
+    <h5 style='color: #444444'>{{lang.sets[settings.currentSet.id+'Set']}}</h5>
+    <h5 style='color: #444444; font-weight: normal;'>Чтобы принять участие в турнире, пройдите игру в одиночном режиме</h5>
+
+    <div ng-if='!errorOffline'class='card'>
+      <div ng-repeat="player in leaderboard track by $index" class="button button-full button-answer" style='border: none; padding: ; text-align: left;'>
+        {{$index + 1}}. <i class="ion-person"></i>
+        <text>{{player.value}} <span style='font-size: 12px;'><i class='ion-arrow-graph-up-right energized'></i> {{player.key}} подряд</span></text>
+      </div>
+    </div>
+
+
+
+  </ion-content>
+</ion-view>
