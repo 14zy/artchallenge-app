@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
     $scope.picturePreload = function() {
       newPainter = $scope.painters[getRandomIndex($scope.painters.length)];
       newPainterPicture = Math.floor((Math.random() * newPainter.paintings) + 1);
-      $scope.picturePreloadUrl = getPicture(newPainter, newPainterPicture);
+      $scope.picturePreloadUrl = $scope.getPicture(newPainter, newPainterPicture);
     };
 
     $scope.newRound = function() {
@@ -206,21 +206,6 @@ angular.module('starter.controllers', [])
       }
     }
 
-    function getPicture(painter, picture) {
-      if ($scope.settings.platformRemote) {
-        if (window.innerWidth <= 400 || !$scope.settings.highQuality) {
-          return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
-        } else {
-          return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
-        }
-      } else {
-        if ($scope.settings.highQuality) {
-          return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
-        } else {
-          return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
-        }
-      }
-    }
 
     function shuffle(o) {
       for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -341,6 +326,23 @@ angular.module('starter.controllers', [])
   }) // controller end
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup) {
+
+
+      $scope.getPicture = function(painter, picture) {
+        if ($scope.settings.platformRemote) {
+          if (window.innerWidth <= 400 || !$scope.settings.highQuality) {
+            return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
+          } else {
+            return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+          }
+        } else {
+          if ($scope.settings.highQuality) {
+            return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+          } else {
+            return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
+          }
+        }
+      };
 
   $scope.openMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -869,6 +871,11 @@ angular.module('starter.controllers', [])
     $scope.infoPainterGenre = $scope.getGenre(painter);
     $scope.infoPainternationality = $scope.getNation(painter);
     $scope.infoPainterYears = painter.years;
+
+    $scope.infoPainterPaintings = [];
+    for (i=0; i < painter.paintings; i++) {
+      $scope.infoPainterPaintings.push($scope.getPicture(painter,i+1));
+    }
 
     if (painter.bio[$scope.settings.langId]) {
       $scope.infoPainterBio = painter.bio[$scope.settings.langId];
