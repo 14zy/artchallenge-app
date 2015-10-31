@@ -373,7 +373,13 @@ angular.module('starter.controllers', [])
   $scope.settings = $localstorage.getObject('settings');
 
   if (!$scope.settings.langId) {
-    $.get("painters/1/thumbnails/1.jpg")
+
+
+    $.ajax({
+      method: "GET",
+      url: "painters/1/thumbnails/1.jpg",
+      async: false
+    })
       .done(function() {
         $scope.settings.platformRemote = false;
         $scope.settings.highQuality = false;
