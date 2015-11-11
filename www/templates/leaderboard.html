@@ -23,13 +23,15 @@
     </div> -->
 
     <h5 ng-if='errorOffline' style='color: #444444'>{{lang.desc.errorOffline}}</h5>
-    <h5 style='color: #444444'>{{lang.sets[settings.currentSet.id+'Set']}}</h5>
-    <h5 style='color: #444444; font-weight: normal;'>Чтобы принять участие в турнире, пройдите игру в одиночном режиме</h5>
+
+    <h5 style='color: #444444'><img ng-src="img/sets/{{settings.currentSet.id}}Set.png" style="height: 30px; margin:0 5px  -10px 0">{{lang.sets[settings.currentSet.id+'Set']}}</h5>
+
+    <!-- <h5 style='color: #444444; font-weight: normal;'>Чтобы принять участие в турнире, пройдите игру в одиночном режиме</h5> -->
 
     <div ng-if='!errorOffline'class='card'>
-      <div ng-repeat="player in leaderboard track by $index" class="button button-full button-answer" style='border: none; padding: ; text-align: left;'>
-        {{$index + 1}}. <i class="ion-person"></i>
-        <text>{{player.value}} <span style='font-size: 12px;'><i class='ion-arrow-graph-up-right energized'></i> {{player.key}} подряд</span></text>
+      <div ng-repeat="player in leaderboard track by $index" class="button button-full button-answer" style='border: none; text-align: left;'>
+        <p>{{$index + 1}}. <i class="ion-person"></i>
+        {{player.value}} <span style='font-size: 12px;'><i class='ion-arrow-graph-up-right energized'></i> {{player.key}} подряд</span></p>
       </div>
     </div>
 

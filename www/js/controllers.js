@@ -55,7 +55,7 @@ angular.module('starter.controllers', [])
           });
 
           switch ($scope.answers.length) {
-            case 10:
+            case 2:
               // soundWin.play();
               if ($scope.gameMode == 'classic') {
                 $("#win").addClass("animated slideInDown");
@@ -249,6 +249,18 @@ angular.module('starter.controllers', [])
             // handle response
           }).catch(function(err) {
             console.log(err);
+            console.log('Пользователя нет в таблице лидеров, регаем его');
+            $scope.leaderboardDB.put(me, $scope.userInfo.email).then(function(response) {
+              $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
+                descending: true,
+                limit: 3000
+              }).then(function(doc) {
+                $scope.leaderboard = doc.rows;
+                $scope.getScore();
+              }).catch(function(err) {
+                console.log(err);
+              });
+            });
           });
         }
       }
@@ -288,14 +300,14 @@ angular.module('starter.controllers', [])
       $scope.leaderboardMyPlace = false;
       angular.forEach($scope.leaderboard, function(value, key) {
         if ($scope.userInfo.email == value.id) {
-          // console.log('here1');
+          console.log('Считаем позицию в таблице лидеров: Пользователь уже зареган и присутствует в таблице лидеров');
           $scope.leaderboardMyPlace = key + 1;
         }
 
         if (!$scope.leaderboardMyPlace && $scope.userStats.leaderboard[$scope.settings.currentSet.id] >= value.key) {
-          // console.log('here2');
-            $scope.leaderboardMyPlace = key + 1;
-            // key = key + 1;
+          console.log('Считаем позицию в таблице лидеров: Пользователь не зареган, но его статс круче чем у кого-либо из базы');
+          $scope.leaderboardMyPlace = key + 1;
+          // key = key + 1;
         }
 
         // console.log(value.id, value.value, value.key, key); //value.id=email, value.value=name, value.key=score, key=place
@@ -328,21 +340,21 @@ angular.module('starter.controllers', [])
 .controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup) {
 
 
-      $scope.getPicture = function(painter, picture) {
-        if ($scope.settings.platformRemote) {
-          if (window.innerWidth <= 400 || !$scope.settings.highQuality) {
-            return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
-          } else {
-            return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
-          }
-        } else {
-          if ($scope.settings.highQuality) {
-            return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
-          } else {
-            return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
-          }
-        }
-      };
+  $scope.getPicture = function(painter, picture, thumb) {
+    if ($scope.settings.platformLocal) {
+      if (!$scope.settings.highQuality || thumb) {
+        return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
+      } else {
+        return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+      }
+    } else {
+      if (!$scope.settings.highQuality || thumb) {
+        return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
+      } else {
+        return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+      }
+    }
+  };
 
   $scope.openMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -350,7 +362,11 @@ angular.module('starter.controllers', [])
 
   $scope.gameMode = "classic";
   $scope.changeGameMode = function(mode) {
-    $scope.gameMode = mode;
+    if ($scope.settings.registered === false && mode != 'classic') {
+      $scope.login();
+    } else {
+      $scope.gameMode = mode;
+    }
   };
 
   window.MY_SCOPE = $scope; // удалить в продакшне
@@ -374,18 +390,22 @@ angular.module('starter.controllers', [])
 
   if (!$scope.settings.langId) {
 
-
     $.ajax({
-      method: "GET",
-      url: "painters/1/thumbnails/1.jpg",
-      async: false
-    })
+        method: "GET",
+        url: "painters/1/thumbnails/1.jpg",
+        async: false
+      })
       .done(function() {
-        $scope.settings.platformRemote = false;
+        $scope.settings.platformLocal = true;
         $scope.settings.highQuality = false;
-      }).fail(function() {
-        $scope.settings.platformRemote = true;
-        $scope.settings.highQuality = true;
+      })
+      .fail(function() {
+        $scope.settings.platformLocal = false;
+        $scope.settings.highQuality = false;
+        if (window.innerWidth >= 500) {
+          console.log('hight quality auto on');
+          $scope.settings.highQuality = true;
+        }
       }).always(function() {
 
         var lang = window.navigator.userLanguage || window.navigator.language;
@@ -398,6 +418,7 @@ angular.module('starter.controllers', [])
         $scope.settings.currentSet = $scope.sets[0];
         $scope.settings.registered = false;
         $scope.settings.abuse = true;
+
       });
   }
 
@@ -879,8 +900,8 @@ angular.module('starter.controllers', [])
     $scope.infoPainterYears = painter.years;
 
     $scope.infoPainterPaintings = [];
-    for (i=0; i < painter.paintings; i++) {
-      $scope.infoPainterPaintings.push($scope.getPicture(painter,i+1));
+    for (i = 0; i < painter.paintings; i++) {
+      $scope.infoPainterPaintings.push($scope.getPicture(painter, i + 1, true));
     }
 
     if (painter.bio[$scope.settings.langId]) {
@@ -924,7 +945,12 @@ angular.module('starter.controllers', [])
   $scope.calcPictureMargin = function() {
     //добавляем отступ сверху, чтобы картина была по середине
     window.margin = 0;
-    window.margin = (($('.background').height() - 50 - $('#buttons').height()) - $('#picture').height()) / 2;
+    if (window.innerWidth <= 400) {
+      window.margin = (($('.background').height() - $('#navigation').height() - $('#buttons').height()) - $('#picture').height()) / 2;
+    } else {
+      window.margin = ($('.background').height() - ($('#navigation').height() * 2) - $('#picture').height()) / 2;
+    }
+
     if (window.margin < 0) {
       window.margin = 0;
     }
