@@ -19,9 +19,9 @@
           </span>
         </div>
         <div class="col col-10">
-          <!-- <div onclick="alert('Тут будет возможность поделиться картиной с друзьями или сохранить её');">
-				<i class="ion-ios-upload-outline"></i>
-			</div> -->
+          <div ng-click="hideAnswers()">
+				    <i class="ion-ios-search-strong"></i>
+			   </div>
         </div>
       </div>
 
@@ -31,16 +31,16 @@
             <i class="ion-navicon" id='menuIcon'></i>
           </div>
         </div>
-        <div class="col col-90" style='margin-top: 1px; font-size: 16px; font-weight: normal;' ng-click='showLeaderboard()'>
+        <div class="col col-80" style='margin-top: 1px; font-size: 16px; font-weight: normal;' ng-click='showLeaderboard()'>
           <i class="ion-arrow-graph-up-right"></i> {{answers.length}}
           /
           <i class="ion-arrow-graph-up-right energized"></i> {{userStats.leaderboard[settings.currentSet.id]}}
           <span ng-if='leaderboardMyPlace!=false'>/ <i class="ion-podium energized"></i> Вы на {{leaderboardMyPlace}} месте</span>
         </div>
         <div class="col col-10">
-          <!-- <div >
-             <i class="ion-podium energized"></i>
-          </div> -->
+          <div ng-click="hideAnswers()">
+				    <i class="ion-ios-search-strong"></i>
+			   </div>
         </div>
       </div>
 

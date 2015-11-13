@@ -92,12 +92,12 @@
         margin: 0 auto
     }
     .ui-pnotify.answerRight {
-        opacity: 0.9!important;
+        opacity: 1!important;
         background: #7ED321;
         width: 100%!important;
     }
     .ui-pnotify.answerWrong {
-        opacity: 0.9!important;
+        opacity: 1!important;
         background: #D0021B;
         width: 100%!important;
     }
