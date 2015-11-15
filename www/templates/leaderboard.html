@@ -31,7 +31,7 @@
     <div ng-if='!errorOffline'class='card'>
       <div ng-repeat="player in leaderboard track by $index" class="button button-full button-answer" style='border: none; text-align: left;'>
         <p>{{$index + 1}}. <i class="ion-person"></i>
-        {{player.value}} <span style='font-size: 12px;'><i class='ion-arrow-graph-up-right energized'></i> {{player.key}} подряд</span></p>
+        {{player.value}} <span style='font-size: 12px;'><i class='ion-arrow-graph-up-right energized'></i> {{player.key}} {{lang.desc.picturesInRow}}</span></p>
       </div>
     </div>
 

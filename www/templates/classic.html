@@ -35,7 +35,7 @@
           <i class="ion-arrow-graph-up-right"></i> {{answers.length}}
           /
           <i class="ion-arrow-graph-up-right energized"></i> {{userStats.leaderboard[settings.currentSet.id]}}
-          <span ng-if='leaderboardMyPlace!=false'>/ <i class="ion-podium energized"></i> Вы на {{leaderboardMyPlace}} месте</span>
+          <span ng-if='leaderboardMyPlace!=false'>/ <i class="ion-podium energized"></i> {{lang.desc.yourPlace.replace('__place__', leaderboardMyPlace)}}</span> <!--  -->
         </div>
         <div class="col col-10">
           <div ng-click="hideAnswers()">
@@ -71,15 +71,15 @@
 
     <div id='winDesc'>
       <h2>{{lang.message.winner}}</h2>
-      <p>Вы великолепно разбираетесь в коллекции
-        <b>Популярные художники</b>!</p>
-      <p>Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:</p>
+      <p>{{lang.message.winnerMobile}}
+        <b>{{lang.sets[settings.currentSet.id+'Set']}}</b>!</p>
+      <p>{{lang.message.shareOrTournament}}</p>
       <button class="button button-full button-positive" ng-click='showShare();'>
         <i class='icon ion-ios-upload-outline'></i>
-        Рассказать друзьям</button>
+        {{lang.message.shareWithFriends}}</button>
       <button class="button button-full button-energized" ng-click='changeGameMode("tournament");'>
         <i class='icon ion-trophy'></i>
-        Турнир</button>
+        {{lang.message.playTournament}}</button>
     </div>
 
   </ion-content>

@@ -3247,7 +3247,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Ошибка регистрации: Пользователь с такими E-mail уже существует",
 			"loginMessageErrorForbiddenName": "Ошибка регистрации: Запрещенное имя пользователя",
 			"loginMessageErrorServer": "Ошибка регистрации: Сервер не доступен, попробуйте позже",
-      "errorOffline": "Отсутствует подключение к интернету"
+      "errorOffline": "Отсутствует подключение к интернету",
+      "swipeToChange": "ЛИСТАЙТЕ ДЛЯ СМЕНЫ",
+      "yourPlace": "Вы на __place__ месте",
+      "highQualityPictures": "Высокое качество",
+      "highQualityPicturesDesc": "Картинки высокого качества будут загружаться из интернета",
+      "picturesInRow": "подряд"
 		},
 		"message": {
 			"right": "Верно!",
@@ -3261,7 +3266,11 @@ angular.module('starter.services', [])
 			"winner": "Поздравляем!",
 			"winner-desc": "Коллекция <strong>__setName__</strong> пройдена!",
 			"winner-desc-old": "Вы великолепно разбираетесь в искусстве! 10 из 10 – это лучше, чем 82% людей, сыгравших в эту игру!",
-			"share": "Вы можете рассказать о победе в социальных сетях:"
+			"share": "Вы можете рассказать о победе в социальных сетях:",
+      "winnerMobile": "Вы великолепно разбираетесь в коллекции",
+      "shareOrTournament": "Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:",
+      "shareWithFriends": "Рассказать друзьям",
+      "playTournament": "Турнир"
 		},
 		"badPhrases": {
 			"1": "Да Вы обезумели!",
@@ -3572,7 +3581,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
-      "errorOffline": "No internet connection"
+      "errorOffline": "No internet connection",
+      "swipeToChange": "SWIPE BETWEEN COLLECTIONS",
+      "yourPlace": "__place__ place",
+      "highQualityPictures": "High quality",
+      "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
+      "picturesInRow": "in a row"
 		},
 		"message": {
 			"right": "You got it right!",
@@ -3586,7 +3600,11 @@ angular.module('starter.services', [])
 			"winner": "Congratulations!",
 			"winner-desc": "Collection of <strong>__setName__</strong> passed!",
 			"winner-desc-old": "You are really good at Art!<br>10 out of 10 – it is better than 82% of people who has played this game!",
-			"share": "You can share your victory with friends:"
+			"share": "You can share your victory with friends:",
+      "winnerMobile": "You are really good at collection",
+      "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
+      "shareWithFriends": "Share with friends",
+      "playTournament": "Tournament"
 		},
 		"badPhrases": {
 			"1": "You are nuts!",
@@ -3897,7 +3915,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
-      "errorOffline": "No internet connection"
+      "errorOffline": "No internet connection",
+      "swipeToChange": "SWIPE BETWEEN COLLECTIONS",
+      "yourPlace": "__place__ place",
+      "highQualityPictures": "High quality",
+      "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
+      "picturesInRow": "in a row"
 		},
 		"message": {
 			"right": "Richtig!",
@@ -3911,7 +3934,11 @@ angular.module('starter.services', [])
 			"winner": "Unsere Gratulationen",
 			"winner-desc": "Sammlung von <strong>__setName__</strong> bestanden!",
 			"winner-desc-old": "Sie verstehen viel von Kunst<br>10 aus 10 das ist besser als 82% von Menschen, die bei diesem Spiel mitgemacht haben!",
-			"share": "Sie können von Ihrem Sieg im sozialen Netzwerk berichten:"
+			"share": "Sie können von Ihrem Sieg im sozialen Netzwerk berichten:",
+      "winnerMobile": "You are really good at collection",
+      "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
+      "shareWithFriends": "Share with friends",
+      "playTournament": "Tournament"
 		},
 		"badPhrases": {
 			"1": "Sie sind ja verrückt geworden!",
@@ -4221,7 +4248,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
-      "errorOffline": "No internet connection"
+      "errorOffline": "No internet connection",
+      "swipeToChange": "SWIPE BETWEEN COLLECTIONS",
+      "yourPlace": "__place__ place",
+      "highQualityPictures": "High quality",
+      "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
+      "picturesInRow": "in a row"
 		},
 		"message": {
 			"right": "¡Has acertado!",
@@ -4235,7 +4267,11 @@ angular.module('starter.services', [])
 			"winner": "¡Enhorabuena!",
 			"winner-desc": "Colección de <strong>__setName__</strong> pasó!",
 			"winner-desc-old": "¡Se te da muy bien el arte!<br>10 de los 10 – está bastante mejor que el 82% de la gente que ha jugado a esto!",
-			"share": "Puedes compartir tu victoria con tus amigos:"
+			"share": "Puedes compartir tu victoria con tus amigos:",
+      "winnerMobile": "You are really good at collection",
+      "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
+      "shareWithFriends": "Share with friends",
+      "playTournament": "Tournament"
 		},
 		"badPhrases": {
 			"1": "¡Estás loco!",
@@ -4545,7 +4581,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
-      "errorOffline": "No internet connection"
+      "errorOffline": "No internet connection",
+      "swipeToChange": "SWIPE BETWEEN COLLECTIONS",
+      "yourPlace": "__place__ place",
+      "highQualityPictures": "High quality",
+      "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
+      "picturesInRow": "in a row"
 		},
 		"message": {
 			"right": "Exact!",
@@ -4559,7 +4600,11 @@ angular.module('starter.services', [])
 			"winner": "Félicitations!",
 			"winner-desc": "Collection <strong>__setName__</strong> passé!",
 			"winner-desc-old": "Vous êtes un connaisseur de l'art!<br>10 sur 10 - c' est mieux que 82% des gens qui ont joué ce jeu!",
-			"share": "Vous pouvez parler de votre victoire dans les réseaux sociaux:"
+			"share": "Vous pouvez parler de votre victoire dans les réseaux sociaux:",
+      "winnerMobile": "You are really good at collection",
+      "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
+      "shareWithFriends": "Share with friends",
+      "playTournament": "Tournament"
 		},
 		"badPhrases": {
 			"1": "Mais, vous êtes fou!",
@@ -4869,7 +4914,12 @@ angular.module('starter.services', [])
 			"loginMessageErrorDuplicate": "Registration error: User with such E-mail address already exists",
 			"loginMessageErrorForbiddenName": "Registration error: Forbidden username",
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
-      "errorOffline": "No internet connection"
+      "errorOffline": "No internet connection",
+      "swipeToChange": "SWIPE BETWEEN COLLECTIONS",
+      "yourPlace": "__place__ place",
+      "highQualityPictures": "High quality",
+      "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
+      "picturesInRow": "in a row"
 		},
 		"message": {
 			"right": "Giusto!",
@@ -4884,7 +4934,11 @@ angular.module('starter.services', [])
 			"winner": "Augurissimi!",
 			"winner-desc": "La collezione <strong>__setName__</strong> è superata!",
 			"winner-desc-old": "Lei è perfettamente versato/a nell'arte!<br>10 su 10 – è meglio del 82% delle persone che hanno partecipato a questo gioco!",
-			"share": "Può condividere la Sua vittoria nelle reti sociali:"
+			"share": "Può condividere la Sua vittoria nelle reti sociali:",
+      "winnerMobile": "You are really good at collection",
+      "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
+      "shareWithFriends": "Share with friends",
+      "playTournament": "Tournament"
 		},
 		"badPhrases": {
 			"1": "Ma Lei è impazito/a?",
