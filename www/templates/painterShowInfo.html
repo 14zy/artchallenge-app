@@ -9,8 +9,8 @@
   </ion-header-bar>
   <ion-content>
 
-    <div class="item" style='padding: 0px; text-align: center;'>
-      <img style='width: 80%' ng-src="img/painters/{{infoPainterId}}.jpg">
+    <div class="item" style='padding: 0px; text-align: center; border: 0; width: 100%'>
+      <img class='bioPhoto' ng-src="img/painters/{{infoPainterId}}.jpg">
       <div class='row'>
         <div class="col">
           <p>
@@ -31,21 +31,16 @@
       {{Painters.all()}} -->
 
       <ion-slide-box active-slide="" show-pager="false" on-slide-changed="" style='height: 250px; background-color: lightgray; padding: 10px 0 10px 0; margin: 5px 0 5px 0'>
-        <ion-slide ng-repeat="painting in infoPainterPaintings">
-
-            <img class='picture-thumb' ng-src="{{painting}}" style="max-height: 100%; width%">
-            <!-- <div style='color: white; font-size: 14px; line-height: 20px;'>{{lang.sets[set.id+'Set']}}</div> -->
-
+        <ion-slide ng-repeat="painting in infoPainterPaintings | limitTo : 50">
+          <img class='picture-thumb' ng-src="{{painting}}" style="max-height: 100%;">
         </ion-slide>
-
       </ion-slide-box>
+
       <text style='font-size: 12px;'><i class='ion-arrow-left-b'></i> ЛИСТАЙТЕ ДЛЯ СМЕНЫ <i class='ion-arrow-right-b'></i></text>
-
-
 
       <div class='row item-body'>
         <div class="col">
-          <p ng-bind-html="infoPainterBio" style='text-align: left;'></p>
+          <p style='margin: 0 5px 10px 5px;text-align: left;' ng-bind-html="infoPainterBio"></p>
 
           <a class="button button-full button-positive" href='{{infoPainterLink}}' target="_blank">
             Wikipedia

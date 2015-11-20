@@ -158,6 +158,10 @@ a {
   background-size: auto 100%;
 }
 
+.bioPhoto {
+  width: 80%;
+}
+
 /* Smartphones (portrait and landscape) ----------- */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
@@ -168,6 +172,15 @@ a {
 
 @media only screen and (min-width: 400px) {
   /* Styles */
+
+  .bioPhoto {
+    width: 30%;
+    pading-top: 10px
+  }
+
+  .players {
+    margin-left: 10px;
+  }
 
   #win {
     top: 25%;
