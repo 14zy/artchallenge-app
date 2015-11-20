@@ -337,7 +337,7 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup) {
+.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup,$cordovaSocialSharing) {
 
   $scope.show = function() {
     $ionicLoading.show({
@@ -1025,7 +1025,13 @@ angular.module('starter.controllers', [])
   };
 
   $scope.showShare = function() {
-    alert('share');
+    $cordovaSocialSharing
+   .share("message", "subj", "file", "link") // Share via native share sheet
+   .then(function(result) {
+     // Success!
+   }, function(err) {
+     // An error occured. Show a message to the user
+   });
   };
 
 })
