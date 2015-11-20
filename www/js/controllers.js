@@ -337,10 +337,20 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup) {
+.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup) {
 
+  $scope.show = function() {
+    $ionicLoading.show({
+      template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: false
+    });
+  };
+  $scope.hide = function(){
+    $ionicLoading.hide();
+  };
 
   $scope.getPicture = function(painter, picture, thumb) {
+    $scope.show();
     if ($scope.settings.platformLocal) {
       if (!$scope.settings.highQuality || thumb) {
         return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
@@ -967,6 +977,7 @@ angular.module('starter.controllers', [])
       $('#picture').addClass('animated fadeInRight');
     }
     $scope.calcPictureMargin();
+    $scope.hide();
   };
 
   getRandomIndex = function(length) {
