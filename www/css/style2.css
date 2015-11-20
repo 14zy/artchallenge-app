@@ -339,6 +339,12 @@ a {
   .button-answer {
     height: 120px!important;
   }
+
+  .button-answer:hover {
+    background-color: rgba(56,126,245,0.5);
+    border-color: rgba(56,126,245,0.5);
+  }
+
   .button-answer text {
     font-size: 2vw
   }
