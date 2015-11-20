@@ -131,12 +131,12 @@ a {
 #win {
   display: none;
   position: absolute;
-  top: 14%;
+  top: 12%;
   width: 100%;
   z-index: 2;
 }
 #win img {
-  width: 80%;
+  width: auto;
 }
 #winDesc {
   display: none;
@@ -147,7 +147,7 @@ a {
   padding: 10px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
-  z-index: 2;
+  z-index: 3;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.20), 0px 1px 1px 0px rgba(69, 63, 7, 0.22), 0px 2px 5px 3px rgba(0, 0, 0, 0.20);
 }
 #selectSetImg {
@@ -168,6 +168,14 @@ a {
 
 @media only screen and (min-width: 400px) {
   /* Styles */
+
+  #win {
+    top: 25%;
+  }
+  #win img {
+    width: 40%;
+  }
+
   #buttons {
     /*bottom: 2%;*/
   }
@@ -321,18 +329,43 @@ a {
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   /* Styles */
 
+  #win {
+    top: 25%;
+  }
+  #win img {
+    width: 30%;
+  }
+
+
 }
 
 /* iPads (portrait) ----------- */
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
   /* Styles */
+
+  #win {
+    top: 25%;
+  }
+  #win img {
+    width: 50%;
+  }
+
+
 }
 
 /* Desktops and laptops ----------- */
 
 @media only screen and (min-width: 1224px) {
   /* Styles */
+
+  #win {
+    top: 25%;
+  }
+  #win img {
+    width: 20%;
+  }
+
   #buttons {
     bottom: 0%;
   }
