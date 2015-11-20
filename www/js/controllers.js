@@ -948,7 +948,7 @@ angular.module('starter.controllers', [])
     if (window.innerWidth <= 400) {
       window.margin = (($('.background').height() - $('#navigation').height() - $('#buttons').height()) - $('#picture').height()) / 2;
     } else {
-      window.margin = ($('.background').height() - ($('#navigation').height() * 2) - $('#picture').height()) / 2;
+      window.margin = ($('.background').height() - ($('#navigation').height()) - $('#buttons').height() - $('#picture').height()) / 2;
     }
 
     if (window.margin < 0) {
