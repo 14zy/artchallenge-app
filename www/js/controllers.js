@@ -339,6 +339,7 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup,$cordovaSocialSharing) {
 
+
   $scope.show = function() {
     $ionicLoading.show({
       template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner>',
@@ -350,7 +351,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.getPicture = function(painter, picture, thumb) {
-    $scope.show();
+    // $scope.show();
     if ($scope.settings.platformLocal) {
       if (!$scope.settings.highQuality || thumb) {
         return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";

@@ -1,4 +1,11 @@
 {
   "name": "Art Challenge",
-  "app_id": "98a2e9bf"
+  "app_id": "98a2e9bf",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
 }
