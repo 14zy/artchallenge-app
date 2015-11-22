@@ -5200,7 +5200,7 @@ angular.module('starter.services', [])
 
 		basic: function () {
 			var paintersSet = [];
-			var paintersSetIDs = [1, 4, 7, 9, 14, 15, 17, 19, 21, 22, 24, 26, 27, 28, 29, 30, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 45, 46, 49, 50, 53, 54, 55, 57, 58, 61, 62, 63, 69, 73, 75, 77, 79, 80, 82, 83, 94, 95, 112, 118];
+			var paintersSetIDs = [1, 4, 7, 9, 14, 15, 17, 19, 21, 22, 24, 26, 27, 28, 29, 30, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 45, 46, 49, 50, 53, 54, 55, 57, 58, 61, 62, 63, 69, 72, 73, 75, 77, 79, 80, 82, 83, 94, 95, 112, 118];
 			angular.forEach(painters, function (value) {
 				if (paintersSetIDs.indexOf(value.id) > -1) {
 					this.push(value)
