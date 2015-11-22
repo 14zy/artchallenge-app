@@ -337,8 +337,16 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup,$cordovaSocialSharing) {
+.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform) {
 
+  $ionicPlatform.registerBackButtonAction(function(event) {
+    if ($ionicHistory.currentStateName() == "app.classic") {
+      // ionic.Platform.exitApp();
+      // or do nothing
+    } else {
+      $ionicHistory.goBack();
+    }
+  }, 100);
 
   $scope.show = function() {
     $ionicLoading.show({
@@ -346,7 +354,7 @@ angular.module('starter.controllers', [])
       noBackdrop: false
     });
   };
-  $scope.hide = function(){
+  $scope.hide = function() {
     $ionicLoading.hide();
   };
 
@@ -397,41 +405,70 @@ angular.module('starter.controllers', [])
     // {id: "all"}
   ];
 
-  $scope.settings = $localstorage.getObject('settings');
+  $ionicPlatform.ready(function() {
+    console.log("deviceready");
 
-  if (!$scope.settings.langId) {
+    $scope.settings = $localstorage.getObject('settings');
+    if (!$scope.settings.langId) {
+      //platform local
+      // console.log("platform lcoal on");
+      // $scope.settings.platformLocal = true;
+      // $scope.settings.highQuality = false;
 
-    $.ajax({
-        method: "GET",
-        url: "painters/1/thumbnails/1.jpg",
-        async: false
-      })
-      .done(function() {
-        $scope.settings.platformLocal = true;
-        $scope.settings.highQuality = false;
-      })
-      .fail(function() {
-        $scope.settings.platformLocal = false;
-        $scope.settings.highQuality = false;
-        if (window.innerWidth >= 500) {
-          console.log('hight quality auto on');
-          $scope.settings.highQuality = true;
-        }
-      }).always(function() {
+      //platform remote
+      console.log("platform remote on");
+      $scope.settings.platformLocal = false;
+      $scope.settings.highQuality = false;
+      if (window.innerWidth >= 500) {
+        console.log('hight quality auto on');
+        $scope.settings.highQuality = true;
+      }
 
-        var lang = window.navigator.userLanguage || window.navigator.language;
-        lang = lang.substring(0, 2).toLowerCase();
-        if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es") {} else {
-          lang = "en";
-        }
+      //always
+      var lang = window.navigator.userLanguage || window.navigator.language;
+      lang = lang.substring(0, 2).toLowerCase();
+      if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es") {} else {
+        lang = "en";
+      }
+      $scope.settings.langId = lang;
+      $scope.settings.currentSet = $scope.sets[0];
+      $scope.settings.registered = false;
+      $scope.settings.abuse = true;
 
-        $scope.settings.langId = lang;
-        $scope.settings.currentSet = $scope.sets[0];
-        $scope.settings.registered = false;
-        $scope.settings.abuse = true;
+      //old style
+      // $.ajax({
+      //     method: "GET",
+      //     url: "painters/1/thumbnails/1.jpg",
+      //     async: false
+      //   })
+      //   .done(function() {
+      //     $scope.settings.platformLocal = true;
+      //     $scope.settings.highQuality = false;
+      //   })
+      //   .fail(function() {
+      //     $scope.settings.platformLocal = false;
+      //     $scope.settings.highQuality = false;
+      //     if (window.innerWidth >= 500) {
+      //       console.log('hight quality auto on');
+      //       $scope.settings.highQuality = true;
+      //     }
+      //   }).always(function() {
+      //
+      //     var lang = window.navigator.userLanguage || window.navigator.language;
+      //     lang = lang.substring(0, 2).toLowerCase();
+      //     if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es") {} else {
+      //       lang = "en";
+      //     }
+      //
+      //     $scope.settings.langId = lang;
+      //     $scope.settings.currentSet = $scope.sets[0];
+      //     $scope.settings.registered = false;
+      //     $scope.settings.abuse = true;
+      //
+      //   });
+    }
 
-      });
-  }
+  });
 
   $scope.$watch('settings', function(newVal, oldVal) {
     $localstorage.setObject('settings', $scope.settings);
@@ -1025,14 +1062,15 @@ angular.module('starter.controllers', [])
     $window.location.reload(true);
   };
 
+
   $scope.showShare = function() {
     $cordovaSocialSharing
-   .share("message", "subj", "file", "link") // Share via native share sheet
-   .then(function(result) {
-     // Success!
-   }, function(err) {
-     // An error occured. Show a message to the user
-   });
+      .share("Господа, я отлично разбираюсь в искусстве! Попробуйте отгадать 10 художников подряд и посоревноваться со мной!", "Art Challenge – Игра на знание популярных художников", "http://artchallenge.ru/pics/badges/basicSet/winner-badge-ru-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
+      .then(function(result) {
+        // Success!
+      }, function(err) {
+        // An error occured. Show a message to the user
+      });
   };
 
 })
