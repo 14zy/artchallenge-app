@@ -74,7 +74,7 @@
       <p>{{lang.message.winnerMobile}}
         <b>{{lang.sets[settings.currentSet.id+'Set']}}</b>!</p>
       <p>{{lang.message.shareOrTournament}}</p>
-      <button class="button button-full button-positive" ng-click='showShare();'>
+      <button id='btnShowShare' class="button button-full button-positive" ng-click='showShare();'>
         <i class='icon ion-ios-upload-outline'></i>
         {{lang.message.shareWithFriends}}</button>
       <button class="button button-full button-energized" ng-click='changeGameMode("tournament");'>

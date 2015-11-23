@@ -57,9 +57,9 @@
             <button class="button button-full button-answer" ng-repeat="painter in showPainters(set) track by $index" on-tap="showPainterInfoOnHold($event)" style='border: none; text-align: center; padding: 0'>
               <div class="circle"><img ng-src="img/painters/{{painter.id}}.jpg"></div>
               <text style='padding-left: 50px'>{{lang.painters[painter.id]}}
-                <!-- <span style='font-size: 12px; color: lightgray'>
+                <span style='font-size: 12px; color: lightgray'>
                   <i class='ion-image'></i>
-                  {{painter.paintings}}</span> -->
+                  {{painter.paintings}}</span>
               </text>
               <div id='painterId' style='display: none'>{{painter.id}}</div>
             </button>

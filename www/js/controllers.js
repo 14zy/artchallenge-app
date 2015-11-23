@@ -408,6 +408,7 @@ angular.module('starter.controllers', [])
   $ionicPlatform.ready(function() {
     console.log("deviceready");
 
+
     $scope.settings = $localstorage.getObject('settings');
     if (!$scope.settings.langId) {
       //platform local
@@ -1062,13 +1063,18 @@ angular.module('starter.controllers', [])
     $window.location.reload(true);
   };
 
-
   $scope.showShare = function() {
+    $("#btnShowShare").html("<i class='ion-load-a'></i>");
     $cordovaSocialSharing
-      .share("Господа, я отлично разбираюсь в искусстве! Попробуйте отгадать 10 художников подряд и посоревноваться со мной!", "Art Challenge – Игра на знание популярных художников", "http://artchallenge.ru/pics/badges/basicSet/winner-badge-ru-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
+      .share($scope.lang.shares.title + " " + $scope.lang.shares.description, $scope.lang.shares.caption, "http://artchallenge.ru/pics/badges/" + $scope.settings.currentSet.id+ "Set/winner-badge-" + $scope.settings.langId+ "-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
       .then(function(result) {
         // Success!
+        $("#btnShowShare").html("<i class='icon ion-checkmark-round'></i> " + $scope.lang.message.shareWithFriends);
+        // $("#btnShowShare").removeClass("button-positive");
+        // $("#btnShowShare").addClass("button-balanced");
+        $("#btnShowShare").addClass("disabled");
       }, function(err) {
+        alert("Произошла ошибка :(");
         // An error occured. Show a message to the user
       });
   };
