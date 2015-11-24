@@ -220,7 +220,6 @@ angular.module('starter.controllers', [])
         $scope.picturePreload();
         $scope.newRound();
         $scope.answers = [];
-        $scope.leaderboardMyPlace = false;
       }
     }, true);
 
@@ -241,7 +240,7 @@ angular.module('starter.controllers', [])
           $scope.leaderboardDB.get($scope.userInfo.email).then(function(doc) {
             return $scope.leaderboardDB.put(me, $scope.userInfo.email, doc._rev);
           }).then(function(response) {
-            console.log(response);
+            // console.log(response);
             $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
               descending: true,
               limit: 3000
@@ -302,7 +301,9 @@ angular.module('starter.controllers', [])
     };
 
     $scope.getScore = function() {
+
       $scope.leaderboardMyPlace = false;
+
       angular.forEach($scope.leaderboard, function(value, key) {
         if ($scope.userInfo.email == value.id) {
           console.log('Считаем позицию в таблице лидеров: Пользователь уже зареган и присутствует в таблице лидеров');
@@ -335,7 +336,18 @@ angular.module('starter.controllers', [])
           $("#winDesc").removeClass("animated fadeOutDown");
         }, 2000);
 
-        $scope.getScore();
+        $scope.leaderboardMyPlace = false;
+
+        $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
+          descending: true,
+          limit: 3000
+        }).then(function(doc) {
+          $scope.leaderboard = doc.rows;
+          $scope.getScore();
+          $scope.$apply();
+        }).catch(function(err) {
+          console.log(err);
+        });
 
       }
     }, true);
