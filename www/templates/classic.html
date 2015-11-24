@@ -9,7 +9,7 @@
             <i class="ion-navicon" id='menuIcon'></i>
           </div>
         </div>
-        <div class="col col-60" style='margin-top: -1px'  ng-click='changeGameMode("tournament");'>
+        <div class="col col-60" style='margin-top: -1px'> <!-- ng-click='changeGameMode("tournament");' -->
 
           <span ng-repeat="i in answers track by $index">
             <i ng-class="{true: 'score-right ion-ios-checkmark-outline', false: 'score-fail ion-ios-close-outline'}[i]" style='font-size: 16px;'></i>

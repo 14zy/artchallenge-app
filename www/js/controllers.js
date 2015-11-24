@@ -57,7 +57,7 @@ angular.module('starter.controllers', [])
           });
 
           switch ($scope.answers.length) {
-            case 2:
+            case 10:
               // soundWin.play();
               if ($scope.gameMode == 'classic') {
                 $("#win").addClass("animated slideInDown");
