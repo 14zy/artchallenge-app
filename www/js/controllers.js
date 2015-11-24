@@ -10,6 +10,8 @@ angular.module('starter.controllers', [])
 
     $scope.newRound = function() {
 
+      $scope.show();
+
       buttonsAreWorking = true;
 
       currentPainter = newPainter;
@@ -109,7 +111,7 @@ angular.module('starter.controllers', [])
                 $(event.target).removeClass("button-answer-right");
                 $scope.newRound();
                 $scope.$apply();
-              }, 1500);
+              }, 1900);
           }
         } else {
           $scope.answers.push(false);
@@ -177,7 +179,7 @@ angular.module('starter.controllers', [])
             rightAnswerBtn = null;
             $scope.newRound();
             $scope.$apply();
-          }, 2500);
+          }, 2900);
 
         }
         updateDB();
@@ -362,16 +364,22 @@ angular.module('starter.controllers', [])
       template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><br>Loading',
       noBackdrop: false
     });
+
+    $scope.timer = $timeout(function() {
+      $ionicLoading.show({
+        template: '<ion-spinner icon="ripple" class="spinner-balanced"></ion-spinner><br>No Internet Connection',
+        noBackdrop: false
+      });
+    }, 10000);
+
   };
 
-
   $scope.hide = function() {
+    $timeout.cancel($scope.timer);
     $ionicLoading.hide();
   };
 
-
   $scope.getPicture = function(painter, picture, thumb) {
-    $scope.show();
     if ($scope.settings.platformLocal) {
       if (!$scope.settings.highQuality || thumb) {
         return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
@@ -1082,9 +1090,9 @@ angular.module('starter.controllers', [])
       .then(function(result) {
         // Success!
         $("#btnShowShare").html("<i class='icon ion-checkmark-round'></i> " + $scope.lang.message.shareWithFriends);
-        // $("#btnShowShare").removeClass("button-positive");
-        // $("#btnShowShare").addClass("button-balanced");
-        $("#btnShowShare").addClass("disabled");
+        $("#btnShowShare").removeClass("button-positive");
+        $("#btnShowShare").addClass("button-balanced");
+        // $("#btnShowShare").addClass("disabled");
       }, function(err) {
         alert("Произошла ошибка :(");
         // An error occured. Show a message to the user
