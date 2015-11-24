@@ -3270,7 +3270,8 @@ angular.module('starter.services', [])
       "winnerMobile": "Вы великолепно разбираетесь в коллекции",
       "shareOrTournament": "Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:",
       "shareWithFriends": "Рассказать друзьям",
-      "playTournament": "Турнир"
+      "playTournament": "Турнир",
+      "loading": "Загрузка"
 		},
 		"badPhrases": {
 			"1": "Да Вы обезумели!",
@@ -3604,7 +3605,8 @@ angular.module('starter.services', [])
       "winnerMobile": "You are really good at collection",
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
-      "playTournament": "Tournament"
+      "playTournament": "Tournament",
+      "loading": "Loading"
 		},
 		"badPhrases": {
 			"1": "You are nuts!",
@@ -3938,7 +3940,8 @@ angular.module('starter.services', [])
       "winnerMobile": "You are really good at collection",
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
-      "playTournament": "Tournament"
+      "playTournament": "Tournament",
+      "loading": "Laden"
 		},
 		"badPhrases": {
 			"1": "Sie sind ja verrückt geworden!",
@@ -4271,7 +4274,8 @@ angular.module('starter.services', [])
       "winnerMobile": "You are really good at collection",
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
-      "playTournament": "Tournament"
+      "playTournament": "Tournament",
+      "loading": "Cargando"
 		},
 		"badPhrases": {
 			"1": "¡Estás loco!",
@@ -4604,7 +4608,8 @@ angular.module('starter.services', [])
       "winnerMobile": "You are really good at collection",
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
-      "playTournament": "Tournament"
+      "playTournament": "Tournament",
+      "loading": "Chargement"
 		},
 		"badPhrases": {
 			"1": "Mais, vous êtes fou!",
@@ -4938,7 +4943,8 @@ angular.module('starter.services', [])
       "winnerMobile": "You are really good at collection",
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
-      "playTournament": "Tournament"
+      "playTournament": "Tournament",
+      "loading": "Caricamento"
 		},
 		"badPhrases": {
 			"1": "Ma Lei è impazito/a?",

@@ -213,10 +213,13 @@ angular.module('starter.controllers', [])
     }
 
     $scope.$watch('settings.currentSet', function(newVal, oldVal) {
-      $scope.painters = Painters[$scope.settings.currentSet.id]();
-      $scope.picturePreload();
-      $scope.newRound();
-      $scope.answers = [];
+      if (newVal != oldVal) {
+        $scope.painters = Painters[$scope.settings.currentSet.id]();
+        $scope.picturePreload();
+        $scope.newRound();
+        $scope.answers = [];
+        $scope.leaderboardMyPlace = false;
+      }
     }, true);
 
     $scope.addAnswer = function(answer) {
@@ -335,6 +338,12 @@ angular.module('starter.controllers', [])
       }
     }, true);
 
+    $scope.painters = Painters[$scope.settings.currentSet.id]();
+    $scope.picturePreload();
+    $scope.newRound();
+    $scope.answers = [];
+
+
   }) // controller end
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform) {
@@ -350,16 +359,19 @@ angular.module('starter.controllers', [])
 
   $scope.show = function() {
     $ionicLoading.show({
-      template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner>',
+      template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><br>Loading',
       noBackdrop: false
     });
   };
+
+
   $scope.hide = function() {
     $ionicLoading.hide();
   };
 
+
   $scope.getPicture = function(painter, picture, thumb) {
-    // $scope.show();
+    $scope.show();
     if ($scope.settings.platformLocal) {
       if (!$scope.settings.highQuality || thumb) {
         return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
@@ -407,7 +419,6 @@ angular.module('starter.controllers', [])
 
   $ionicPlatform.ready(function() {
     console.log("deviceready");
-
 
     $scope.settings = $localstorage.getObject('settings');
     if (!$scope.settings.langId) {
@@ -477,6 +488,7 @@ angular.module('starter.controllers', [])
 
   $scope.$watch('settings.langId', function(newVal, oldVal) {
     $scope.lang = Painters[$scope.settings.langId]();
+    // console.log("lang");
   }, true);
 
   pouchService.db.get('userInfo').then(function(doc) {
@@ -889,22 +901,22 @@ angular.module('starter.controllers', [])
     }
   };
 
-  $scope.doLoginVK = function() {
-    $cordovaOauth.vkontakte("5036047", ["email"]).then(function(result) {
-      console.log(JSON.stringify(result));
-    }, function(error) {
-      console.log(error);
-    });
-  };
-
-
-  $scope.doLoginFB = function() {
-    $cordovaOauth.facebook("263690153811188", ["email"]).then(function(result) {
-      console.log(JSON.stringify(result));
-    }, function(error) {
-      console.log(error);
-    });
-  };
+  // $scope.doLoginVK = function() {
+  //   $cordovaOauth.vkontakte("5036047", ["email"]).then(function(result) {
+  //     console.log(JSON.stringify(result));
+  //   }, function(error) {
+  //     console.log(error);
+  //   });
+  // };
+  //
+  //
+  // $scope.doLoginFB = function() {
+  //   $cordovaOauth.facebook("263690153811188", ["email"]).then(function(result) {
+  //     console.log(JSON.stringify(result));
+  //   }, function(error) {
+  //     console.log(error);
+  //   });
+  // };
 
   /////////////////////////Конец модуля авторизации//////////////////////////////
 

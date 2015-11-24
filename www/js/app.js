@@ -82,7 +82,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'menuContent': {
           templateUrl: "templates/changeSet.html",
-          controller: 'ClassicCtrl'
+          controller: ''
         }
       }
     })
@@ -112,7 +112,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'menuContent': {
           templateUrl: "templates/settings.html",
-          controller: 'ClassicCtrl'
+          controller: ''
         }
       }
     });
