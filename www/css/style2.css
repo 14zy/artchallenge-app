@@ -387,8 +387,13 @@ a {
   }
 
   .button-answer:hover {
-    background-color: rgba(56,126,245,0.5);
-    border-color: rgba(56,126,245,0.5);
+    /*background-color: rgba(56,126,245,0.5);
+    border-color: rgba(56,126,245,0.5);*/
+
+    background-color: rgba(126,211,33,0.5);
+    border-color: rgba(126,211,33,0.5);
+
+
   }
 
   .button-answer text {
