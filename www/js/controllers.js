@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
 
     $scope.newRound = function() {
 
-      $scope.show();
+      $scope.showLoader();
 
       buttonsAreWorking = true;
 
@@ -371,7 +371,7 @@ angular.module('starter.controllers', [])
     }
   }, 100);
 
-  $scope.show = function() {
+  $scope.showLoader = function() {
     $ionicLoading.show({
       template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><br>Loading',
       noBackdrop: false
@@ -386,9 +386,11 @@ angular.module('starter.controllers', [])
 
   };
 
-  $scope.hide = function() {
-    $timeout.cancel($scope.timer);
-    $ionicLoading.hide();
+  $scope.hideLoader = function() {
+    if ($scope.imgLoaded && $scope.dbLoaded) {
+      $timeout.cancel($scope.timer);
+      $ionicLoading.hide();
+    }
   };
 
   $scope.getPicture = function(painter, picture, thumb) {
@@ -562,6 +564,8 @@ angular.module('starter.controllers', [])
       }
 
       console.log("copyDataFromDBtoScope() completed");
+      $scope.dbLoaded = true;
+      $scope.hideLoader();
 
     }).catch(function(err) {
       console.log(err);
@@ -633,6 +637,8 @@ angular.module('starter.controllers', [])
         $scope.userDuels
       ]).then(function(result) {
         console.log(result);
+        $scope.dbLoaded = true;
+        $scope.hideLoader();
         // handle result
       }).catch(function(err) {
         console.log(err);
@@ -1048,7 +1054,9 @@ angular.module('starter.controllers', [])
       $('#picture').addClass('animated fadeInRight');
     }
     $scope.calcPictureMargin();
-    $scope.hide();
+    $scope.imgLoaded = true;
+    $scope.hideLoader();
+
   };
 
   getRandomIndex = function(length) {
