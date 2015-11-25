@@ -144,12 +144,12 @@ angular.module('starter.controllers', [])
 
           var wrongMsg = new PNotify({
             title: "" + badPhrase(),
-            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'>",
+            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive icon-left ion-university'>"+$scope.lang.message["learn-more"]+"</button>",
             addclass: "answerWrong",
             animation: 'slide',
             hide: true,
             animate_speed: "fast",
-            delay: 3000,
+            delay: 3500,
             remove: true,
             buttons: {
               closer: false,
@@ -160,10 +160,10 @@ angular.module('starter.controllers', [])
               menu: false
             }
           });
-
+          var painterForInfo = currentPainter;
           wrongMsg.get().click(function() {
             wrongMsg.remove();
-            $scope.showPainterInfo(currentPainter);
+            $scope.showPainterInfo(painterForInfo);
           });
 
           setTimeout(function() {
