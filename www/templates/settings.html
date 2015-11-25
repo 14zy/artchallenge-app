@@ -69,11 +69,31 @@
       <div class="item item-divider">
         {{lang.desc.subscribe}}
       </div>
-      <div class="item item-text-wrap item-icon-left">
-        <i class="icon ion-ios-email"></i>
+      <div class="item item-text-wrap">
         Никакого спама. Только замечательные новости из мира искусства.
-        /Подписаться/ или /соц сети кнопки/
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-email-outline placeholder-icon"></i>
+            <input placeholder="{{userInfo.email}}" type="text">
+          </label>
+          <button class="button button-small button-positive" onclick="alert(0);">
+            OK
+          </button>
+        </div>
+
+        <div style='text-align: center'>
+          <br>
+          Art Challenge в социальных сетях:
+          <br><br>
+          <button class="button button-positive icon ion-social-facebook"></button>
+          <button class="button button-positive ">
+            <b>ВК</b>
+          </button>
+          <button class="button button-positive icon ion-social-twitter"></button>
+          <button class="button button-positive icon ion-social-instagram-outline"></button>
+        </div>
       </div>
+
     </div>
 
     <div class="list card">
@@ -82,7 +102,8 @@
       </div>
       <div class="item item-text-wrap item-icon-left">
         <i class="icon ion-ios-chatbubble"></i>
-        Обязательно сообщите нам на <a href='mailto:report@artchallenge.ru'>report@artchallenge.ru</a>.<br>Да и просто так пишите, мы любим получать письма от пользователей =)
+        Обязательно сообщите нам на
+        <a href='mailto:report@artchallenge.ru'>report@artchallenge.ru</a>
       </div>
     </div>
 
@@ -92,54 +113,149 @@
         Об игре
       </div>
       <div class="item item-text-wrap">
-        Art Challenge создан <i class="icon ion-person"></i> <a href='#'>Рубеном Бабевым</a> и <i class="icon ion-person"></i> <a href='#'>Анной Плоткиной</a> благодяря поддержке наших дорогих меценатов:
+        Art Challenge создан
+        <i class="icon ion-person"></i>
+        <a href='#'>Рубеном Бабаевым</a>
+        и
+        <i class="icon ion-person"></i>
+        <a href='#'>Анной Плоткиной</a>
+        благодяря поддержке наших дорогих меценатов:
         <br><br>
         <ul class="list">
-          <li class="item"><i class="icon ion-person"></i> Nikolaj Chilingarov</li>
-          <li class="item"><i class="icon ion-person"></i> Aleksandr Lanin</li>
-          <li class="item"><i class="icon ion-person"></i> Aleksandr Gavrilov</li>
-          <li class="item"><i class="icon ion-person"></i> Irina Grigorovich</li>
-          <li class="item"><i class="icon ion-person"></i> Elena Dmitrienko</li>
-          <li class="item"><i class="icon ion-person"></i> Eugenia Baum</li>
-          <li class="item"><i class="icon ion-person"></i> Anonymous Anonymous</li>
-          <li class="item"><i class="icon ion-person"></i> Nana Bekguljan</li>
-          <li class="item"><i class="icon ion-person"></i> Tetjana Struk</li>
-          <li class="item"><i class="icon ion-person"></i> Max N</li>
-          <li class="item"><i class="icon ion-person"></i> Aleksandr Shevcov</li>
-          <li class="item"><i class="icon ion-person"></i> Jana Chajka</li>
-          <li class="item"><i class="icon ion-person"></i> Timofey Zakrevskiy</li>
-          <li class="item"><i class="icon ion-person"></i> Sergej Ermakov</li>
-          <li class="item"><i class="icon ion-person"></i> Sergej Manida</li>
-          <li class="item"><i class="icon ion-person"></i> Elena Kiseleva</li>
-          <li class="item"><i class="icon ion-person"></i> Olga Jakubovich</li>
-          <li class="item"><i class="icon ion-person"></i> Ekaterina Semigurskaja</li>
-          <li class="item"><i class="icon ion-person"></i> Anna Zubareva</li>
-          <li class="item"><i class="icon ion-person"></i> Ivetta Kuznecova</li>
-          <li class="item"><i class="icon ion-person"></i> Natali Shilova</li>
-          <li class="item"><i class="icon ion-person"></i> Irina Pudova</li>
-          <li class="item"><i class="icon ion-person"></i> Leon Argo</li>
-          <li class="item"><i class="icon ion-person"></i> Elmira Mikhailova</li>
-          <li class="item"><i class="icon ion-person"></i> Evgenij Adaev</li>
-          <li class="item"><i class="icon ion-person"></i> Vladislav Kaverznev</li>
-          <li class="item"><i class="icon ion-person"></i> Elena Lukina</li>
-          <li class="item"><i class="icon ion-person"></i> Natalia Konyakhina</li>
-          <li class="item"><i class="icon ion-person"></i> Jüri Annov</li>
-          <li class="item"><i class="icon ion-person"></i> Saymon Mankevich</li>
-          <li class="item"><i class="icon ion-person"></i> Olga Poljabina</li>
-          <li class="item"><i class="icon ion-person"></i> Annushka Fevraljova</li>
-          <li class="item"><i class="icon ion-person"></i> Vasilij Kurkov</li>
-          <li class="item"><i class="icon ion-person"></i> Pavel Vetrov</li>
-          <li class="item"><i class="icon ion-person"></i> Ekaterina Basenko</li>
-          <li class="item"><i class="icon ion-person"></i> Anna Chetvertkova</li>
-          <li class="item"><i class="icon ion-person"></i> Olga Shpagina</li>
-          <li class="item"><i class="icon ion-person"></i> Maria Saenko</li>
-          <li class="item"><i class="icon ion-person"></i> Maureen Knight</li>
-          <li class="item"><i class="icon ion-person"></i> Valeriya Balkova</li>
-          <li class="item"><i class="icon ion-person"></i> Mila Andr</li>
-          <li class="item"><i class="icon ion-person"></i> Marina Levenec</li>
-          <li class="item"><i class="icon ion-person"></i> Anton Androsov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Nikolaj Chilingarov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Aleksandr Lanin</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Aleksandr Gavrilov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Irina Grigorovich</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Elena Dmitrienko</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Eugenia Baum</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Anonymous Anonymous</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Nana Bekguljan</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Tetjana Struk</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Max N</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Aleksandr Shevcov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Jana Chajka</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Timofey Zakrevskiy</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Sergej Ermakov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Sergej Manida</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Elena Kiseleva</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Olga Jakubovich</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Ekaterina Semigurskaja</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Anna Zubareva</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Ivetta Kuznecova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Natali Shilova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Irina Pudova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Leon Argo</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Elmira Mikhailova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Evgenij Adaev</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Vladislav Kaverznev</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Elena Lukina</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Natalia Konyakhina</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Jüri Annov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Saymon Mankevich</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Olga Poljabina</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Annushka Fevraljova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Vasilij Kurkov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Pavel Vetrov</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Ekaterina Basenko</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Anna Chetvertkova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Olga Shpagina</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Maria Saenko</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Maureen Knight</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Valeriya Balkova</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Mila Andr</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Marina Levenec</li>
+          <li class="item">
+            <i class="icon ion-person"></i>
+            Anton Androsov</li>
         </ul>
       </div>
+    </div>
+    <div class='item'>
+      Версия игры 0.8.2
     </div>
 
   </ion-content>
