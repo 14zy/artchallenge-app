@@ -25,6 +25,13 @@ a {
   /*background: #ffffff url("../img/bg.png") no-repeat top center;*/
   background-size: 100% auto
 }
+
+/*#classicBackgroud {
+  background: #ffffff url("../img/bg.png") no-repeat top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/
+
 #menu {
   background: #0A0A0A url("../img/menu-bg.png") repeat-x top center;
   background-size: 100% 100%;

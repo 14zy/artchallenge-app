@@ -221,6 +221,16 @@ angular.module('starter.controllers', [])
         $scope.newRound();
         $scope.answers = [];
       }
+      //Ставим бэкграунд
+      if (newVal.background) {
+        console.log(newVal.background);
+        $("#classicBackgroud").css("background-image", "url('img/" + newVal.background + "')");
+        $("#classicBackgroud").css("background-repeat", "no-repeat");
+        $("#classicBackgroud").css("background-size", "cover");
+      } else {
+        $("#classicBackgroud").css("background", "none");
+      }
+
     }, true);
 
     $scope.addAnswer = function(answer) {
@@ -422,11 +432,13 @@ angular.module('starter.controllers', [])
     }
   };
 
-  window.MY_SCOPE = $scope; // удалить в продакшне
+  //window.MY_SCOPE = $scope; // удалить в продакшне
+
   $scope.sets = [{
       id: "basic"
     }, {
-      id: "renaissance"
+      id: "renaissance",
+      background: "bg-renaissance.png"
     }, {
       id: "impressionism"
     }, {
