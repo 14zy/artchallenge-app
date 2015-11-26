@@ -223,7 +223,6 @@ angular.module('starter.controllers', [])
       }
       //Ставим бэкграунд
       if (newVal.background) {
-        console.log(newVal.background);
         $("#classicBackgroud").css("background-image", "url('img/" + newVal.background + "')");
         $("#classicBackgroud").css("background-repeat", "no-repeat");
         $("#classicBackgroud").css("background-size", "cover");
