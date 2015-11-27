@@ -144,12 +144,12 @@ angular.module('starter.controllers', [])
 
           var wrongMsg = new PNotify({
             title: "" + badPhrase(),
-            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive icon-left ion-university'>"+$scope.lang.message["learn-more"]+"</button>",
+            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive button-small'>"+$scope.lang.message["learn-more"]+"</button>",
             addclass: "answerWrong",
             animation: 'slide',
             hide: true,
             animate_speed: "fast",
-            delay: 3500,
+            delay: 3300,
             remove: true,
             buttons: {
               closer: false,
@@ -182,7 +182,7 @@ angular.module('starter.controllers', [])
           }, 2900);
 
         }
-        updateDB();
+
       }
     };
 
@@ -388,7 +388,7 @@ angular.module('starter.controllers', [])
 
     $scope.timer = $timeout(function() {
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-balanced"></ion-spinner><br>No Internet Connection',
+        template: '<ion-spinner icon="ripple" class="spinner-balanced"></ion-spinner><br>No Internet Connection<br><br><button onclick="window.location.reload(true);" class="button button-small button-assertive"><i class="ion-refresh"></i> Reload</button>',
         noBackdrop: false
       });
     }, 10000);
@@ -918,7 +918,7 @@ angular.module('starter.controllers', [])
           });
 
           $scope.userInfo.email = $scope.loginData.email;
-          $scope.userInfo.dbname = $scope.loginData.email.replace('@', '-').replace('.', '-');
+          $scope.userInfo.dbname = $scope.loginData.email.replace('@', '-').replace(/\./g, '-');
 
           pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbname).then(function(result) {
             console.log('Скопировали базу из облака, начинаем copyDataFromDBtoScope()');
@@ -927,6 +927,7 @@ angular.module('starter.controllers', [])
             $scope.settings.registered = true;
             $scope.closeLogin();
           }).catch(function(err) {
+            console.log($scope.userInfo.dbname);
             console.log(err);
           });
         }
@@ -1067,6 +1068,10 @@ angular.module('starter.controllers', [])
     $scope.calcPictureMargin();
     $scope.imgLoaded = true;
     $scope.hideLoader();
+    setTimeout(function() {
+          updateDB();
+    }, 1000);
+
 
   };
 
@@ -1082,6 +1087,7 @@ angular.module('starter.controllers', [])
       $('#picture').css('max-height', 'none');
       // $("#help").html($scope.getGenre(currentPainter));
       // $("#help").css('display', 'block');
+      $("#iconZoom").attr("src", "img/ui/zoom_out.png");
 
     } else {
       // $ionicScrollDelegate.zoomTo(1);
@@ -1090,6 +1096,7 @@ angular.module('starter.controllers', [])
       $('#picture').css('width', 'auto');
       $('#picture').css('max-height', '80%');
       // $("#help").css('display', 'none');
+      $("#iconZoom").attr("src", "img/ui/zoom_in.png");
     }
     $scope.calcPictureMargin();
   };

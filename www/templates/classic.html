@@ -18,9 +18,11 @@
             <i class="ion-ios-circle-filled" style='font-size: 16px;'></i>
           </span>
         </div>
-        <div class="col col-10">
-          <div ng-click="hideAnswers()">
-				    <i class="ion-ios-search-strong"></i>
+        <div class="col col-10" ng-click="hideAnswers()">
+          <div >
+				    <!-- <i class="ion-ios-search-strong"></i> -->
+            <img id='iconZoom' src='img/ui/zoom_in.png' style='height: 24px'>
+
 			   </div>
         </div>
       </div>
@@ -37,9 +39,10 @@
           <i class="ion-arrow-graph-up-right energized"></i> {{userStats.leaderboard[settings.currentSet.id]}}
           <span ng-if='leaderboardMyPlace != false'>/ <i class="ion-podium energized"></i> {{lang.desc.yourPlace.replace('__place__', leaderboardMyPlace)}}</span> <!--  -->
         </div>
-        <div class="col col-10">
-          <div ng-click="hideAnswers()">
-				    <i class="ion-ios-search-strong"></i>
+        <div class="col col-10" ng-click="hideAnswers()">
+          <div >
+				    <!-- <i class="ion-ios-search-strong"></i> -->
+            <img id='iconZoom' src='img/ui/zoom_in.png' style='height: 24px'>
 			   </div>
         </div>
       </div>
@@ -60,7 +63,7 @@
 
     </div>
     <!-- <ion-scroll zooming="true" direction="xy" scrollbar-x='false' scrollbar-y='false' min-zoom='1' style=''> -->
-    <img id="picture" imageonload='imageloaded();' ng-click="hideAnswers()" ng-src="{{picture}}" style="visibility: hidden;">
+    <img id="picture" imageonload='imageloaded();' ng-src="{{picture}}" style="visibility: hidden;">
     <!-- </ion-scroll> -->
     <!-- <br>{{lang.painters[currentPainter.id]}} подсказка-->
     <img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
