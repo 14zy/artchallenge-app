@@ -369,7 +369,7 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform) {
+.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform, $ionicSlideBoxDelegate) {
 
   $ionicPlatform.registerBackButtonAction(function(event) {
     if ($ionicHistory.currentStateName() == "app.classic") {
@@ -988,6 +988,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.showPainterInfo = function(painter, scroll) {
+    $ionicSlideBoxDelegate.$getByHandle('showPainterInfo').slide(0);
     $scope.modalPainterShowInfo.show();
     if (scroll) {
       $ionicScrollDelegate.scrollTop(true);
@@ -999,8 +1000,15 @@ angular.module('starter.controllers', [])
     $scope.infoPainterYears = painter.years;
 
     $scope.infoPainterPaintings = [];
-    for (i = 0; i < painter.paintings; i++) {
-      $scope.infoPainterPaintings.push($scope.getPicture(painter, i + 1, true));
+    // console.log(painter.paintings);
+    if (painter.paintings <= 50) {
+      for (i = 0; i < painter.paintings; i++) {
+        $scope.infoPainterPaintings.push($scope.getPicture(painter, i + 1, true));
+      }
+    } else {
+      for (i = 0; i < 50; i++) {
+        $scope.infoPainterPaintings.push($scope.getPicture(painter, i + 1, true));
+      }
     }
 
     if (painter.bio[$scope.settings.langId]) {
