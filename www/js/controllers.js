@@ -780,7 +780,7 @@ angular.module('starter.controllers', [])
     if ($scope.registerData.username !== undefined && isEmail($scope.registerData.email)) {
       $scope.registerData.email = $scope.registerData.email.toLowerCase();
       $scope.registerData.password = generatePassword();
-      $scope.registerData.dbname = $scope.registerData.email.replace('@', '-').replace('.', '-');
+      $scope.registerData.dbname = $scope.registerData.email.replace('@', '-').replace(/\./g, '-');
       $scope.registerData.lang = $scope.settings.langId;
 
       usersDB.signup($scope.registerData.email, $scope.registerData.password, {
