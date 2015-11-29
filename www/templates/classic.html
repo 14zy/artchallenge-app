@@ -69,7 +69,7 @@
     <img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>
 
     <div id="win">
-      <img id='winImg' ng-src='img/medals/winner-medal-{{settings.langId}}.png'>
+      <img id='winImg' ng-click='showCloseWin();' ng-src='img/medals/winner-medal-{{settings.langId}}.png'>
     </div>
 
     <div id='winDesc'>

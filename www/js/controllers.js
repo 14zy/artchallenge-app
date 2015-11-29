@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('ClassicCtrl', function($scope, Painters, $ionicSideMenuDelegate, pouchService, $ionicModal) {
+.controller('ClassicCtrl', function($scope, Painters, $ionicSideMenuDelegate, pouchService, $ionicModal, $ionicPopup) {
 
     $scope.picturePreload = function() {
       newPainter = $scope.painters[getRandomIndex($scope.painters.length)];
@@ -144,7 +144,7 @@ angular.module('starter.controllers', [])
 
           var wrongMsg = new PNotify({
             title: "" + badPhrase(),
-            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive button-small'>"+$scope.lang.message["learn-more"]+"</button>",
+            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive button-small'>" + $scope.lang.message["learn-more"] + "</button>",
             addclass: "answerWrong",
             animation: 'slide',
             hide: true,
@@ -230,7 +230,40 @@ angular.module('starter.controllers', [])
         $("#classicBackgroud").css("background", "none");
       }
 
+      if ($("#win").css("display") == "block") {
+        $scope.closeWin();
+      }
     }, true);
+
+    $scope.closeWin = function(newRound) {
+      if (newRound) {
+        $scope.newRound();
+        $scope.answers = [];
+      }
+      $("#win").removeClass("animated slideInDown");
+      $("#win").addClass("animated rotateOutUpLeft");
+      $("#winDesc").addClass("animated fadeOutDown");
+      setTimeout(function() {
+        $("#win").css("display", "none");
+        $("#winDesc").css("display", "none");
+        $("#win").removeClass("animated rotateOutUpLeft");
+        $("#winDesc").removeClass("animated fadeOutDown");
+      }, 2000);
+    };
+
+    $scope.showCloseWin = function() {
+      var confirmPopup = $ionicPopup.confirm({
+        title: $scope.lang.message.closeWinTitle,
+        template: $scope.lang.message.closeWinMessage
+      });
+      confirmPopup.then(function(res) {
+        if (res) {
+          $scope.closeWin(true);
+        } else {
+          // console.log('You are not sure');
+        }
+      });
+    };
 
     $scope.addAnswer = function(answer) {
 
@@ -333,17 +366,7 @@ angular.module('starter.controllers', [])
     $scope.$watch('gameMode', function(newVal, oldVal) {
       //Добавть проверку, чтобы когда просто дибилы тыкали в меню на одиночную игру у них турнир не сбрасывался
       if (newVal != oldVal && newVal == 'tournament') {
-        $scope.newRound();
-
-        $("#win").removeClass("animated slideInDown");
-        $("#win").addClass("animated rotateOutUpLeft");
-        $("#winDesc").addClass("animated fadeOutDown");
-        setTimeout(function() {
-          $("#win").css("display", "none");
-          $("#winDesc").css("display", "none");
-          $("#win").removeClass("animated rotateOutUpLeft");
-          $("#winDesc").removeClass("animated fadeOutDown");
-        }, 2000);
+        $scope.closeWin(true);
 
         $scope.leaderboardMyPlace = false;
 
@@ -407,13 +430,13 @@ angular.module('starter.controllers', [])
       if (!$scope.settings.highQuality || thumb) {
         return "painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
       } else {
-        return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+        return "http://artchallenge.me/painters/" + painter.id + "/" + picture + ".jpg";
       }
     } else {
       if (!$scope.settings.highQuality || thumb) {
-        return "http://178.62.133.139/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
+        return "http://artchallenge.me/painters/" + painter.id + "/thumbnails/" + picture + ".jpg";
       } else {
-        return "http://178.62.133.139/painters/" + painter.id + "/" + picture + ".jpg";
+        return "http://artchallenge.me/painters/" + painter.id + "/" + picture + ".jpg";
       }
     }
   };
@@ -563,7 +586,7 @@ angular.module('starter.controllers', [])
       }
 
       if ($scope.userInfo.dbname) {
-        pouchService.db.sync('http://178.62.133.139:5994/' + $scope.userInfo.dbname, {
+        pouchService.db.sync('http://artchallenge.me:5994/' + $scope.userInfo.dbname, {
           live: true,
           retry: true
         }).on('complete', function() {
@@ -584,7 +607,7 @@ angular.module('starter.controllers', [])
   }
 
   function syncData(dbname) {
-    pouchService.db.sync('http://178.62.133.139:5994/' + dbname, {}).on('complete', function() {
+    pouchService.db.sync('http://artchallenge.me:5994/' + dbname, {}).on('complete', function() {
       copyDataFromDBtoScope();
       console.log("syncData() completed");
     }).catch(function(err) {
@@ -661,7 +684,7 @@ angular.module('starter.controllers', [])
 
 
   // LEADERBOARD
-  $scope.leaderboardDB = new PouchDB('http://178.62.133.139:5994/leaderboard');
+  $scope.leaderboardDB = new PouchDB('http://artchallenge.me:5994/leaderboard');
 
   $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
     descending: true,
@@ -749,7 +772,7 @@ angular.module('starter.controllers', [])
   }
 
   //Регистрация нового пользователя через имя/email
-  var usersDB = new PouchDB('http://178.62.133.139:5994/painters');
+  var usersDB = new PouchDB('http://artchallenge.me:5994/painters');
 
 
   ///////////// Логин пользователя - может это вообще нахуй не нужно?? //////////
@@ -834,7 +857,7 @@ angular.module('starter.controllers', [])
           //Создаем бд под нового пользователя на сервере
           jQuery.ajax({
             type: "POST",
-            url: "http://178.62.133.139/art_create_ub.php",
+            url: "http://artchallenge.me/art_create_ub.php",
             data: {
               'email': $scope.registerData.email,
             }
@@ -859,7 +882,7 @@ angular.module('starter.controllers', [])
 
 
             // Подключаем сгенеренную базу к нашему юзеру
-            pouchService.db.replicate.to('http://178.62.133.139:5994/' + $scope.registerData.dbname, {
+            pouchService.db.replicate.to('http://artchallenge.me:5994/' + $scope.registerData.dbname, {
               live: true,
               retry: true
             }).on('error', console.log.bind(console));
@@ -920,7 +943,7 @@ angular.module('starter.controllers', [])
           $scope.userInfo.email = $scope.loginData.email;
           $scope.userInfo.dbname = $scope.loginData.email.replace('@', '-').replace(/\./g, '-');
 
-          pouchService.db.replicate.from('http://178.62.133.139:5994/' + $scope.userInfo.dbname).then(function(result) {
+          pouchService.db.replicate.from('http://artchallenge.me:5994/' + $scope.userInfo.dbname).then(function(result) {
             console.log('Скопировали базу из облака, начинаем copyDataFromDBtoScope()');
             copyDataFromDBtoScope();
 
@@ -1077,7 +1100,7 @@ angular.module('starter.controllers', [])
     $scope.imgLoaded = true;
     $scope.hideLoader();
     setTimeout(function() {
-          updateDB();
+      updateDB();
     }, 1000);
 
 
@@ -1132,7 +1155,7 @@ angular.module('starter.controllers', [])
   $scope.showShare = function() {
     $("#btnShowShare").html("<i class='ion-load-a'></i>");
     $cordovaSocialSharing
-      .share($scope.lang.shares.title + " " + $scope.lang.shares.description, $scope.lang.shares.caption, "http://artchallenge.ru/pics/badges/" + $scope.settings.currentSet.id+ "Set/winner-badge-" + $scope.settings.langId+ "-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
+      .share($scope.lang.shares.title + " " + $scope.lang.shares.description, $scope.lang.shares.caption, "http://artchallenge.ru/pics/badges/" + $scope.settings.currentSet.id + "Set/winner-badge-" + $scope.settings.langId + "-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
       .then(function(result) {
         // Success!
         $("#btnShowShare").html("<i class='icon ion-checkmark-round'></i> " + $scope.lang.message.shareWithFriends);

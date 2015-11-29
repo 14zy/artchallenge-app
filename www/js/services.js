@@ -3272,7 +3272,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Расскажите о победе своим друзьям и примите участие в турнире на самую длинную серию правильных ответов:",
       "shareWithFriends": "Рассказать друзьям",
       "playTournament": "Турнир",
-      "loading": "Загрузка"
+      "loading": "Загрузка",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "Да Вы обезумели!",
@@ -3585,7 +3587,7 @@ angular.module('starter.services', [])
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
       "errorOffline": "No internet connection",
       "swipeCollections": "CHOOSE A COLLECTION",
-      "swipePictures": "SWIPE BETWEEN PAINTINGS",
+      "swipePictures": "SWIPE PAINTINGS",
       "yourPlace": "__place__ place",
       "highQualityPictures": "High quality",
       "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
@@ -3608,7 +3610,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
       "playTournament": "Tournament",
-      "loading": "Loading"
+      "loading": "Loading",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "You are nuts!",
@@ -3921,7 +3925,7 @@ angular.module('starter.services', [])
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
       "errorOffline": "No internet connection",
       "swipeCollections": "CHOOSE A COLLECTION",
-      "swipePictures": "SWIPE BETWEEN PAINTINGS",
+      "swipePictures": "SWIPE PAINTINGS",
       "yourPlace": "__place__ place",
       "highQualityPictures": "High quality",
       "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
@@ -3944,7 +3948,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
       "playTournament": "Tournament",
-      "loading": "Laden"
+      "loading": "Laden",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "Sie sind ja verrückt geworden!",
@@ -4256,7 +4262,7 @@ angular.module('starter.services', [])
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
       "errorOffline": "No internet connection",
       "swipeCollections": "CHOOSE A COLLECTION",
-      "swipePictures": "SWIPE BETWEEN PAINTINGS",
+      "swipePictures": "SWIPE PAINTINGS",
       "yourPlace": "__place__ place",
       "highQualityPictures": "High quality",
       "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
@@ -4279,7 +4285,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
       "playTournament": "Tournament",
-      "loading": "Cargando"
+      "loading": "Cargando",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "¡Estás loco!",
@@ -4591,7 +4599,7 @@ angular.module('starter.services', [])
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
       "errorOffline": "No internet connection",
       "swipeCollections": "CHOOSE A COLLECTION",
-      "swipePictures": "SWIPE BETWEEN PAINTINGS",
+      "swipePictures": "SWIPE PAINTINGS",
       "yourPlace": "__place__ place",
       "highQualityPictures": "High quality",
       "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
@@ -4614,7 +4622,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
       "playTournament": "Tournament",
-      "loading": "Chargement"
+      "loading": "Chargement",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "Mais, vous êtes fou!",
@@ -4926,7 +4936,7 @@ angular.module('starter.services', [])
 			"loginMessageErrorServer": "Registration error: The server is not available, try again later",
       "errorOffline": "No internet connection",
       "swipeCollections": "CHOOSE A COLLECTION",
-      "swipePictures": "SWIPE BETWEEN PAINTINGS",
+      "swipePictures": "SWIPE PAINTINGS",
       "yourPlace": "__place__ place",
       "highQualityPictures": "High quality",
       "highQualityPicturesDesc": "High quality pictures will be downloaded from internet",
@@ -4950,7 +4960,9 @@ angular.module('starter.services', [])
       "shareOrTournament": "Tell your friends about the victory and take part in the tournament for the longest series of correct answers:",
       "shareWithFriends": "Share with friends",
       "playTournament": "Tournament",
-      "loading": "Caricamento"
+      "loading": "Caricamento",
+      "closeWinTitle": "Начать новую игру",
+      "closeWinMessage": "Вы хотите закрыть это окно и начать новую игру?"
 		},
 		"badPhrases": {
 			"1": "Ma Lei è impazito/a?",
