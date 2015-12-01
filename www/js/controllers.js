@@ -393,6 +393,8 @@ angular.module('starter.controllers', [])
   }) // controller end
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform, $ionicSlideBoxDelegate) {
+	
+	
 
   $ionicPlatform.registerBackButtonAction(function(event) {
     if ($ionicHistory.currentStateName() == "app.classic") {
@@ -535,6 +537,8 @@ angular.module('starter.controllers', [])
       //
       //   });
     }
+	
+
 
   });
 
@@ -1047,6 +1051,12 @@ angular.module('starter.controllers', [])
     }
 
   };
+  
+  
+  $scope.openLink = function(link) {
+	    cordova.InAppBrowser.open(link, '_blank', 'location=yes');
+		// console.log();
+  }
 
   $scope.getGenre = function(painter) {
     genre = undefined;

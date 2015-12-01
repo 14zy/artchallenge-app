@@ -55,7 +55,7 @@
       <!-- <button style='margin: 5%; width: 90%' class="button button-block button-positive" ng-click='unlogin();'>Выход</button> -->
     </ul>
 
-    <div class="list card">
+    <!-- <div class="list card">
       <div class="item item-divider">
         {{lang.desc["how-help"]}}
       </div>
@@ -63,38 +63,8 @@
         <i class="icon ion-ios-heart"></i>
         Поставьте нам 5 звезд, чтобы другие люди смогли найти приложение быстрее
       </div>
-    </div>
+    </div> -->
 
-    <div class="list card">
-      <div class="item item-divider">
-        {{lang.desc.subscribe}}
-      </div>
-      <div class="item item-text-wrap">
-        Никакого спама. Только замечательные новости из мира искусства.
-        <div class="item item-input-inset">
-          <label class="item-input-wrapper">
-            <i class="icon ion-ios-email-outline placeholder-icon"></i>
-            <input placeholder="{{userInfo.email}}" type="text">
-          </label>
-          <button class="button button-small button-positive" onclick="alert(0);">
-            OK
-          </button>
-        </div>
-
-        <div style='text-align: center'>
-          <br>
-          Art Challenge в социальных сетях:
-          <br><br>
-          <button class="button button-positive icon ion-social-facebook"></button>
-          <button class="button button-positive ">
-            <b>ВК</b>
-          </button>
-          <button class="button button-positive icon ion-social-twitter"></button>
-          <button class="button button-positive icon ion-social-instagram-outline"></button>
-        </div>
-      </div>
-
-    </div>
 
     <div class="list card">
       <div class="item item-divider">
@@ -104,6 +74,33 @@
         <i class="icon ion-ios-chatbubble"></i>
         Обязательно сообщите нам на
         <a href='mailto:report@artchallenge.ru'>report@artchallenge.ru</a>
+      </div>
+    </div>
+	
+    <div class="list card">
+      <div class="item item-divider">
+        {{lang.desc.subscribe}}
+      </div>
+      <div class="item item-text-wrap">
+        <!-- <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-email-outline placeholder-icon"></i>
+            <input placeholder="{{userInfo.email}}" type="text">
+          </label>
+          <button class="button button-small button-positive" onclick="alert(0);">
+            OK
+          </button>
+        </div> -->
+        <div style='text-align: center'>
+          <!-- Art Challenge в социальных сетях: -->
+          <!-- <br><br> -->
+          <a href='fb://artchallenge.ru' class="button button-positive icon ion-social-facebook"></a>
+		  <a ng-click='openLink("http://vk.com/art.challenge")' class="button button-positive "><b>ВК</b></a>
+          <a href='twitter://user?screen_name=artchallenge_ru' class="button button-positive icon ion-social-twitter"></a>
+          <!-- <button ng-click="window.open('https://twitter.com/artchallenge_ru', '_system', 'location=yes')" class="button button-positive icon ion-social-instagram-outline"></button> -->
+        </div>
+		<br>
+		Никакого спама. Только замечательные новости из мира искусства.
       </div>
     </div>
 

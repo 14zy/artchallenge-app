@@ -51,13 +51,14 @@
 
       <div class='row item-body'>
         <div class="col">
-          <p ng-bind-html="infoPainterBio" style='margin: 0 5px 10px 5px;text-align: left;'></p>
+          <p class='painterBioText' ng-bind-html="infoPainterBio"></p>
 
-          <a class="button button-full button-positive" href='' target="_blank">
-            <!-- {{infoPainterLink}} -->
+          <button ng-click="openLink(infoPainterLink)" class="button button-full button-positive">
             Wikipedia
             <i class="icon ion-ios-redo"></i>
-          </a>
+          </button>
+
+
 
         </div>
       </div>

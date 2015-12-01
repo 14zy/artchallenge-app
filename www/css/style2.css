@@ -169,6 +169,14 @@ a {
   width: 80%;
 }
 
+.painterBioText p{
+	color: black;
+	line-height: 24px;
+	margin: 0 5px 10px 5px;
+	text-align: left;
+}
+
+
 /* Smartphones (portrait and landscape) ----------- */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
