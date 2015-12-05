@@ -393,8 +393,8 @@ angular.module('starter.controllers', [])
   }) // controller end
 
 .controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform, $ionicSlideBoxDelegate) {
-	
-	
+
+
 
   $ionicPlatform.registerBackButtonAction(function(event) {
     if ($ionicHistory.currentStateName() == "app.classic") {
@@ -537,7 +537,7 @@ angular.module('starter.controllers', [])
       //
       //   });
     }
-	
+
 
 
   });
@@ -989,6 +989,29 @@ angular.module('starter.controllers', [])
   $scope.slideHasChanged = function($index) {
     $scope.settings.currentSet = $scope.sets[$index];
     $scope.gameMode = 'classic';
+
+
+
+
+
+
+
+
+      $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
+        descending: true,
+        limit: 3000
+      }).then(function(doc) {
+        $scope.leaderboard = doc.rows;
+        $scope.$apply();
+        // console.log($scope.leaderboard);
+      }).catch(function(err) {
+        $scope.errorOffline = true;
+      });
+
+
+
+
+
   };
 
   $scope.activeSlideId = function() {
@@ -1051,8 +1074,8 @@ angular.module('starter.controllers', [])
     }
 
   };
-  
-  
+
+
   $scope.openLink = function(link) {
 	    cordova.InAppBrowser.open(link, '_blank', 'location=yes');
 		// console.log();
