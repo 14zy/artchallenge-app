@@ -364,9 +364,8 @@ angular.module('starter.controllers', [])
 
 
     $scope.$watch('gameMode', function(newVal, oldVal) {
-      //Добавть проверку, чтобы когда просто дибилы тыкали в меню на одиночную игру у них турнир не сбрасывался
       if (newVal != oldVal && newVal == 'tournament') {
-        $scope.closeWin(true);
+        $scope.closeWin();
 
         $scope.leaderboardMyPlace = false;
 
