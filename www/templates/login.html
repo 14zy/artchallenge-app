@@ -18,7 +18,7 @@
 				<span class="input-label"><strong>{{lang.desc.loginEmail}}</strong></span>
 				<input type="text" ng-model="registerData.email"  placeholder="{{lang.desc.loginEmailExample}}">
 			</label>
-			<button class="button button-block button-positive" type="submit">{{lang.desc.loginBtnRegister}}</button>
+			<button id='btnRegister' class="button button-block button-positive" type="submit">{{lang.desc.loginBtnRegister}}</button>
 		</form>
     <p>{{lang.desc.loginRegisterDesc}}</p>
 	</div>
@@ -38,7 +38,7 @@
 				<!-- <span class="input-label">Пароль</span> -->
 				<!-- <input type="text" ng-model="loginData.password"> -->
 			<!-- </label> -->
-			<button class="button button-block button-positive" type="submit">{{lang.desc.loginBtnLogin}}</button>
+			<button id='btnLogin' class="button button-block button-positive" type="submit">{{lang.desc.loginBtnLogin}}</button>
 		</form>
     <p>{{lang.desc.loginLoginForRegisteredHint}}</p>
 	</div>

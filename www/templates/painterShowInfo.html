@@ -7,7 +7,7 @@
       </button>
     </div>
   </ion-header-bar>
-  <ion-content lazy-load>
+  <ion-content>
 
     <div class="item" style='padding: 0px; text-align: center; border: 0; width: 100%'>
 
@@ -18,7 +18,7 @@
         </ion-slide>
 
         <ion-slide ng-repeat="painting in infoPainterPaintings | limitTo : 50">
-          <img class='picture-thumb' image-lazy-src="{{painting}}" style="max-height: 100%;" image-lazy-distance-from-right-to-load="250">
+          <img class='picture-thumb' ng-src="{{painting}}" style="max-height: 100%;">
         </ion-slide>
       </ion-slide-box>
 

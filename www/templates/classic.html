@@ -63,7 +63,7 @@
 
     </div>
     <!-- <ion-scroll zooming="true" direction="xy" scrollbar-x='false' scrollbar-y='false' min-zoom='1' style=''> -->
-    <img id="picture" imageonload='imageloaded();' ng-src="{{picture}}" style="visibility: hidden;">
+    <img id="picture" imageonload='imageloaded();' ng-click='hideAnswers()' ng-src="{{picture}}" style="visibility: hidden;">
     <!-- </ion-scroll> -->
     <!-- <br>{{lang.painters[currentPainter.id]}} подсказка-->
     <img id='picture-preload' ng-src="{{picturePreloadUrl}}" style='visibility: hidden; width: 1px;'>

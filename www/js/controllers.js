@@ -392,14 +392,21 @@ angular.module('starter.controllers', [])
 
   }) // controller end
 
-.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, $cordovaOauth, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform, $ionicSlideBoxDelegate) {
-
-
+.controller('AppCtrl', function($ionicSideMenuDelegate, $ionicLoading, $window, $scope, $state, $ionicHistory, $ionicViewSwitcher, $ionicScrollDelegate, $ionicModal, $timeout, Painters, $localstorage, pouchService, $ionicPopup, $cordovaSocialSharing, $ionicPlatform, $ionicSlideBoxDelegate) {
 
   $ionicPlatform.registerBackButtonAction(function(event) {
     if ($ionicHistory.currentStateName() == "app.classic") {
-      // ionic.Platform.exitApp();
-      // or do nothing
+      var confirmExit = $ionicPopup.confirm({
+        title: "Выход из игры",
+        template: "Вы действительно хотите выйти?"
+      });
+      confirmExit.then(function(res) {
+        if (res) {
+          ionic.Platform.exitApp();
+        } else {
+          // console.log('You are not sure');
+        }
+      });
     } else {
       $ionicHistory.goBack();
     }
@@ -446,6 +453,32 @@ angular.module('starter.controllers', [])
   $scope.openMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
+  $scope.$watch(function() {
+    return $ionicSideMenuDelegate.isOpen();
+  }, function(open) {
+    if (open) {
+      $("#menuIcon").addClass('positive');
+    } else {
+      $("#menuIcon").removeClass('positive')
+    }
+  });
+
+  $scope.$watch(function() {
+    return $ionicHistory.currentStateName();
+  }, function(state) {
+    $("#btnSinglePlayer").css('color', 'yellow');
+    $("#btnSettings").css('color', 'yellow');
+    switch (state) {
+      case "app.classic":
+        $("#btnSinglePlayer").css('color', 'white');
+        break;
+      case "app.changeSet":
+        break;
+      case "app.settings":
+        $("#btnSettings").css('color', 'white');
+        break;
+    }
+  }); //Смотрим за текущим состоянием и меняем цвета кнопок
 
   $scope.gameMode = "classic";
   $scope.changeGameMode = function(mode) {
@@ -805,6 +838,7 @@ angular.module('starter.controllers', [])
 
   $scope.doRegister = function() {
     if ($scope.registerData.username !== undefined && isEmail($scope.registerData.email)) {
+      $("#btnRegister").html("<i class='ion-load-a'></i>");
       $scope.registerData.email = $scope.registerData.email.toLowerCase();
       $scope.registerData.password = generatePassword();
       $scope.registerData.dbname = $scope.registerData.email.replace('@', '-').replace(/\./g, '-');
@@ -928,6 +962,8 @@ angular.module('starter.controllers', [])
 
   $scope.doLogin = function() {
     if ($scope.loginData.email !== undefined && isEmail($scope.loginData.email)) {
+      $("#btnLogin").html("<i class='ion-load-a'></i>");
+      $("#btnLogin").addClass("disabled");
       $scope.loginData.password = "superherodancetonight";
       $scope.loginData.email = $scope.loginData.email.toLowerCase();
       usersDB.login($scope.loginData.email, $scope.loginData.password, function(err, response) {
@@ -940,9 +976,6 @@ angular.module('starter.controllers', [])
             // cosmic rays, a meteor, etc.
           }
         } else {
-          $ionicPopup.alert({
-            title: $scope.lang.desc.loginMessageSuccessLogin
-          });
 
           $scope.userInfo.email = $scope.loginData.email;
           $scope.userInfo.dbname = $scope.loginData.email.replace('@', '-').replace(/\./g, '-');
@@ -952,6 +985,9 @@ angular.module('starter.controllers', [])
             copyDataFromDBtoScope();
 
             $scope.settings.registered = true;
+            $ionicPopup.alert({
+              title: $scope.lang.desc.loginMessageSuccessLogin
+            });
             $scope.closeLogin();
           }).catch(function(err) {
             console.log($scope.userInfo.dbname);
@@ -990,27 +1026,16 @@ angular.module('starter.controllers', [])
     $scope.settings.currentSet = $scope.sets[$index];
     $scope.gameMode = 'classic';
 
-
-
-
-
-
-
-
-      $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
-        descending: true,
-        limit: 3000
-      }).then(function(doc) {
-        $scope.leaderboard = doc.rows;
-        $scope.$apply();
-        // console.log($scope.leaderboard);
-      }).catch(function(err) {
-        $scope.errorOffline = true;
-      });
-
-
-
-
+    $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
+      descending: true,
+      limit: 3000
+    }).then(function(doc) {
+      $scope.leaderboard = doc.rows;
+      $scope.$apply();
+      // console.log($scope.leaderboard);
+    }).catch(function(err) {
+      $scope.errorOffline = true;
+    });
 
   };
 
@@ -1077,8 +1102,8 @@ angular.module('starter.controllers', [])
 
 
   $scope.openLink = function(link) {
-	    cordova.InAppBrowser.open(link, '_blank', 'location=yes');
-		// console.log();
+    cordova.InAppBrowser.open(link, '_blank', 'location=yes');
+    // console.log();
   }
 
   $scope.getGenre = function(painter) {
@@ -1152,7 +1177,6 @@ angular.module('starter.controllers', [])
       // $("#help").html($scope.getGenre(currentPainter));
       // $("#help").css('display', 'block');
       $("#iconZoom").attr("src", "img/ui/zoom_out.png");
-
     } else {
       // $ionicScrollDelegate.zoomTo(1);
       $('#buttons').removeClass('animated fadeOutDown');
@@ -1188,7 +1212,7 @@ angular.module('starter.controllers', [])
   $scope.showShare = function() {
     $("#btnShowShare").html("<i class='ion-load-a'></i>");
     $cordovaSocialSharing
-      .share($scope.lang.shares.title + " " + $scope.lang.shares.description, $scope.lang.shares.caption, "http://artchallenge.ru/pics/badges/" + $scope.settings.currentSet.id + "Set/winner-badge-" + $scope.settings.langId + "-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
+      .share($scope.lang.shares.title + " " + $scope.lang.shares.description + " #artchallenge", $scope.lang.shares.caption, "http://artchallenge.ru/pics/badges/" + $scope.settings.currentSet.id + "Set/winner-badge-" + $scope.settings.langId + "-shareFB.png", "http://artchallenge.ru") // Share via native share sheet
       .then(function(result) {
         // Success!
         $("#btnShowShare").html("<i class='icon ion-checkmark-round'></i> " + $scope.lang.message.shareWithFriends);
