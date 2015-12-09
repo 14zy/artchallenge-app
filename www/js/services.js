@@ -2438,7 +2438,7 @@ angular.module('starter.services', [])
 		"id": 91,
 		"name": "Giovanni di Paolo",
 		"years": "1403 – 1482",
-		"genre": ["Northern Renaissance"],
+		"genre": ["Early Renaissance"],
 		"nationality": ["Italian"],
 		"bio": {
 			"ru": "",
