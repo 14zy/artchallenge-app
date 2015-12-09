@@ -28,24 +28,44 @@
 
     <div class="list card">
       <div class="item item-divider">
-        Самый узнаваемый художник
+        Самые узнаваемые художники
       </div>
-      <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(1,false,true);'>
+      <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(favoritePainter,false,true);'>
         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{favoritePainter}}.jpg"></div>
          <text style='padding-left: 10px'>{{lang.painters[favoritePainter]}}</text>
          <span class="badge badge-positive">{{(painterStats[favoritePainter].trues / ((painterStats[favoritePainter].bads + painterStats[favoritePainter].trues)/100)).toFixed(0)}}%</span>
        </a>
+       <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(favoritePainter2,false,true);'>
+         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{favoritePainter2}}.jpg"></div>
+          <text style='padding-left: 10px'>{{lang.painters[favoritePainter2]}}</text>
+          <span class="badge badge-positive">{{(painterStats[favoritePainter2].trues / ((painterStats[favoritePainter2].bads + painterStats[favoritePainter2].trues)/100)).toFixed(0)}}%</span>
+        </a>
+        <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(favoritePainter3,false,true);'>
+          <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{favoritePainter3}}.jpg"></div>
+           <text style='padding-left: 10px'>{{lang.painters[favoritePainter3]}}</text>
+           <span class="badge badge-positive">{{(painterStats[favoritePainter3].trues / ((painterStats[favoritePainter3].bads + painterStats[favoritePainter3].trues)/100)).toFixed(0)}}%</span>
+         </a>
     </div>
 
     <div class="list card">
       <div class="item item-divider">
-        Самый неузнаваемый художник
+        Самые неузнаваемые художники
       </div>
-      <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(2,false,true);'>
+      <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(worsePainter,false,true);'>
         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{worsePainter}}.jpg"></div>
          <text style='padding-left: 10px'>{{lang.painters[worsePainter]}}</text>
          <span class="badge badge-energized">{{(painterStats[worsePainter].trues / ((painterStats[worsePainter].bads + painterStats[worsePainter].trues)/100)).toFixed(0)}}%</span>
        </a>
+       <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(worsePainter2,false,true);'>
+         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{worsePainter2}}.jpg"></div>
+          <text style='padding-left: 10px'>{{lang.painters[worsePainter2]}}</text>
+          <span class="badge badge-energized">{{(painterStats[worsePainter2].trues / ((painterStats[worsePainter2].bads + painterStats[worsePainter2].trues)/100)).toFixed(0)}}%</span>
+        </a>
+        <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(worsePainter3,false,true);'>
+          <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{worsePainter3}}.jpg"></div>
+           <text style='padding-left: 10px'>{{lang.painters[worsePainter3]}}</text>
+           <span class="badge badge-energized">{{(painterStats[worsePainter3].trues / ((painterStats[worsePainter3].bads + painterStats[worsePainter3].trues)/100)).toFixed(0)}}%</span>
+         </a>
     </div>
 
     <div class="list card">
@@ -56,7 +76,7 @@
       <a style='text-align: left' class="item item-icon-left" ng-click='' ng-repeat='set in sets'>
         <div style='height: 40px; margin: 10px 0 0 0' class="icon circle"><img ng-src="img/sets/{{set.id}}Set.png"></div>
          <text style='padding-left: 10px'>{{lang.sets[set.id+'Set']}}</text>
-         <span ng-class="{'badge badge-assertive': userStats.stats[set.id] < 50, 'badge badge-balanced': userStats.stats[set.id] > 50, 'badge badge-dark': userStats.stats[set.id] == 0}" >{{userStats.stats[set.id]}}%</span>
+         <span ng-class="{'badge badge-assertive': userStats.stats[set.id] < 50, 'badge badge-positive': userStats.stats[set.id] > 50, 'badge badge-dark': userStats.stats[set.id] == 0}" >{{userStats.stats[set.id]}}%</span>
          <progress max="100" value="{{userStats.stats[set.id]}}"> </progress>
       </a>
     </div>
@@ -67,14 +87,21 @@
         {{lang.desc.statsAnswersByDays}}
       </div>
 
-      <a style='text-align: left' class="item item-icon-left" ng-click='' ng-repeat='day in days track by $index'>
-        <i class="icon ion-calendar"></i>
-         <text style=''>{{day}} {{lang.desc.statsYourAnswer}}:<br>
-         <span class='assertive'>{{dataWrongAnswers[$index]}}</span>
-         <span class='balanced'>{{dataRightAnswers[$index]}}</span>
-         <span> ({{dataRightAnswers[$index]}}%)</span>
+      <a style='text-align: center; height: 60px' class="item item-icon-left" ng-click='' ng-repeat='day in days track by $index'>
+        <i class="icon ">{{day}}</i>
+         <!-- <text style='margin-left: 50px'>{{lang.desc.statsYourAnswer}}:
+           <span class='assertive'>{{dataWrongAnswers[$index]}}</span>
+          <span class='balanced'>{{dataRightAnswers[$index]}}</span>
+          <span> ({{dataRightAnswers[$index]}}%)</span>
+        </text> -->
 
-          </text>
+        <!-- <div class="badge badge-dark">{{dataRightAnswers[$index] + dataWrongAnswers[$index]}} </div> -->
+        <div style='margin-right: 0px' class="badge badge-positive">{{dataRightAnswersPercent[$index]}}%</div>
+        <div style='margin-right: 70px' class="badge badge-assertive">{{dataWrongAnswers[$index]}} </div>
+        <div style='margin-right: 120px' class="badge badge-balanced">{{dataRightAnswers[$index]}} </div>
+
+
+
 
          <!-- <div class="badge badge-assertive">{{dataWrongAnswers[$index]}}</div>
          <div style='right: 80px' class="badge badge-balanced">{{dataRightAnswers[$index]}}</div> -->

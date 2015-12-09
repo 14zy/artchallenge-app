@@ -285,7 +285,7 @@ angular.module('starter.controllers', [])
             // console.log(response);
             $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
               descending: true,
-              limit: 3000
+              limit: 1000
             }).then(function(doc) {
               $scope.leaderboard = doc.rows;
               $scope.getScore();
@@ -299,7 +299,7 @@ angular.module('starter.controllers', [])
             $scope.leaderboardDB.put(me, $scope.userInfo.email).then(function(response) {
               $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
                 descending: true,
-                limit: 3000
+                limit: 1000
               }).then(function(doc) {
                 $scope.leaderboard = doc.rows;
                 $scope.getScore();
@@ -330,7 +330,7 @@ angular.module('starter.controllers', [])
     updateDB = function() {
       pouchService.db.get('userStats').then(function(doc) {
         return pouchService.db.put({
-          answersHistory: $scope.userStats.answersHistory,
+          answersHistory: $scope.userStats.answersHistory.slice(-1000),
           wins: $scope.userStats.wins,
           stats: $scope.userStats.stats,
           leaderboard: $scope.userStats.leaderboard
@@ -371,7 +371,7 @@ angular.module('starter.controllers', [])
 
         $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
           descending: true,
-          limit: 3000
+          limit: 1000
         }).then(function(doc) {
           $scope.leaderboard = doc.rows;
           $scope.getScore();
@@ -510,7 +510,14 @@ angular.module('starter.controllers', [])
   $ionicPlatform.ready(function() {
     console.log("deviceready");
 
-    $scope.settings = $localstorage.getObject('settings');
+
+    try {
+      $scope.settings = $localstorage.getObject('settings');
+    }
+    catch(err) {
+      console.log("can't get settings from localstorage");
+    }
+
     if (!$scope.settings.langId) {
       //platform local
       // console.log("platform lcoal on");
@@ -724,7 +731,7 @@ angular.module('starter.controllers', [])
 
   $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
     descending: true,
-    limit: 3000
+    limit: 1000
   }).then(function(doc) {
     $scope.leaderboard = doc.rows;
     // console.log($scope.leaderboard);
@@ -750,7 +757,7 @@ angular.module('starter.controllers', [])
   $scope.showLeaderboard = function() {
     $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
       descending: true,
-      limit: 3000
+      limit: 1000
     }).then(function(doc) {
       $scope.leaderboard = doc.rows;
       // console.log($scope.leaderboard);
@@ -1027,7 +1034,7 @@ angular.module('starter.controllers', [])
 
     $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
       descending: true,
-      limit: 3000
+      limit: 1000
     }).then(function(doc) {
       $scope.leaderboard = doc.rows;
       $scope.$apply();
@@ -1302,18 +1309,46 @@ angular.module('starter.controllers', [])
 
 
       bestValue = 0;
+      bestValue2 = 0;
+      bestValue3 = 0;
       worseValue = 0;
+      worseValue2 = 0;
+      worseValue3 = 0;
       angular.forEach($scope.painterStats, function(value, key) {
         // console.log(value);
         score = value.trues-value.bads;
+
         if (score > bestValue) {
           bestValue = score;
           $scope.favoritePainter = key;
         }
+
+        if (score > bestValue2 && score < bestValue) {
+          bestValue2 = score;
+          $scope.favoritePainter2 = key;
+        }
+
+        if (score > bestValue3 && score < bestValue2) {
+          bestValue3 = score;
+          $scope.favoritePainter3 = key;
+        }
+
+
         if (score < worseValue) {
           worseValue = score;
           $scope.worsePainter = key;
         }
+
+        if (score < worseValue2 && score > worseValue) {
+          worseValue2 = score;
+          $scope.worsePainter2 = key;
+        }
+
+        if (score < worseValue3 && score > worseValue2) {
+          worseValue3 = score;
+          $scope.worsePainter3 = key;
+        }
+
       });
 
       // console.log($scope.favoritePainter);

@@ -88,7 +88,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.stats', {
-      cache: false,
       url: "/stats",
       views: {
         'menuContent': {
