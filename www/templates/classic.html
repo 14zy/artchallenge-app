@@ -88,7 +88,7 @@
   </ion-content>
 
   <div id="buttons">
-    <button class="button button-full button-answer" id={{$index}} ng-repeat="painter in candidates track by $index"  ng-click="checkAnswer($event)"> <!-- on-hold="showPainterInfoOnHold($event, true)" -->
+    <button class="button button-full button-answer" id={{$index}} ng-repeat="painter in candidates track by $index"  ng-click="checkAnswer($event)"> <!-- on-hold="showPainterInfoById($event, true)" -->
       <div class="circle"><img ng-src="img/painters/{{painter.id}}.jpg"></div>
       <text>{{lang.painters[painter.id]}}</text>
       <div id='painterId' style='display: none'>{{painter.id}}</div>

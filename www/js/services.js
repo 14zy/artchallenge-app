@@ -3258,7 +3258,7 @@ angular.module('starter.services', [])
 		"message": {
 			"right": "Верно!",
 			"right-desc": "Вы отгадали __count__ картину",
-			"wrong": "Не верно!",
+			"wrong": "Неверно!",
 			"wrong-desc": "Это же",
 			"years": "Годы жизни",
 			"nationality": "Национальность",

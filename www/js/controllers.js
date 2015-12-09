@@ -458,7 +458,7 @@ angular.module('starter.controllers', [])
     if (open) {
       $("#menuIcon").addClass('positive');
     } else {
-      $("#menuIcon").removeClass('positive')
+      $("#menuIcon").removeClass('positive');
     }
   });
 
@@ -1054,8 +1054,13 @@ angular.module('starter.controllers', [])
     $scope.modalPainterShowInfo = modal;
   });
 
-  $scope.showPainterInfoOnHold = function(event, scroll) {
-    painterid = $(event.target)[0].children[2].innerHTML;
+  $scope.showPainterInfoById = function(event, scroll, onlyId) {
+    if (onlyId) {
+      painterid = event;
+    } else {
+      painterid = $(event.target)[0].children[2].innerHTML;
+    }
+
     painters = Painters.all();
     painterid = painters[painterid - 1];
     $scope.showPainterInfo(painterid, scroll);
@@ -1239,65 +1244,122 @@ angular.module('starter.controllers', [])
     });
 
     function calculateStats() {
-      answersCurrentSet = answersHistory.filter(function(x) {
-        return x.set == $scope.settings.currentSet.id;
-      });
+      // answersCurrentSet = answersHistory.filter(function(x) {
+      //   return x.set == $scope.settings.currentSet.id;
+      // });
       $scope.statGlobalDays = [];
-      angular.forEach(answersCurrentSet, function(value, key) {
+      // $scope.goodPainters=[];
+      // $scope.badPainters=[];
+
+      $scope.painterStats = [];
+      angular.forEach(answersHistory, function(value, key) {
         var n = new Date(value.date).getDate();
         n = n + "." + (new Date(value.date).getMonth() + 1);
+
         if ($scope.statGlobalDays[n]) {
           $scope.statGlobalDays[n].push(value.answer);
         } else {
           $scope.statGlobalDays[n] = [];
           $scope.statGlobalDays[n].push(value.answer);
         }
+
+
+        if ($scope.painterStats[value.painter]) {
+          if (value.answer === true) {
+            $scope.painterStats[value.painter].trues = $scope.painterStats[value.painter].trues + 1;
+          } else {
+            $scope.painterStats[value.painter].bads = $scope.painterStats[value.painter].bads + 1;
+          }
+        } else {
+            $scope.painterStats[value.painter] = {trues: 0, bads: 0};
+            if (value.answer === true) {
+              $scope.painterStats[value.painter].trues = 1;
+            } else {
+              $scope.painterStats[value.painter].bads=1;
+            }
+          }
+
+
+
+        // if (value.answer === true) {
+        //   if ($scope.goodPainters[value.painter]) {
+        //     $scope.goodPainters[value.painter] = $scope.goodPainters[value.painter] + 1;
+        //   } else {
+        //     $scope.goodPainters[value.painter] = 1;
+        //   }
+        // } else {
+        //   if ($scope.badPainters[value.painter]) {
+        //     $scope.badPainters[value.painter] = $scope.badPainters[value.painter] + 1;
+        //   } else {
+        //     $scope.badPainters[value.painter] = 1;
+        //   }
+        // }
+
       });
 
-      $scope.days = Object.keys($scope.statGlobalDays).sort().slice(0, 15);
-      dataRightAnswersPercent = [];
-      dataRightAnswers = [];
-      dataWrongAnswers = [];
+
+      // console.log(painterStats);
+
+
+      bestValue = 0;
+      worseValue = 0;
+      angular.forEach($scope.painterStats, function(value, key) {
+        // console.log(value);
+        score = value.trues-value.bads;
+        if (score > bestValue) {
+          bestValue = score;
+          $scope.favoritePainter = key;
+        }
+        if (score < worseValue) {
+          worseValue = score;
+          $scope.worsePainter = key;
+        }
+      });
+
+      // console.log($scope.favoritePainter);
+      // console.log($scope.worsePainter);
+
+      // console.log($scope.badPainters);
+      // bestValue = 0;
+      // angular.forEach($scope.goodPainters, function(value, key) {
+      //   if (value > bestValue) {
+      //     bestValue = value;
+      //     $scope.favoritePainter = key;
+      //   }
+      // });
+      //
+      // angular.forEach($scope.badPainters, function(value, key) {
+      //   if (value > bestValue) {
+      //     bestValue = value;
+      //     $scope.hatePainter = key;
+      //   }
+      // });
+      // console.log($scope.favoritePainter);
+      // console.log($scope.hatePainter);
+
+
+
+
+      $scope.days = Object.keys($scope.statGlobalDays).reverse(); //.sort().slice(0, 15);
+
+      $scope.dataRightAnswersPercent = [];
+      $scope.dataRightAnswers = [];
+      $scope.dataWrongAnswers = [];
 
       angular.forEach($scope.days, function(valueDay, key) {
-
         trueValues = $scope.statGlobalDays[valueDay].filter(function(x) {
           return x === true;
         });
 
-        dataRightAnswersPercent.push((trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0));
-        dataRightAnswers.push(trueValues.length);
-        dataWrongAnswers.push($scope.statGlobalDays[valueDay].length - trueValues.length);
+        $scope.dataRightAnswersPercent.push((trueValues.length / ($scope.statGlobalDays[valueDay].length / 100)).toFixed(0));
+        $scope.dataRightAnswers.push(trueValues.length);
+        $scope.dataWrongAnswers.push($scope.statGlobalDays[valueDay].length - trueValues.length);
+
       });
 
-      $scope.statGlobal = {
-        labels: $scope.days,
-        datasets: [{
-          fillColor: "#7ED321",
-          strokeColor: "#7ED321",
-          data: dataRightAnswers
-        }, {
-          fillColor: "#D0021B",
-          strokeColor: "#D0021B",
-          data: dataWrongAnswers
-        }],
-      };
 
-      $scope.statSets = {
-        labels: [$scope.lang.sets.basicSet, $scope.lang.sets.renaissanceSet, $scope.lang.sets.impressionismSet, $scope.lang.sets.realismSet, $scope.lang.sets.frenchSet, $scope.lang.sets.russianSet],
-        datasets: [{
-          fillColor: "#f1c40f",
-          strokeColor: "#f1c40f",
-          pointColor: "rgba(151,187,205,0)",
-          pointStrokeColor: "#f1c40f",
-          data: [userStats.basic, userStats.renaissance, userStats.impressionism, userStats.realism, userStats.french, userStats.russian]
-        }],
-      };
     } // calculateStats end
 
-    // $scope.openMenu = function() {
-    //   $ionicSideMenuDelegate.toggleLeft();
-    // };
 
   }) // controller end
 
