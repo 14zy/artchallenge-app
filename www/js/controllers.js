@@ -236,10 +236,16 @@ angular.module('starter.controllers', [])
     }, true);
 
     $scope.closeWin = function(newRound) {
-      if (newRound) {
+      if (newRound === true) {
         $scope.newRound();
         $scope.answers = [];
       }
+
+      if (newRound == 'tournament') {
+        $scope.newRound();
+        // $scope.answers = [];
+      }
+
       $("#win").removeClass("animated slideInDown");
       $("#win").addClass("animated rotateOutUpLeft");
       $("#winDesc").addClass("animated fadeOutDown");
@@ -365,7 +371,7 @@ angular.module('starter.controllers', [])
 
     $scope.$watch('gameMode', function(newVal, oldVal) {
       if (newVal != oldVal && newVal == 'tournament') {
-        $scope.closeWin();
+        $scope.closeWin('tournament');
 
         $scope.leaderboardMyPlace = false;
 
