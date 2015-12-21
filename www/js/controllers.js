@@ -79,8 +79,14 @@ angular.module('starter.controllers', [])
 
               // soundRight.play();
 
+              if ($scope.settings.emoji === false) {
+                emoji = "";
+              } else {
+                emoji = "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'";
+              }
+
               var goodMsg = new PNotify({
-                title: goodPhrase() + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>",
+                title: goodPhrase() + emoji,
                 text: $scope.lang.message['right-desc'].replace("__count__", $scope.answers.length),
                 addclass: "answerRight",
                 animation: 'slide',
@@ -142,9 +148,15 @@ angular.module('starter.controllers', [])
 
           // soundWrong.play();
 
+          if ($scope.settings.emoji === false) {
+            emoji = "";
+          } else {
+            emoji = "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'";
+          }
+
           var wrongMsg = new PNotify({
             title: "" + badPhrase(),
-            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/wrong" + Math.floor(Math.random() * 14) + ".png'><br><button style='margin: 10px 0 0px 0' class='button button-full button-positive button-small'>" + $scope.lang.message["learn-more"] + "</button>",
+            text: $scope.lang.message['wrong-desc'] + " " + $scope.lang.painters[currentPainter.id] + emoji + "<br><button style='margin: 10px 0 0px 0' class='button button-full button-positive button-small'>" + $scope.lang.message["learn-more"] + "</button>",
             addclass: "answerWrong",
             animation: 'slide',
             hide: true,
@@ -550,6 +562,7 @@ angular.module('starter.controllers', [])
       $scope.settings.currentSet = $scope.sets[0];
       $scope.settings.registered = false;
       $scope.settings.abuse = true;
+      $scope.settings.emoji = true;
 
       //old style
       // $.ajax({
@@ -1122,7 +1135,7 @@ angular.module('starter.controllers', [])
   $scope.openLink = function(link) {
     cordova.InAppBrowser.open(link, '_blank', 'location=yes');
     // console.log();
-  }
+  };
 
   $scope.getGenre = function(painter) {
     genre = undefined;
@@ -1152,11 +1165,10 @@ angular.module('starter.controllers', [])
     //добавляем отступ сверху, чтобы картина была по середине
     window.margin = 0;
     if (window.innerWidth <= 400) {
-      window.margin = (($('.background').height() - $('#navigation').height() - $('#buttons').height()) - $('#picture').height()) / 2;
+      window.margin = (($('.background').height() - $('#navigation').height() - $('#buttons').height()) - $('#picture').height()) / 2 - 5;
     } else {
-      window.margin = ($('.background').height() - ($('#navigation').height()) - $('#buttons').height() - $('#picture').height()) / 2;
+      window.margin = ($('.background').height() - ($('#navigation').height()) - $('#buttons').height() - $('#picture').height()) / 2 - 5;
     }
-
     if (window.margin < 0) {
       window.margin = 0;
     }

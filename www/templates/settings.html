@@ -31,10 +31,20 @@
         </select>
       </li>
       <li class="item item-icon-left item-toggle" style='background: none; border: none'>
-        <i class="icon ion-happy-outline"></i>
+        <i class="icon ion-android-chat"></i>
         {{lang.desc.swear}}
         <label class="toggle toggle">
           <input ng-model="settings.abuse" type="checkbox">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+      <li class="item item-icon-left item-toggle" style='background: none; border: none'>
+        <i class="icon ion-happy-outline"></i>
+        {{lang.desc.emoji}}
+        <label class="toggle toggle">
+          <input ng-model="settings.emoji" type="checkbox">
           <div class="track">
             <div class="handle"></div>
           </div>
@@ -100,7 +110,7 @@
           <!-- <button ng-click="window.open('https://twitter.com/artchallenge_ru', '_system', 'location=yes')" class="button button-positive icon ion-social-instagram-outline"></button> -->
         </div>
 		<br>
-		Никакого спама. Только замечательные новости из мира искусства.
+		<i class='ion ion-heart'></i> Никакого спама. Только замечательные новости из мира искусства.
       </div>
     </div>
 
@@ -252,7 +262,7 @@
       </div>
     </div>
     <div class='item'>
-      Версия игры 0.8.4
+      Версия игры 0.8.5
       <button ng-click='unlogin();' class='button button-assertive button-full'>Выход</button>
     </div>
 

@@ -3208,6 +3208,7 @@ angular.module('starter.services', [])
 			"settings": "Настройки",
 			"lang": "Язык",
 			"swear": "Шуточки",
+      "emoji": "Смайлики",
 			"swear-on": "Вкл.",
 			"swear-off": "Выкл.",
 			"subscribe": "Подписывайтесь на новости",
@@ -3546,6 +3547,7 @@ angular.module('starter.services', [])
 			"settings": "Settings",
 			"lang": "Language",
 			"swear": "Jokes",
+      "emoji": "Emoticons",
 			"swear-on": "On",
 			"swear-off": "Off",
 			"subscribe": "Subscribe for news:",
@@ -3884,6 +3886,7 @@ angular.module('starter.services', [])
 			"settings": "Einstellungen",
 			"lang": "Sprache",
 			"swear": "Schimpfworter",
+      "emoji": "Emoticons",
 			"swear-on": "Ein",
 			"swear-off": "Aus",
 			"subscribe": "Abonnieren Sie die Neuigkeiten:",
@@ -4221,6 +4224,7 @@ angular.module('starter.services', [])
 			"settings": "Opciones",
 			"lang": "Idioma",
 			"swear": "Blasfemias",
+      "emoji": "Emoticones",
 			"swear-on": "On",
 			"swear-off": "Off",
 			"subscribe": "Suscíbete para recibir noticias:",
@@ -4558,6 +4562,7 @@ angular.module('starter.services', [])
 			"settings": "Paramètres",
 			"lang": "Langue",
 			"swear": "Injures",
+      "emoji": "Émoticônes",
 			"swear-on": "Insérer",
 			"swear-off": "Couper",
 			"subscribe": "Abonnez-vous aux nouvelles:",
@@ -4895,6 +4900,7 @@ angular.module('starter.services', [])
 			"settings": "Impostazioni",
 			"lang": "Lingua",
 			"swear": "Parolacce",
+      "emoji": "Emoticon",
 			"swear-on": "Acceso",
 			"swear-off": "Spento",
 			"subscribe": "Si iscriva alle notizie:",
@@ -5268,7 +5274,7 @@ angular.module('starter.services', [])
 
 		russian: function () {
 			var paintersSet = [];
-			var paintersSetIDs = [3, 4, 5, 6, 8, 10, 11, 12, 13, 16, 19, 20, 23, 25, 26, 27, 31, 37, 38, 44, 47, 48, 76, 81, 84, 85, 86, 103, 105, 107, 109, 113, 115];
+			var paintersSetIDs = [3, 4, 5, 6, 8, 10, 11, 12, 13, 16, 19, 20, 23, 25, 26, 27, 37, 38, 44, 47, 48, 76, 81, 84, 85, 86, 103, 105, 107, 109, 113, 115];
 			angular.forEach(painters, function (value) {
 				if (paintersSetIDs.indexOf(value.id) > -1) {
 					this.push(value)
