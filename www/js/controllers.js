@@ -82,7 +82,7 @@ angular.module('starter.controllers', [])
               if ($scope.settings.emoji === false) {
                 emoji = "";
               } else {
-                emoji = "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 14) + ".png'>";
+                emoji = "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>";
                 console.log(emoji);
               }
 
