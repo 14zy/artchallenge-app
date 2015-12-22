@@ -83,7 +83,6 @@ angular.module('starter.controllers', [])
                 emoji = "";
               } else {
                 emoji = "<img style='position:absolute; top: 0; right:0; margin: 10px; height: 50px;' src='img/emoji/right" + Math.floor(Math.random() * 10) + ".png'>";
-                console.log(emoji);
               }
 
               var goodMsg = new PNotify({
@@ -332,17 +331,26 @@ angular.module('starter.controllers', [])
 
       var d = new Date();
       answer.date = d;
-      $scope.userStats.answersHistory.push(answer);
-      total_answers = $scope.userStats.answersHistory.filter(function(x) {
-        return x.set == $scope.settings.currentSet.id;
-      });
-      if (total_answers.length >= 10) {
-        right_answers = total_answers.filter(function(x) {
-          return x.answer === true;
-        }).length;
-        stats = (right_answers / (total_answers.length / 100)).toFixed(0);
-        $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
+
+      try {
+        $scope.userStats.answersHistory.push(answer);
+
+        total_answers = $scope.userStats.answersHistory.filter(function(x) {
+          return x.set == $scope.settings.currentSet.id;
+        });
+        if (total_answers.length >= 10) {
+          right_answers = total_answers.filter(function(x) {
+            return x.answer === true;
+          }).length;
+          stats = (right_answers / (total_answers.length / 100)).toFixed(0);
+          $scope.userStats.stats[$scope.settings.currentSet.id] = stats;
+        }
+
       }
+      catch(err) {
+        console.log("can't add answer to answer history");
+      }
+
       // updateDB(); не нужно?
     };
 
@@ -446,7 +454,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.hideLoader = function() {
-    if ($scope.imgLoaded && $scope.dbLoaded) {
+    if ($scope.imgLoaded) { // && $scope.dbLoaded
       $timeout.cancel($scope.timer);
       $ionicLoading.hide();
     }
@@ -662,8 +670,8 @@ angular.module('starter.controllers', [])
       }
 
       console.log("copyDataFromDBtoScope() completed");
-      $scope.dbLoaded = true;
-      $scope.hideLoader();
+      // $scope.dbLoaded = true;
+      // $scope.hideLoader();
 
     }).catch(function(err) {
       console.log(err);
@@ -735,8 +743,8 @@ angular.module('starter.controllers', [])
         $scope.userDuels
       ]).then(function(result) {
         console.log(result);
-        $scope.dbLoaded = true;
-        $scope.hideLoader();
+        // $scope.dbLoaded = true;
+        // $scope.hideLoader();
         // handle result
       }).catch(function(err) {
         console.log(err);
@@ -1265,6 +1273,7 @@ angular.module('starter.controllers', [])
       userStats = doc.stats;
     }).then(function(response) {
       calculateStats();
+      $scope.$apply();
       // handle response
     }).catch(function(err) {
       console.log(err);
