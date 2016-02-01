@@ -564,7 +564,7 @@ angular.module('starter.controllers', [])
       //always
       var lang = window.navigator.userLanguage || window.navigator.language;
       lang = lang.substring(0, 2).toLowerCase();
-      if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es") {} else {
+      if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es" || lang == "zh") {} else {
         lang = "en";
       }
       $scope.settings.langId = lang;
