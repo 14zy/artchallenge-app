@@ -17,7 +17,7 @@
 
     <div class="list card">
       <div class="item item-divider">
-        Мой профиль
+        {{lang.desc.statsMyProfile}}
       </div>
       <a class="item item-avatar" style='text-align:left; border: none; background: none;'>
         <img src='img/avatar-dummy.png'>
@@ -28,7 +28,7 @@
 
     <div class="list card">
       <div class="item item-divider">
-        Самые узнаваемые художники
+        {{lang.desc.statsYourBestPainters}}
       </div>
       <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(favoritePainter,false,true);'>
         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{favoritePainter}}.jpg"></div>
@@ -49,7 +49,7 @@
 
     <div class="list card">
       <div class="item item-divider">
-        Самые неузнаваемые художники
+        {{lang.desc.statsYourWorstPainters}}
       </div>
       <a style='text-align: left' class="item item-icon-left" ng-click='showPainterInfoById(worsePainter,false,true);'>
         <div style='height: 40px; margin: 5px 0 0 0' class="icon circle"><img ng-src="img/painters/{{worsePainter}}.jpg"></div>

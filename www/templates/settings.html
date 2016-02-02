@@ -28,6 +28,7 @@
           <option value="es">Español</option>
           <option value="fr">Français</option>
           <option value="it">Italiano</option>
+          <option value="zh">中文</option>
         </select>
       </li>
       <li class="item item-icon-left item-toggle" style='background: none; border: none'>
@@ -78,12 +79,11 @@
 
     <div class="list card">
       <div class="item item-divider">
-        Обнаружили ошибку?
+        {{lang.desc.reportError}}
       </div>
       <div class="item item-text-wrap item-icon-left">
         <i class="icon ion-ios-chatbubble"></i>
-        Обязательно сообщите нам на
-        <a href='mailto:report@artchallenge.ru'>report@artchallenge.ru</a>
+        {{lang.desc.reportEmail}}
       </div>
     </div>
 
@@ -105,28 +105,22 @@
           <!-- Art Challenge в социальных сетях: -->
           <!-- <br><br> -->
           <a href='fb://artchallenge.ru' class="button button-positive icon ion-social-facebook"></a>
-		  <a ng-click='openLink("http://vk.com/art.challenge")' class="button button-positive "><b>ВК</b></a>
+		  <a ng-click='openLink("http://vk.com/art.challenge")' class="button button-positive "><b>VK</b></a>
           <a href='twitter://user?screen_name=artchallenge_ru' class="button button-positive icon ion-social-twitter"></a>
           <!-- <button ng-click="window.open('https://twitter.com/artchallenge_ru', '_system', 'location=yes')" class="button button-positive icon ion-social-instagram-outline"></button> -->
         </div>
 		<br>
-		<i class='ion ion-heart'></i> Никакого спама. Только замечательные новости из мира искусства.
+		<i class='ion ion-heart'></i> {{lang.desc.subscribeNoSpam}}
       </div>
     </div>
 
     <div class="list card">
       <div class="item item-divider">
         <!-- <i class="icon ion-ios-people"></i> -->
-        Об игре
+        {{lang.desc.about}}
       </div>
       <div class="item item-text-wrap">
-        Art Challenge создан
-        <i class="icon ion-person"></i>
-        <a href='#'>Рубеном Бабаевым</a>
-        и
-        <i class="icon ion-person"></i>
-        <a href='#'>Анной Плоткиной</a>
-        благодяря поддержке наших дорогих меценатов:
+        {{lang.desc.aboutSponsors}}
         <br><br>
         <ul class="list">
           <li class="item">
@@ -265,8 +259,8 @@
       </div>
     </div>
     <div class='item'>
-      Версия игры 0.8.5
-      <button ng-click='unlogin();' class='button button-assertive button-full'>Выход</button>
+      {{lang.desc.gameVersion}} 0.8.6
+      <button ng-click='unlogin();' class='button button-assertive button-full'>{{lang.desc.exit}}</button>
     </div>
 
   </ion-content>

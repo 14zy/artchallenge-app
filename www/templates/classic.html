@@ -12,10 +12,10 @@
         <div class="col col-60" style='margin-top: -1px'> <!-- ng-click='changeGameMode("tournament");' -->
 
           <span ng-repeat="i in answers track by $index">
-            <i ng-class="{true: 'score-right ion-ios-checkmark-outline', false: 'score-fail ion-ios-close-outline'}[i]" style='font-size: 16px;'></i>
+            <i ng-class="{true: 'score-right ion-ios-checkmark', false: 'score-fail ion-ios-close-outline'}[i]" style='font-size: 16px;'></i>
           </span>
           <span ng-repeat="i in getScores(10-answers.length) track by $index">
-            <i class="ion-ios-circle-filled" style='font-size: 16px;'></i>
+            <i class="ion-ios-circle-outline" style='font-size: 16px;'></i>
           </span>
         </div>
         <div class="col col-10" ng-click="hideAnswers()">
