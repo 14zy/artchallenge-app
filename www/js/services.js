@@ -4588,7 +4588,7 @@ angular.module('starter.services', [])
 	}];
 	var fr = [{
 		"head": {
-			"title": "Art Challenge - Game on Knowledge of Popular Painters",
+			"title": "Art Challenge - Un jeu sur la connaissance des artistes populaires",
 			"description": "Essayez de deviner 10 artistes de suite et battre vos amis!"
 		},
 		"desc": {

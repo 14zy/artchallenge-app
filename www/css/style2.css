@@ -364,6 +364,22 @@ a {
     width: 30%;
   }
 
+  #picture {
+    max-height: 90%;
+  }
+
+  .ui-pnotify.answerRight {
+    right: 25%!important;
+      width: 50%!important;
+  }
+  .ui-pnotify.answerWrong {
+    right: 25%!important;
+      width: 50%!important;
+  }
+
+
+
+
 
 }
 
