@@ -9,7 +9,6 @@ angular.module('starter.controllers', [])
     };
 
     $scope.newRound = function() {
-
       $scope.showLoader();
 
       buttonsAreWorking = true;
@@ -17,8 +16,6 @@ angular.module('starter.controllers', [])
       currentPainter = newPainter;
       currentPainterPainting = newPainterPicture;
       $scope.picture = $scope.picturePreloadUrl;
-
-      //$scope.currentPainter = currentPainter; //подсказка, убрать
 
       $scope.picturePreload();
 
@@ -233,14 +230,15 @@ angular.module('starter.controllers', [])
         $scope.newRound();
         $scope.answers = [];
       }
+
       //Ставим бэкграунд
-      if (newVal.background) {
-        $("#classicBackgroud").css("background-image", "url('img/" + newVal.background + "')");
-        $("#classicBackgroud").css("background-repeat", "no-repeat");
-        $("#classicBackgroud").css("background-size", "cover");
-      } else {
-        $("#classicBackgroud").css("background", "none");
-      }
+      // if (newVal.background) {
+      //   $("#classicBackgroud").css("background-image", "url('img/" + newVal.background + "')");
+      //   $("#classicBackgroud").css("background-repeat", "no-repeat");
+      //   $("#classicBackgroud").css("background-size", "cover");
+      // } else {
+      //   $("#classicBackgroud").css("background", "none");
+      // }
 
       if ($("#win").css("display") == "block") {
         $scope.closeWin();
@@ -278,7 +276,6 @@ angular.module('starter.controllers', [])
         if (res) {
           $scope.closeWin(true);
         } else {
-          // console.log('You are not sure');
         }
       });
     };
@@ -300,7 +297,6 @@ angular.module('starter.controllers', [])
           $scope.leaderboardDB.get($scope.userInfo.email).then(function(doc) {
             return $scope.leaderboardDB.put(me, $scope.userInfo.email, doc._rev);
           }).then(function(response) {
-            // console.log(response);
             $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
               descending: true,
               limit: 1000
@@ -382,10 +378,8 @@ angular.module('starter.controllers', [])
         if (!$scope.leaderboardMyPlace && $scope.userStats.leaderboard[$scope.settings.currentSet.id] >= value.key) {
           console.log('Считаем позицию в таблице лидеров: Пользователь не зареган, но его статс круче чем у кого-либо из базы');
           $scope.leaderboardMyPlace = key + 1;
-          // key = key + 1;
         }
 
-        // console.log(value.id, value.value, value.key, key); //value.id=email, value.value=name, value.key=score, key=place
       });
     };
 
@@ -410,11 +404,16 @@ angular.module('starter.controllers', [])
       }
     }, true);
 
-    $scope.painters = Painters[$scope.settings.currentSet.id]();
-    $scope.picturePreload();
-    $scope.newRound();
-    $scope.answers = [];
 
+    try {
+      $scope.painters = Painters[$scope.settings.currentSet.id]();
+      $scope.picturePreload();
+      $scope.newRound();
+      $scope.answers = [];
+    }
+    catch(err) {
+      console.log(err);
+    }
 
   }) // controller end
 
@@ -430,7 +429,6 @@ angular.module('starter.controllers', [])
         if (res) {
           ionic.Platform.exitApp();
         } else {
-          // console.log('You are not sure');
         }
       });
     } else {
@@ -454,7 +452,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.hideLoader = function() {
-    if ($scope.imgLoaded) { // && $scope.dbLoaded
+    if ($scope.imgLoaded) {
       $timeout.cancel($scope.timer);
       $ionicLoading.hide();
     }
@@ -537,7 +535,6 @@ angular.module('starter.controllers', [])
   $ionicPlatform.ready(function() {
     console.log("deviceready");
 
-
     try {
       $scope.settings = $localstorage.getObject('settings');
     }
@@ -547,10 +544,6 @@ angular.module('starter.controllers', [])
     }
 
     if (!$scope.settings.langId) {
-      //platform local
-      // console.log("platform lcoal on");
-      // $scope.settings.platformLocal = true;
-      // $scope.settings.highQuality = false;
 
       //platform remote
       console.log("platform remote on");
@@ -573,66 +566,64 @@ angular.module('starter.controllers', [])
       $scope.settings.abuse = true;
       $scope.settings.emoji = true;
 
-      //old style
-      // $.ajax({
-      //     method: "GET",
-      //     url: "painters/1/thumbnails/1.jpg",
-      //     async: false
-      //   })
-      //   .done(function() {
-      //     $scope.settings.platformLocal = true;
-      //     $scope.settings.highQuality = false;
-      //   })
-      //   .fail(function() {
-      //     $scope.settings.platformLocal = false;
-      //     $scope.settings.highQuality = false;
-      //     if (window.innerWidth >= 500) {
-      //       console.log('hight quality auto on');
-      //       $scope.settings.highQuality = true;
-      //     }
-      //   }).always(function() {
-      //
-      //     var lang = window.navigator.userLanguage || window.navigator.language;
-      //     lang = lang.substring(0, 2).toLowerCase();
-      //     if (lang == "ru" || lang == "en" || lang == "de" || lang == "fr" || lang == "it" || lang == "es") {} else {
-      //       lang = "en";
-      //     }
-      //
-      //     $scope.settings.langId = lang;
-      //     $scope.settings.currentSet = $scope.sets[0];
-      //     $scope.settings.registered = false;
-      //     $scope.settings.abuse = true;
-      //
-      //   });
     }
 
-
+    letsGo();
 
   });
+
+  function letsGo() {
+
+    pouchService.db.get('userInfo').then(function(doc) {
+      if (doc.dbname) {
+        syncData(doc.dbname);
+      } else {
+        copyDataFromDBtoScope();
+      }
+    }).catch(function(err) {
+      if (err.status == 404) {
+        console.log(err);
+        createEmptyDB();
+      } else {
+        console.log(err);
+      }
+    });
+
+
+
+    // LEADERBOARD
+    $scope.leaderboardDB = new PouchDB('http://artchallenge.me:5994/leaderboard');
+
+    $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
+      descending: true,
+      limit: 1000
+    }).then(function(doc) {
+      $scope.leaderboard = doc.rows;
+    }).catch(function(err) {
+      $scope.errorOffline = true;
+    });
+
+
+
+  }
+
+
+
+
 
   $scope.$watch('settings', function(newVal, oldVal) {
     $localstorage.setObject('settings', $scope.settings);
   }, true);
 
   $scope.$watch('settings.langId', function(newVal, oldVal) {
-    $scope.lang = Painters[$scope.settings.langId]();
-    // console.log("lang");
+    try {
+      $scope.lang = Painters[$scope.settings.langId]();
+    }
+    catch(err) {
+      console.log(err);
+    }
   }, true);
 
-  pouchService.db.get('userInfo').then(function(doc) {
-    if (doc.dbname) {
-      syncData(doc.dbname);
-    } else {
-      copyDataFromDBtoScope();
-    }
-  }).catch(function(err) {
-    if (err.status == 404) {
-      console.log(err);
-      createEmptyDB();
-    } else {
-      console.log(err);
-    }
-  });
 
   function copyDataFromDBtoScope() {
     pouchService.db.allDocs({
@@ -670,8 +661,6 @@ angular.module('starter.controllers', [])
       }
 
       console.log("copyDataFromDBtoScope() completed");
-      // $scope.dbLoaded = true;
-      // $scope.hideLoader();
 
     }).catch(function(err) {
       console.log(err);
@@ -690,7 +679,6 @@ angular.module('starter.controllers', [])
   }
 
   function createEmptyDB() {
-
     console.log("No localDB, creating new one");
 
     pouchService.db.destroy().then(function(response) {
@@ -743,9 +731,6 @@ angular.module('starter.controllers', [])
         $scope.userDuels
       ]).then(function(result) {
         console.log(result);
-        // $scope.dbLoaded = true;
-        // $scope.hideLoader();
-        // handle result
       }).catch(function(err) {
         console.log(err);
       });
@@ -755,41 +740,20 @@ angular.module('starter.controllers', [])
   }
 
 
-  // LEADERBOARD
-  $scope.leaderboardDB = new PouchDB('http://artchallenge.me:5994/leaderboard');
 
-  $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
-    descending: true,
-    limit: 1000
-  }).then(function(doc) {
-    $scope.leaderboard = doc.rows;
-    // console.log($scope.leaderboard);
-  }).catch(function(err) {
-    $scope.errorOffline = true;
-  });
 
   $ionicModal.fromTemplateUrl('templates/leaderboard.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modalTournamtnShowTable = modal;
   });
-  //
-  // $scope.showTournament = function() {
-  //   $scope.modalTournamtnShowTable.show();
-  //
-  //   angular.forEach($scope.leaderboard, function(value, key) {
-  //     console.log(value.id, value.value, value.key, key); //value.id=email, value.value=name, value.key=score, key=place
-  //
-  //     console.log($scope.userStats.leaderboard[$scope.settings.currentSet.id]);
-  //   });
-  // };
+
   $scope.showLeaderboard = function() {
     $scope.leaderboardDB.query('leaderboard/' + $scope.settings.currentSet.id, {
       descending: true,
       limit: 1000
     }).then(function(doc) {
       $scope.leaderboard = doc.rows;
-      // console.log($scope.leaderboard);
     }).catch(function(err) {
       $scope.errorOffline = true;
     });
@@ -800,7 +764,6 @@ angular.module('starter.controllers', [])
     $scope.modalTournamtnShowTable.hide();
   };
 
-  // LEADERBOARD
 
   // Модуль авторзации
   $scope.loginData = {};
@@ -904,7 +867,6 @@ angular.module('starter.controllers', [])
             // HTTP error, cosmic rays, etc.
           }
         } else {
-          // console.log(response)
 
           //Логинимся только что зареганым пользователем
           usersDB.login($scope.registerData.email, $scope.registerData.password, function(err, response) {
@@ -917,7 +879,6 @@ angular.module('starter.controllers', [])
                 // cosmic rays, a meteor, etc.
               }
             } else {
-              // console.log(response)
               $ionicPopup.alert({
                 title: $scope.lang.desc.loginMessageSuccessRegister
               });
@@ -981,9 +942,7 @@ angular.module('starter.controllers', [])
                 }
               }
             }).done(function(response) {
-              // console.log(response);
             });
-            // console.log(response);
           });
 
         }
@@ -1037,23 +996,6 @@ angular.module('starter.controllers', [])
     }
   };
 
-  // $scope.doLoginVK = function() {
-  //   $cordovaOauth.vkontakte("5036047", ["email"]).then(function(result) {
-  //     console.log(JSON.stringify(result));
-  //   }, function(error) {
-  //     console.log(error);
-  //   });
-  // };
-  //
-  //
-  // $scope.doLoginFB = function() {
-  //   $cordovaOauth.facebook("263690153811188", ["email"]).then(function(result) {
-  //     console.log(JSON.stringify(result));
-  //   }, function(error) {
-  //     console.log(error);
-  //   });
-  // };
-
   /////////////////////////Конец модуля авторизации//////////////////////////////
 
 
@@ -1067,7 +1009,6 @@ angular.module('starter.controllers', [])
     }).then(function(doc) {
       $scope.leaderboard = doc.rows;
       $scope.$apply();
-      // console.log($scope.leaderboard);
     }).catch(function(err) {
       $scope.errorOffline = true;
     });
@@ -1075,9 +1016,17 @@ angular.module('starter.controllers', [])
   };
 
   $scope.activeSlideId = function() {
-    return $scope.sets.map(function(e) {
-      return e.id;
-    }).indexOf($scope.settings.currentSet.id);
+    try {
+      slide = $scope.sets.map(function(e) {
+        return e.id;
+      }).indexOf($scope.settings.currentSet.id);
+    }
+    catch(err) {
+      slide = 0;
+    }
+
+    return slide;
+
   };
 
   $scope.showPainters = function(set) {
@@ -1115,7 +1064,6 @@ angular.module('starter.controllers', [])
     $scope.infoPainterYears = painter.years;
 
     $scope.infoPainterPaintings = [];
-    // console.log(painter.paintings);
     if (painter.paintings <= 50) {
       for (i = 0; i < painter.paintings; i++) {
         $scope.infoPainterPaintings.push($scope.getPicture(painter, i + 1, true));
@@ -1143,7 +1091,6 @@ angular.module('starter.controllers', [])
 
   $scope.openLink = function(link) {
     cordova.InAppBrowser.open(link, '_blank', 'location=yes');
-    // console.log();
   };
 
   $scope.getGenre = function(painter) {
@@ -1199,8 +1146,6 @@ angular.module('starter.controllers', [])
     setTimeout(function() {
       updateDB();
     }, 1000);
-
-
   };
 
   getRandomIndex = function(length) {
@@ -1209,20 +1154,15 @@ angular.module('starter.controllers', [])
 
   $scope.hideAnswers = function() {
     if (!$('#buttons').hasClass("fadeOutDown")) {
-      // $ionicScrollDelegate.zoomTo(2);
       $('#buttons').addClass('animated fadeOutDown');
       $('#picture').css('width', '100%');
       $('#picture').css('max-height', 'none');
-      // $("#help").html($scope.getGenre(currentPainter));
-      // $("#help").css('display', 'block');
       $("#iconZoom").attr("src", "img/ui/zoom_out.png");
     } else {
-      // $ionicScrollDelegate.zoomTo(1);
       $('#buttons').removeClass('animated fadeOutDown');
       $('#buttons').addClass('animated fadeInUp');
       $('#picture').css('width', 'auto');
       $('#picture').css('max-height', '80%');
-      // $("#help").css('display', 'none');
       $("#iconZoom").attr("src", "img/ui/zoom_in.png");
     }
     $scope.calcPictureMargin();
@@ -1257,7 +1197,6 @@ angular.module('starter.controllers', [])
         $("#btnShowShare").html("<i class='icon ion-checkmark-round'></i> " + $scope.lang.message.shareWithFriends);
         $("#btnShowShare").removeClass("button-positive");
         $("#btnShowShare").addClass("button-balanced");
-        // $("#btnShowShare").addClass("disabled");
       }, function(err) {
         alert("Произошла ошибка :(");
         // An error occured. Show a message to the user
@@ -1280,12 +1219,7 @@ angular.module('starter.controllers', [])
     });
 
     function calculateStats() {
-      // answersCurrentSet = answersHistory.filter(function(x) {
-      //   return x.set == $scope.settings.currentSet.id;
-      // });
       $scope.statGlobalDays = [];
-      // $scope.goodPainters=[];
-      // $scope.badPainters=[];
 
       $scope.painterStats = [];
       angular.forEach(answersHistory, function(value, key) {
@@ -1298,7 +1232,6 @@ angular.module('starter.controllers', [])
           $scope.statGlobalDays[n] = [];
           $scope.statGlobalDays[n].push(value.answer);
         }
-
 
         if ($scope.painterStats[value.painter]) {
           if (value.answer === true) {
@@ -1315,27 +1248,7 @@ angular.module('starter.controllers', [])
             }
           }
 
-
-
-        // if (value.answer === true) {
-        //   if ($scope.goodPainters[value.painter]) {
-        //     $scope.goodPainters[value.painter] = $scope.goodPainters[value.painter] + 1;
-        //   } else {
-        //     $scope.goodPainters[value.painter] = 1;
-        //   }
-        // } else {
-        //   if ($scope.badPainters[value.painter]) {
-        //     $scope.badPainters[value.painter] = $scope.badPainters[value.painter] + 1;
-        //   } else {
-        //     $scope.badPainters[value.painter] = 1;
-        //   }
-        // }
-
       });
-
-
-      // console.log(painterStats);
-
 
       bestValue = 0;
       bestValue2 = 0;
@@ -1344,7 +1257,6 @@ angular.module('starter.controllers', [])
       worseValue2 = 0;
       worseValue3 = 0;
       angular.forEach($scope.painterStats, function(value, key) {
-        // console.log(value);
         score = value.trues-value.bads;
 
         if (score > bestValue) {
@@ -1380,31 +1292,7 @@ angular.module('starter.controllers', [])
 
       });
 
-      // console.log($scope.favoritePainter);
-      // console.log($scope.worsePainter);
-
-      // console.log($scope.badPainters);
-      // bestValue = 0;
-      // angular.forEach($scope.goodPainters, function(value, key) {
-      //   if (value > bestValue) {
-      //     bestValue = value;
-      //     $scope.favoritePainter = key;
-      //   }
-      // });
-      //
-      // angular.forEach($scope.badPainters, function(value, key) {
-      //   if (value > bestValue) {
-      //     bestValue = value;
-      //     $scope.hatePainter = key;
-      //   }
-      // });
-      // console.log($scope.favoritePainter);
-      // console.log($scope.hatePainter);
-
-
-
-
-      $scope.days = Object.keys($scope.statGlobalDays).reverse(); //.sort().slice(0, 15);
+      $scope.days = Object.keys($scope.statGlobalDays).reverse();
 
       $scope.dataRightAnswersPercent = [];
       $scope.dataRightAnswers = [];
