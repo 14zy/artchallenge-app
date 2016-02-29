@@ -173,7 +173,7 @@ a {
 	color: black;
 	line-height: 24px;
 	margin: 0 5px 10px 5px;
-	text-align: left;
+	text-align: left!important;
 }
 
 
@@ -370,11 +370,11 @@ a {
 
   .ui-pnotify.answerRight {
     right: 25%!important;
-      width: 50%!important;
+    width: 50%!important;
   }
   .ui-pnotify.answerWrong {
     right: 25%!important;
-      width: 50%!important;
+    width: 50%!important;
   }
 
 
@@ -394,6 +394,16 @@ a {
   #win img {
     width: 50%;
   }
+
+  .ui-pnotify.answerRight {
+    right: 0%!important;
+    width: 100%!important;
+  }
+  .ui-pnotify.answerWrong {
+    right: 0%!important;
+    width: 100%!important;
+  }
+
 
 
 }
