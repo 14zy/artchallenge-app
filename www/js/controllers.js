@@ -541,9 +541,9 @@ angular.module('starter.controllers', [])
     catch(err) {
       console.log("can't get settings from localstorage");
       $scope.settings = {};
-    }
 
-    if (!$scope.settings.langId) {
+
+    // if (!$scope.settings.langId) {
 
       //platform remote
       console.log("platform remote on");
@@ -566,6 +566,7 @@ angular.module('starter.controllers', [])
       $scope.settings.abuse = true;
       $scope.settings.emoji = true;
 
+    // }
     }
 
     letsGo();
@@ -577,9 +578,12 @@ angular.module('starter.controllers', [])
     pouchService.db.get('userInfo').then(function(doc) {
       if (doc.dbname) {
         syncData(doc.dbname);
+        $scope.settings.registered = true;
       } else {
         copyDataFromDBtoScope();
       }
+      // console.log(doc);
+
     }).catch(function(err) {
       if (err.status == 404) {
         console.log(err);
@@ -647,6 +651,8 @@ angular.module('starter.controllers', [])
       } else {
         console.log("Ошибка: не удалось загрузить userStats из db, result.rows[2] не совпадает с userStats");
       }
+
+
 
       if ($scope.userInfo.dbname) {
         pouchService.db.sync('http://artchallenge.me:5994/' + $scope.userInfo.dbname, {
