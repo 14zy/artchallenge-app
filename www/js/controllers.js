@@ -548,10 +548,11 @@ angular.module('starter.controllers', [])
       //platform remote
       console.log("platform remote on");
       $scope.settings.platformLocal = false;
-      $scope.settings.highQuality = false;
-      if (window.innerWidth >= 500) {
-        console.log('hight quality auto on');
-        $scope.settings.highQuality = true;
+      $scope.settings.highQuality = true;
+      // alert(window.innerWidth);
+      if (window.innerWidth <= 350) {
+        console.log('hight quality auto off');
+        $scope.settings.highQuality = false;
       }
 
       //always
