@@ -541,9 +541,9 @@ angular.module('starter.controllers', [])
     catch(err) {
       console.log("can't get settings from localstorage");
       $scope.settings = {};
+    }
 
-
-    // if (!$scope.settings.langId) {
+    if (!$scope.settings.langId) {
 
       //platform remote
       console.log("platform remote on");
@@ -567,8 +567,8 @@ angular.module('starter.controllers', [])
       $scope.settings.abuse = true;
       $scope.settings.emoji = true;
 
-    // }
     }
+
 
     letsGo();
 
